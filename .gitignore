@@ -1,3 +1,37 @@
+############################
+# LaTeX build artifacts
+############################
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+############################
+# Temporary / backup files
+############################
+*.tmp
+*.bak
+*~
+*.swp
+*.swo
+
+############################
+# OS / editor specific
+############################
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
