@@ -3,7 +3,7 @@
 %% ----------------------------------------------------------------
 
 % 【修改1】demo模式仅用于图片占位，提交前删除[demo]
-\documentclass[demo]{mcmthesis}
+\documentclass{mcmthesis}
 
 \mcmsetup{
   CTeX = false,           % 英文论文关闭CTeX
@@ -29,7 +29,6 @@
 \usepackage{lastpage}
 \usepackage{silence}
 \usepackage{arydshln} % for \cdashline
-\usepackage{indentfirst}
 
 
 \WarningFilter{everypage}{}%忽略everypage警告
@@ -42,7 +41,7 @@
 % 【修改5】页码样式：添加“当前页/总页数”，符合美赛习惯
 \pagestyle{fancy}
 
-\cfoot{\thepage/\pageref{LastPage}} % 页脚居中显示“页码/总页数”
+% \cfoot{\thepage/\pageref{LastPage}} % 页脚居中显示“页码/总页数”
 
 % 备忘录背景（保留原有逻辑，修复路径问题）（可选）
 \usepackage{background}
@@ -118,7 +117,7 @@ To avoid complicated description...
 % 因为开启了 demo 模式，这里会显示一个黑框，不会报错找不到图片
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{flowchart.jpg}
+    % \includegraphics[width=0.9\textwidth]{flowchart.jpg}
     \caption{Overview of our work}
     \label{fig:flowchart}
 \end{figure}
@@ -379,19 +378,41 @@ To provide a unified evaluation criterion, a weighted objective function is intr
     J = \lambda T + (1 - \lambda) C
 \end{equation}
 
-where $\lambda \in [0,1]$ represents the decision-maker’s preference for minimizing time versus cost.
+where $\lambda \in [0,1]$ represents the decision-maker's preference for minimizing time versus cost.
 
 % 求解方法
 
 \section{Scenario Analysis}
 
+Consideration of three different scenarios for how the 100 million metric tons of materials ($M=10^9\ \text{tons}$) will
+be delivered to build the 100,000-person Moon Colony.
+
 \subsection{Scenario a: Space Elevator System Only}
+
+Assume that we use the Space Elevator System's three Galactic Harbor's alone to deliver all the materials needed for the Moon Colony construction.
+
+\subsubsection{Time Analysis}
+
+According to the problem statement, the Galactic Harbor will provide an advanced lift system moving 179,000 metric tons every year. So we have:
+
+\[R_e=179000\ \text{tons}\]
+
+The time required to deliver all the materials using only the Space Elevator System is:
+
+\[\frac{M}{R_e} = \frac{10^9}{179000} \approx 5586.6\ \text{years}\]
+
+\subsubsection{Cost Analysis}
 
 \subsection{Scenario b: Traditional Rocket Launches Only}
 
+\subsubsection{Time Analysis}
+\subsubsection{Cost Analysis}
 
-\subsection{Scenario III: Hybrid Transportation Strategy}
+\subsection{Scenario c: Hybrid Transportation Strategy}
 
+\subsubsection{Time Analysis}
+
+\subsubsection{Cost Analysis}
 
 % ================= 第4章：敏感性分析 =================
 
@@ -445,26 +466,41 @@ where $\lambda \in [0,1]$ represents the decision-maker’s preference for minim
 \newpage
 % 开启背景图片
 % 注意：即使是 demo 模式，最好也确保目录下有个随便叫什么名字的jpg文件，或者先把这行注释掉
+
 \backgroundsetup{
-    contents={\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{snow_mountain_bg.jpg}},
     scale=1,
     angle=0,
-    opacity=0.2
+    opacity=0.3,
+    contents={
+            \includegraphics[
+                width=\paperwidth,
+                height=\paperheight,
+                % keepaspectratio
+            ]{../figure/MEMO3.png}
+        }
 }
-\thispagestyle{empty}
+% \backgroundsetup{
+%     contents={\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{snow_mountain_bg.jpg}},
+%     scale=1,
+%     angle=0,
+%     opacity=0.2
+% }
+\thispagestyle{fancy}
 
 \begin{center}
     {\Huge \textbf{MEMORANDUM}}
 \end{center}
-\vspace{1cm}
-
 \large
+\noindent
 \textbf{To:} The Tourist Council of Juneau \\
 \textbf{From:} Team \#2602787 \\
 \textbf{Subject:} Policy Advice on the Sustainable Tourism of Juneau \\
 \textbf{Date:} January 27, 2025
+\vspace{0.5cm}
 \hrule
 \vspace{1cm}
+
+hello
 
 \normalsize
 % 备忘录正文内容
@@ -474,5 +510,71 @@ where $\lambda \in [0,1]$ represents the decision-maker’s preference for minim
 Sincerely,
 
 Team \#2602787
+
+\newpage
+
+\thispagestyle{empty}
+
+\backgroundsetup{contents={}}
+
+\AImatter
+
+\begin{ReportAiUse}{9}
+    \bibitem{AI1}
+    Bing AI\\
+    Query1: write a sort algorithm\\
+    Output: Sure, I can help you with that. Here is a simple implementation of the selection sort algorithm in Python:
+    \begin{lstlisting}[language=python]
+def selection_sort(arr):
+    for i in range(len(arr)):
+        min_idx = i
+        for j in range(i + 1, len(arr)):
+            if arr[min_idx] > arr[j]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+\end{lstlisting}
+    This algorithm sorts an array by repeatedly finding the minimum element from the unsorted part of the array and putting it at the beginning. \href{https://www.geeksforgeeks.org/sorting-algorithms/}{The time complexity of this algorithm is O($n^2$)}.
+
+    There are many other sorting algorithms available such as bubble sort, insertion sort, merge sort, quick sort, heap sort, and more. Each of these algorithms has its own advantages and disadvantages. You can learn more about them on GeeksforGeeks and Programiz.
+
+    I hope this helps!
+
+    \bibitem{AI2}
+    OpenAl Enie (Nov 5, 2023 version, Ernie 4.0)\\
+    Query1: <insert the exact wording of any subsequent input into the Al tool>\\
+    Output: <insert the complete output from the second query>
+
+    \bibitem{AI3}
+    Github CoPilot (Feb 3, 2024 version)\\
+    Query1: <insert the exact wording you input into the Al tool>\\
+    Output: <insert the complete output fron the Al tool>
+
+    \bibitem{AI4}
+    Google Bard (Feb 2,2024 version)\\
+    Query: <insert the exact wording of your query>\\
+    Output: <irsert the complete output from the Al tool>
+
+    \bibitem{AI5}
+    Bing AI\\
+    Query: write a FFT algorithm\\
+    Output: Sure, here is a Python implementation of the Fast Fourier Transform (FFT) algorithm:
+    \begin{lstlisting}[language=python]
+import numpy as np
+
+def fft(x):
+    n = len(x)
+    if n == 1:
+        return x
+    even = fft(x[0::2])
+    odd = fft(x[1::2])
+    T = [np.exp(-2j * np.pi * k / n) * odd[k] for k in range(n // 2)]
+    return [even[k] + T[k] for k in range(n // 2)] + [even[k] - T[k] for k in range(n // 2)]
+\end{lstlisting}
+    The FFT is a widely used algorithm for computing the \textbf{Discrete Fourier Transform (DFT)} of a sequence. It reduces the number of computations needed from O(n$^2$) to O(n log n) 12. The basic idea of the FFT is to apply divide and conquer. We divide the coefficient vector of the polynomial into two vectors, recursively compute the DFT for each of them, and combine the results to compute the DFT of the complete polynomial 3.
+
+    I hope this helps!
+
+\end{ReportAiUse}
 
 \end{document}
