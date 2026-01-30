@@ -27,6 +27,7 @@
 \usepackage{fancyhdr}
 \usepackage{lastpage}
 \usepackage{silence}
+\usepackage{arydshln} % for \cdashline
 
 \WarningFilter{everypage}{}%忽略everypage警告
 
@@ -80,9 +81,12 @@
 
 % ================= 第一章 =================
 \section{Introduction}
+As humanity’s technological capabilities continue to advance, the demand for scalable, safe, and environmentally friendly access to space has become increasingly critical. Traditional rocket-based launch systems have enabled early space exploration; however, their high costs, limited payload capacity, and environmental impacts pose significant challenges to long-term extraterrestrial development.
 
-\subsection{Problem Background}
-As the capital of Alaska, Juneau attracts numerous tourists...
+On one hand, emerging technologies such as space elevator systems offer a promising alternative by enabling continuous, electrically powered transportation of materials from Earth to orbit, potentially reducing costs and atmospheric pollution. On the other hand, the construction of a large-scale lunar colony requires the delivery of enormous quantities of materials and supplies, placing stringent demands on transportation capacity, reliability, and timelines.
+
+How to balance cost, efficiency, and feasibility among different transportation strategies is therefore central to the successful construction and sustainable operation of a 100,000-person lunar colony. Addressing this challenge requires a quantitative evaluation of alternative logistics schemes through mathematical modeling and systematic comparison.
+
 
 \subsection{Restatement of the Problem}
 Considering the background information...
@@ -111,20 +115,103 @@ To avoid complicated description...
 \end{itemize}
 
 \subsection{Notations}
-\begin{table}[H]
-    \centering
-    \caption{Notations}
-    \begin{tabular}{cl}
-        \toprule
-        Symbol & Description              \\
-        \midrule
-        $U$    & Total social utility     \\
-        $E$    & Total environmental cost \\
-        $C$    & Total economic cost      \\
-        \bottomrule
-    \end{tabular}
-    \label{tab:notations}
-\end{table}
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{10pt}
+
+\begin{longtable}{>{\centering\arraybackslash}p{0.10\linewidth}
+    >{\centering\arraybackslash}p{0.60\linewidth}
+    >{\centering\arraybackslash}p{0.16\linewidth}}
+
+    \caption{Symbol Definitions and Notation}\label{tab:notations}                                                                                                  \\
+
+    \toprule
+    \textit{Symbols}             & \textit{Description}                                                                                    & \textit{Unit}          \\
+    \midrule
+    \endfirsthead
+
+    \toprule
+    \textit{Symbols}             & \textit{Description}                                                                                    & \textit{Unit}          \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{3}{r}{\textit{Continued on next page}}                                                                                                             \\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    % ======= your rows start =======
+
+    \multicolumn{3}{c}{\textit{\textbf{Sets and Indices}}}                                                                                                          \\
+    \cdashline{1-3}
+
+    $i$                          & Transportation method index ($i \in \{\text{SE}, \text{RK}\}$, where SE = Space Elevator, RK = Rockets) & --                     \\
+    $j$                          & Galactic Harbour index ($j = 1,2,3$)                                                                    & --                     \\
+    $k$                          & Rocket launch site index ($k = 1,2,3,\dots,10$)                                                         & --                     \\
+
+    \cdashline{1-3}
+    & & \\
+    \multicolumn{3}{c}{\textit{\textbf{Global Parameters}}}                                                                                                         \\
+    \cdashline{1-3}
+
+    $t$                          & Time (years), $t \ge 2050$                                                                              & year                   \\
+    $M_{\text{total}}$           & Total materials required for colony construction                                                        & metric ton             \\
+    $M_{\text{colony}}$          & Designed population capacity of the Moon Colony                                                         & person                 \\
+    $T_0$                        & Start year of transportation (2025)                                                                     & year                   \\
+    $x$                          & Fraction transported by Space Elevator $(0\le x\le 1)$                                                  & --                     \\
+
+    \cdashline{1-3}
+    \multicolumn{3}{c}{\textit{\textbf{Space Elevator System Parameters}}}                                                                                          \\
+    \cdashline{1-3}
+
+    $C_{\text{SE}}$              & Cost per metric ton via Space Elevator                                                                  & USD/ton                \\
+    $Q_{\text{SE}}$              & Annual capacity of one Galactic Harbour                                                                 & ton/year               \\
+    $Q_{\text{SE}}^{\text{tot}}$ & Total annual capacity of three Galactic Harbours                                                        & ton/year               \\
+    $\eta_{\text{SE}}$           & Operational efficiency of Space Elevator System                                                         & --                     \\
+    $T_{\text{SE}}$              & Time to deliver required mass via Space Elevator                                                        & year                   \\
+    $M_{\text{SE}}$              & Mass delivered by Space Elevator ($xM_{\text{total}}$)                                                  & ton                    \\
+
+    \cdashline{1-3}
+    \multicolumn{3}{c}{\textit{\textbf{Rocket Transportation Parameters}}}                                                                                          \\
+    \cdashline{1-3}
+
+    $C_{\text{RK}}$              & Cost per metric ton via rockets                                                                         & USD/ton                \\
+    $P_{\text{RK}}$              & Payload per rocket launch                                                                               & ton                    \\
+    $N_{\text{RK}}$              & Number of launches per year                                                                             & 1/year                 \\
+    $\eta_{\text{RK}}$           & Rocket launch success rate                                                                              & --                     \\
+    $T_{\text{RK}}$              & Time to deliver required mass via rockets                                                               & year                   \\
+    $M_{\text{RK}}$              & Mass delivered by rockets ($(1-x)M_{\text{total}}$)                                                     & ton                    \\
+
+    \cdashline{1-3}
+    \multicolumn{3}{c}{\textit{\textbf{Water and Sustenance Notations}}}                                                                                            \\
+    \cdashline{1-3}
+
+    $W_d$                        & Daily water demand per person                                                                           & ton/(person$\cdot$day) \\
+    $W_{\text{year}}$            & Annual water requirement for the colony                                                                 & ton                    \\
+    $M_{\text{sup}}$             & Annual mass of routine supplies                                                                         & ton                    \\
+
+    \cdashline{1-3}
+    \multicolumn{3}{c}{\textit{\textbf{Cost and Performance Metrics}}}                                                                                              \\
+    \cdashline{1-3}
+
+    $\text{Cost}_{\text{SE}}$    & Total cost of Space Elevator transportation                                                             & USD                    \\
+    $\text{Cost}_{\text{RK}}$    & Total cost of rocket transportation                                                                     & USD                    \\
+    $\text{Cost}_{\text{total}}$ & Total transportation cost                                                                               & USD                    \\
+    $T_{\text{finish}}$          & Total completion time of construction delivery                                                          & year                   \\
+
+    \cdashline{1-3}
+    \multicolumn{3}{c}{\textit{\textbf{Environmental Impact Indicators}}}                                                                                           \\
+    \cdashline{1-3}
+
+    $E_{\text{SE}}$              & Environmental impact index per ton (Space Elevator)                                                     & --                     \\
+    $E_{\text{RK}}$              & Environmental impact index per ton (Rockets)                                                            & --                     \\
+    $E_{\text{total}}$           & Total environmental impact index                                                                        & --                     \\
+
+    % ======= your rows end =======
+\end{longtable}
+
+
 
 \subsection{Basic components}
 The basic components... (Figure 3)
