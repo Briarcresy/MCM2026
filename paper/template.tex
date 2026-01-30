@@ -100,14 +100,14 @@ How to balance cost, efficiency, and feasibility among different transportation 
 Based on the above background, this study aims to:
 
 \begin{itemize}
-    \item \textbf{Develop a Lunar Transportation Evaluation Model:} 
-    Formulate a mathematical framework to describe large-scale material transportation from Earth to the Moon, and compare different strategies including the Space Elevator System, traditional rocket launches, and their combinations in terms of cost, timeline, and feasibility.
+    \item \textbf{Develop a Lunar Transportation Evaluation Model:}
+          Formulate a mathematical framework to describe large-scale material transportation from Earth to the Moon, and compare different strategies including the Space Elevator System, traditional rocket launches, and their combinations in terms of cost, timeline, and feasibility.
 
-    \item \textbf{Analyze System Robustness and Supply Requirements:} 
-    Examine how non-ideal operating conditions, such as reduced system efficiency or transportation failures, affect model outcomes, and extend the model to evaluate the additional cost and timeline required for long-term water and supply delivery.
+    \item \textbf{Analyze System Robustness and Supply Requirements:}
+          Examine how non-ideal operating conditions, such as reduced system efficiency or transportation failures, affect model outcomes, and extend the model to evaluate the additional cost and timeline required for long-term water and supply delivery.
 
-    \item \textbf{Assess Environmental Impact and Provide Strategic Recommendations:} 
-    Investigate the environmental implications of different transportation strategies and summarize the results in a decision-oriented memorandum recommending an effective and sustainable course of action for constructing and sustaining a 100,000-person Moon Colony.
+    \item \textbf{Assess Environmental Impact and Provide Strategic Recommendations:}
+          Investigate the environmental implications of different transportation strategies and summarize the results in a decision-oriented memorandum recommending an effective and sustainable course of action for constructing and sustaining a 100,000-person Moon Colony.
 \end{itemize}
 
 
@@ -179,7 +179,9 @@ To avoid complicated description...
     $M$                          & Total materials required for colony construction                                                    & metric ton             \\
     $M_{\text{colony}}$          & Designed population capacity of the Moon Colony                                                     & person                 \\
     $T_0$                        & Start year of transportation (2025)                                                                 & year                   \\
-    $x$                          & Fraction transported by Space Elevator $(0\le x\le 1)$                                              & --                     \\
+    $\alpha$                     & Fraction transported by Space Elevator $(0\le \alpha\le 1)$                                         & --                     \\
+
+    $T_h$                        & Time to deliver required mass via hybrid transportation                                             & year                   \\
 
     \cdashline{1-3}
     \multicolumn{3}{c}{\textit{\textbf{Space Elevator System Parameters}}}                                                                                      \\
@@ -188,11 +190,11 @@ To avoid complicated description...
     $T_{e}$                      & Time to deliver required mass via Space Elevator                                                    & year                   \\
 
     $C_{e}$                      & Cost per metric ton via Space Elevator                                                              & USD/ton                \\
-    $P_{e}$                      & Payload of one Galactic Harbour                                                             & ton/year               \\
+    $P_{e}$                      & Payload of one Galactic Harbour                                                                     & ton/year               \\
     $R_{e}$                      & Annual transportation capacity of the Space Elevator System                                         & ton/year               \\
     $P_{e}^{\text{tot}}$         & Total annual capacity of three Galactic Harbours                                                    & ton/year               \\
     $\eta_{\text{e}}$            & Operational efficiency of Space Elevator System                                                     & --                     \\
-    $M_{e}$                      & Mass delivered by Space Elevator ($xM_{\text{total}}$)                                              & ton                    \\
+    $M_{e}$                      & Mass delivered by Space Elevator ($xM$)                                                             & ton                    \\
 
     \cdashline{1-3}
     \multicolumn{3}{c}{\textit{\textbf{Rocket Transportation Parameters}}}                                                                                      \\
@@ -204,7 +206,7 @@ To avoid complicated description...
     $R_{r}$                      & Annual transportation capacity of the Rocket System                                                 & ton/year               \\
     $N_{r}$                      & Number of launches per year                                                                         & 1/year                 \\
     $\eta_{r}$                   & Rocket launch success rate                                                                          & --                     \\
-    $M_{r}$                      & Mass delivered by rockets ($(1-x)M_{\text{total}}$)                                                 & ton                    \\
+    $M_{r}$                      & Mass delivered by rockets ($(1-x)M$)                                                                & ton                    \\
 
     \cdashline{1-3}
     \multicolumn{3}{c}{\textit{\textbf{Water and Sustenance Notations}}}                                                                                        \\
@@ -293,27 +295,107 @@ Let $\alpha$ represent the proportion of materials transported by the space elev
 
 Then:
 \[
-M_e = \alpha M,\quad M_r = (1-\alpha)M
+    M_e = \alpha M,\quad M_r = (1-\alpha)M
 \]
 
 The corresponding transportation times are:
 \[
-T_e = \frac{M_e}{R_e},\quad T_r = \frac{M_r}{R_r}
+    T_e = \frac{M_e}{R_e},\quad T_r = \frac{M_r}{R_r}
 \]
 
 Since the two systems can operate in parallel, the total completion time of the hybrid strategy is defined as:
 \[
-T_{h} = \max(T_e, T_r)
+    T_{h} = \max(T_e, T_r)
 \]
 
 This model enables analysis of how different material allocation strategies affect the overall construction timeline.
 
 \subsection{Cost Model Development}
 
+To compare the economic feasibility of different transportation strategies, a comprehensive cost model is constructed, incorporating both fixed and variable cost components.
+
+\subsubsection{Cost Structure}
+
+The total transportation cost consists of:
+\begin{itemize}
+    \item \textbf{Fixed costs}, including infrastructure construction and system deployment;
+    \item \textbf{Variable costs}, which depend on the total transported mass;
+    \item \textbf{Failure and redundancy costs}, introduced in non-ideal operational scenarios.
+\end{itemize}
+
+\subsubsection{Cost Model for the Space Elevator System}
+
+Let
+\begin{itemize}
+    \item $F_e$ denote the annual fixed cost of operating the space elevator system;
+    \item $v_e$ denote the variable cost per unit mass transported (cost per metric ton).
+          % \item $T_e$ denote the operational duration of the space elevator system (years);
+          % \item $M$ denote the total mass transported (metric tons).
+\end{itemize}
+
+The total cost of using the space elevator system is given by:
+
+\[
+    C_e = F_e \cdot T_e + v_e \cdot M
+\]
+
+This formulation captures the \textbf{high upfront investment but low marginal transportation cost} characteristic of the space elevator system.
+
+\subsubsection{Cost Model for the Rocket Transportation System}
+
+Let
+\begin{itemize}
+    \item $c_r$ denote the average cost per rocket launch;
+    \item $P_r$ denote the payload capacity per launch (metric tons).
+\end{itemize}
+
+The total number of launches required is:
+\begin{equation}
+    N_{\text{launch}} = \frac{M}{P_r}
+\end{equation}
+
+Thus, the total transportation cost of the rocket system is:
+\begin{equation}
+    C_r = c_r \cdot N_{\text{launch}}
+\end{equation}
+
+This model reflects the \textbf{low infrastructure cost but high marginal cost} nature of traditional rocket transportation.
+
+\subsubsection{Cost Model for the Hybrid Transportation System}
+
+For the hybrid strategy, the total cost is given by:
+\begin{equation}
+    C_{\text{hybrid}} = \alpha C_e + (1 - \alpha) C_r
+\end{equation}
+
+where $\alpha \in [0,1]$ represents the proportion of total transportation demand assigned to the space elevator system.
+
+By varying $\alpha$, trade-offs between cost minimization and time efficiency can be systematically explored.
+
+\subsection{Time-Cost Trade-off Metric}
+
+To provide a unified evaluation criterion, a weighted objective function is introduced:
+\begin{equation}
+    J = \lambda T + (1 - \lambda) C
+\end{equation}
+
+where $\lambda \in [0,1]$ represents the decision-maker’s preference for minimizing time versus cost.
+
 % 求解方法
 
+\section{Scenario Analysis}
+
+\subsection{Scenario a: Space Elevator System Only}
+
+\subsection{Scenario b: Traditional Rocket Launches Only}
+
+
+\subsection{Scenario III: Hybrid Transportation Strategy}
+
+
 % ================= 第4章：敏感性分析 =================
-\section{Sensitivity Analysis}
+
+\section{System Reliability and Sensitivity Analysis}
 
 \subsection{Parameter Sensitivity}
 % 参数敏感性分析
@@ -322,6 +404,12 @@ This model enables analysis of how different material allocation strategies affe
 % 鲁棒性测试
 
 % ================= 第5章：模型应用 =================
+\section{Water Supply Model for Sustained Operation}
+
+\section{Environmental Impact Analysis}
+
+\section{Model Validation and Discussion}
+
 \section{Application of Our Model}
 
 \subsection{Case Study}
