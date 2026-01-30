@@ -289,6 +289,25 @@ This formulation reflects the high-speed, high-rate, short-duration characterist
 
 \subsubsection{Time Model for the Hybrid Transportation System}
 
+Let $\alpha$ represent the proportion of materials transported by the space elevator system, where $0 \leq \alpha \leq 1$.
+
+Then:
+\[
+M_e = \alpha M,\quad M_r = (1-\alpha)M
+\]
+
+The corresponding transportation times are:
+\[
+T_e = \frac{M_e}{R_e},\quad T_r = \frac{M_r}{R_r}
+\]
+
+Since the two systems can operate in parallel, the total completion time of the hybrid strategy is defined as:
+\[
+T_{h} = \max(T_e, T_r)
+\]
+
+This model enables analysis of how different material allocation strategies affect the overall construction timeline.
+
 \subsection{Cost Model Development}
 
 % 求解方法
