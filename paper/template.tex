@@ -235,16 +235,86 @@ The basic components... (Figure 3)
 \section{Model Design}
 
 \subsection{Model Overview}
-% 模型概述
+In this section, we develop mathematical models to evaluate different transportation strategies for delivering large-scale materials from Earth to the Moon. 
+Three scenarios are considered: transportation solely via the Space Elevator System, transportation solely via traditional rocket launches, and a hybrid strategy combining both methods.
 
-\subsection{Mathematical Formulation}
-% 数学公式
+For each scenario, we analyze the total transportation cost, required completion time, and overall feasibility under ideal operating conditions. 
+These baseline models provide a unified framework for subsequent sensitivity and robustness analyses.
+
+\subsection{Space Elevator Transportation Model}
+The Space Elevator System enables continuous and electrically powered transportation of materials from Earth to geosynchronous orbit through multiple Galactic Harbors. 
+Let $Q_{\text{SE}}$ denote the annual transportation capacity of a single Galactic Harbor, and $C_{\text{SE}}$ represent the unit transportation cost per metric ton.
+
+Assuming stable operation and constant efficiency, the total annual capacity of the Space Elevator System is given by
 \begin{equation}
-    % 你的公式
+Q_{\text{SE}}^{\text{tot}} = 3 Q_{\text{SE}}.
 \end{equation}
 
-\subsection{Solution Method}
-% 求解方法
+The total time required to deliver the necessary construction materials $M_{\text{total}}$ via the Space Elevator System can be expressed as
+\begin{equation}
+T_{\text{SE}} = \frac{M_{\text{total}}}{\eta_{\text{SE}} Q_{\text{SE}}^{\text{tot}}},
+\end{equation}
+where $\eta_{\text{SE}}$ denotes the operational efficiency of the system.
+
+The corresponding total transportation cost is calculated as
+\begin{equation}
+\text{Cost}_{\text{SE}} = C_{\text{SE}} \cdot M_{\text{total}}.
+\end{equation}
+
+\subsection{Rocket Transportation Cost Model}
+
+In addition to the Space Elevator System, traditional rocket launches are considered as an alternative means of transporting construction materials and supplies to the Moon. 
+Due to rapid technological development and accumulated launch experience, the unit cost of rocket transportation is expected to decrease over time. 
+To capture this trend, we adopt a learning-curve-based cost model inspired by Wright’s Law, which has been widely applied in industrial production and aerospace engineering.
+
+The core assumption of Wright’s Law is that each doubling of cumulative production or operational experience leads to a fixed percentage reduction in unit cost. 
+Let $C(t)$ denote the unit cost of a single rocket transportation mission at time $t$, $C_0$ represent the initial launch cost, and $N(t)$ be the cumulative number of rocket launches completed by time $t$. 
+The cost model is expressed as
+\begin{equation}
+C(t) = C_0 \cdot [N(t)]^{\alpha(t)},
+\end{equation}
+where $\alpha(t)$ is the learning rate, reflecting technological improvement and operational efficiency gains.
+
+Based on publicly available data from SpaceX and related industry reports, the initial cost of a heavy-lift rocket mission is estimated to be approximately \$450 million. 
+Considering that learning effects differ across subsystems—such as propulsion, manufacturing, labor, and maintenance—we adopt an initial learning rate of $\alpha = 15\%$, which lies within the range reported in existing literature.
+
+Furthermore, as technological maturity increases, the marginal benefit from learning is expected to diminish. 
+To reflect this effect, the learning rate is modeled as a time-dependent function:
+\begin{equation}
+\alpha(t) = -0.1413 \cdot e^{\ln(2)\, t / 24} + 0.2913,
+\end{equation}
+which is derived through literature review, curve fitting, and extrapolation.
+
+To estimate the cumulative number of rocket launches, historical launch data of SpaceX Starship missions are collected and analyzed. 
+At early stages, the launch frequency grows rapidly due to technological breakthroughs, while in later stages it gradually stabilizes. 
+Based on this observation, the cumulative launch function is approximated as
+\begin{equation}
+N(t) = k t + m,
+\end{equation}
+where $k$ and $m$ are parameters obtained through regression analysis.
+
+Combining the above components, the unit cost of a single rocket transportation mission over time can be determined. 
+Using this model, we estimate that by the year 2050, the cost of a single rocket transportation mission will decrease to approximately \$75 million. 
+For computational convenience, this value is adopted as the representative unit cost for rocket-based transportation in subsequent analyses.
+
+
+\subsection{Hybrid Transportation Strategy}
+In practical applications, a hybrid transportation strategy combining the Space Elevator System and traditional rocket launches may offer improved flexibility and resilience.
+
+Let $x$ denote the fraction of total materials transported via the Space Elevator System. 
+Accordingly, the remaining fraction $(1-x)$ is delivered by rocket launches.
+The total transportation cost under the hybrid strategy is expressed as
+\begin{equation}
+\text{Cost}_{\text{total}} = x \cdot \text{Cost}_{\text{SE}} + (1-x) \cdot \text{Cost}_{\text{RK}}.
+\end{equation}
+
+The overall completion time is determined by the slower of the two transportation processes.
+
+\subsection{Solution Method and Comparison}
+For each transportation scenario, we compute the total cost and completion time using the models established above. 
+By comparing these performance indicators across the Space Elevator, rocket-only, and hybrid strategies, we evaluate their relative advantages and limitations in supporting the construction of a 100,000-person Moon Colony.
+
+The results obtained in this section serve as the baseline for subsequent sensitivity analysis and robustness testing under non-ideal operating conditions.
 
 % ================= 第4章：敏感性分析 =================
 \section{Sensitivity Analysis}
@@ -282,10 +352,38 @@ The basic components... (Figure 3)
 % ================= 参考文献（美赛要求规范格式）=================
 \newpage
 \begin{thebibliography}{99}
-    \bibitem{1} The Map of Juneau. Retrieved from https://maps.lib.utexas.edu
-    \bibitem{2} Hicks, J.R. (1939). The foundations of welfare economics. \textit{Economic Journal}, 49(196).
-    \bibitem{3} Feng, W., et al. (2024). The Carbon Emission Characteristics...
+
+\bibitem{1}
+Lam, K. C., Lee, D., \& Hu, T. (2001).
+Understanding the effect of the learning--forgetting phenomenon on project duration.
+\textit{International Journal of Project Management}, 19(7), 411--420.
+https://doi.org/10.1016/S0263-7863(00)00025-9
+
+\bibitem{2}
+Kim, S., Koo, J., \& Yoon, E. S. (2012).
+Optimization of sustainable energy planning with consideration of uncertainties in learning rates and external cost factors.
+In \textit{Computer Aided Chemical Engineering} (Vol. 31, pp. 871--875).
+Elsevier.
+https://doi.org/10.1016/B978-0-444-54298-4.50161-6
+
+\bibitem{3}
+Swan, P. (2019, August 18).
+Myths busted: The real reason launch costs are high and how space access infrastructure can reduce launch costs to LEO.
+Conference presentation at the International Space Elevator Conference.
+
+\bibitem{4}
+SpaceX. (n.d.).
+\textit{Starship}.
+Retrieved January 30, 2026, from https://www.spacex.com/vehicles/starship
+
+\bibitem{5}
+Young, W. A., II, Masel, D. T., \& Judd, R. P. (2007).
+A matrix-based methodology for determining a part family’s learning rate.
+\textit{Computers \& Industrial Engineering}, 53(4), 803--811.
+https://doi.org/10.1016/j.cie.2007.08.002
+
 \end{thebibliography}
+
 
 % ================= 备忘录 (最后一页) =================
 \newpage
