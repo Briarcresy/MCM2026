@@ -196,7 +196,7 @@ To avoid complicated description...
     \multicolumn{3}{c}{\textit{\textbf{Global Parameters}}}                                                                                                     \\
     \cdashline{1-3}
 
-    $t$                          & Time (years), $t \ge 2050$                                                                          & year                   \\
+    $t$                          & Time index measured from 2019 (t = year $-$ 2019)                                                   & year                   \\
     $M$                          & Total materials required for colony construction                                                    & metric ton             \\
     $M_{\text{colony}}$          & Designed population capacity of the Moon Colony                                                     & person                 \\
     $T_0$                        & Start year of transportation (2025)                                                                 & year                   \\
@@ -425,10 +425,43 @@ The time required to deliver all the materials using only the Space Elevator Sys
 
 \subsubsection{Cost Analysis}
 
+Since no fully operational space elevator system currently exists, cost and performance parameters are estimated based on existing engineering studies and published projections.
+
+According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.4 million USD per metric ton.
+
 \subsection{Scenario b: Traditional Rocket Launches Only}
 
 \subsubsection{Time Analysis}
 \subsubsection{Cost Analysis}
+
+To evaluate the feasibility of relying solely on traditional rockets for large-scale material transportation, we construct a mathematical model to predict both the unit transportation cost and the launch frequency of a single rocket launch site. The model is based on Wright’s learning curve theory, which assumes that unit cost decreases by a fixed proportion as cumulative experience increases.
+
+The cost model is expressed as
+\begin{equation}
+    C(t) = C_0 (1 - \beta)^{N(t)},
+\end{equation}
+where $C(t)$ denotes the unit transportation cost in year $t$, $C_0$ is the initial cost of the first launch, $\beta$ is the learning rate, and $N(t)$ represents the cumulative number of completed launches up to year $t$. Here, $t$ is defined as the calendar year minus 2019, corresponding to the first test flight of SpaceX Starship.
+
+Based on publicly available information from SpaceX and related reports, the initial cost is set as
+\[
+    C_0 = 44{,}940.9 \text{ million USD}.
+\]
+Considering diminishing learning effects over time, a conservative learning rate of $\beta = 3.7139\%$ is adopted.
+
+The cumulative number of launches is estimated using a fitted function:
+\begin{equation}
+    N(t) = \left\lfloor 3.342857 t - 0.857143 \right\rfloor .
+\end{equation}
+
+Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.
+
+In addition to cost, the time efficiency of rocket transportation is characterized by the launch interval of a single launch site. Based on historical data from Cape Canaveral Spaceport, the initial launch interval is estimated as $T_0 = 13.27$ days. A similar learning-based model is applied:
+\begin{equation}
+    T(t) = T_0 (1 - \beta_t)^{N(t)},
+\end{equation}
+where $\beta_t = 0.983\%$ represents the learning rate associated with launch frequency improvement.
+
+For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.
 
 \subsection{Scenario c: Hybrid Transportation Strategy}
 
@@ -479,9 +512,45 @@ The time required to deliver all the materials using only the Space Elevator Sys
 % ================= 参考文献（美赛要求规范格式）=================
 \newpage
 \begin{thebibliography}{99}
-    \bibitem{1} The Map of Juneau. Retrieved from https://maps.lib.utexas.edu
-    \bibitem{2} Hicks, J.R. (1939). The foundations of welfare economics. \textit{Economic Journal}, 49(196).
-    \bibitem{3} Feng, W., et al. (2024). The Carbon Emission Characteristics...
+    
+    \bibitem{1}
+    Lam, K. C., Lee, D., \& Hu, T. (2001).
+    Understanding the effect of the learning--forgetting phenomenon on project duration.
+    \textit{International Journal of Project Management}, 19(7), 411--420.
+    https://doi.org/10.1016/S0263-7863(00)00025-9
+
+    \bibitem{2}
+    Kim, S., Koo, J., \& Yoon, E. S. (2012).
+    Optimization of sustainable energy planning with consideration of uncertainties in learning rates and external cost factors.
+    In \textit{Computer Aided Chemical Engineering} (Vol. 31, pp. 871--875).
+    Elsevier.
+    https://doi.org/10.1016/B978-0-444-54298-4.50161-6
+
+    \bibitem{3}
+    Swan, P. (2019, August 18).
+    Myths busted: The real reason launch costs are high and how space access infrastructure can reduce launch costs to LEO.
+    Conference presentation at the International Space Elevator Conference.
+
+    \bibitem{4}
+    SpaceX. (n.d.).
+    \textit{Starship}.
+    Retrieved January 30, 2026, from https://www.spacex.com/vehicles/starship
+
+    \bibitem{5}
+    Young, W. A., II, Masel, D. T., \& Judd, R. P. (2007).
+    A matrix-based methodology for determining a part family’s learning rate.
+    \textit{Computers \& Industrial Engineering}, 53(4), 803--811.
+    https://doi.org/10.1016/j.cie.2007.08.002
+
+    \bibitem{6}
+    Young, W. A., II, Masel, D. T., \& Judd, R. P. (2008).
+    A matrix-based methodology for determining a part family’s learning rate.
+    \textit{Computers \& Industrial Engineering}, 54(3), 390--400.
+    https://doi.org/10.1016/j.cie.2007.08.002
+
+    \bibitem{7}
+    Smitherman, D. V., Jr. (Comp.). (2000). Space elevators: An advanced earth-space infrastructure for the new millennium (NASA/CP—2000–210429). NASA.
+
 \end{thebibliography}
 
 % ================= 备忘录 (最后一页) =================
