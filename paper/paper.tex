@@ -29,7 +29,7 @@
 % \usepackage{lastpage}
 \usepackage{silence}
 \usepackage{arydshln} % for \cdashline
-
+\usepackage{siunitx}
 
 \WarningFilter{everypage}{}%忽略everypage警告
 
@@ -203,13 +203,15 @@ To avoid complicated description...
 
     $T_h$                        & Time to deliver required mass via hybrid transportation                                             & year                   \\
 
+    $C_h$                        & Cost to deliver required mass via hybrid transportation                                             & USD                    \\
+
     \cdashline{1-3}
     \multicolumn{3}{c}{\textit{\textbf{Space Elevator System Parameters}}}                                                                                      \\
     \cdashline{1-3}
 
     $T_{e}$                      & Time to deliver required mass via Space Elevator                                                    & year                   \\
 
-    $C_{e}$                      & Cost per metric ton via Space Elevator                                                              & USD/ton                \\
+    $C_{e}$                      & Total cost of space elevator system                                                                 & USD/ton                \\
     $P_{e}$                      & Payload of one Galactic Harbour                                                                     & ton/year               \\
     $R_{e}$                      & Annual transportation capacity of the Space Elevator System                                         & ton/year               \\
     $P_{e}^{\text{tot}}$         & Total annual capacity of three Galactic Harbours                                                    & ton/year               \\
@@ -221,7 +223,7 @@ To avoid complicated description...
     \cdashline{1-3}
 
     $T_{r}$                      & Time to deliver required mass via rockets                                                           & year                   \\
-    $C_{r}$                      & Cost per metric ton via rockets                                                                     & USD/ton                \\
+    $C_{r}$                      & Total cost of rocket transportation system                                                          & USD/ton                \\
     $P_{r}$                      & Payload per rocket launch                                                                           & ton                    \\
     $R_{r}$                      & Annual transportation capacity of the Rocket System                                                 & ton/year               \\
     $N_{r}$                      & Number of launches per year                                                                         & 1/year                 \\
@@ -356,7 +358,7 @@ Let
 The total cost of using the space elevator system is given by:
 
 \[
-    C_e = F_e \cdot T_e + v_e \cdot M
+    C_e = F_e + v_e \cdot M
 \]
 
 This formulation captures the \textbf{high upfront investment but low marginal transportation cost} characteristic of the space elevator system.
@@ -385,7 +387,7 @@ This model reflects the \textbf{low infrastructure cost but high marginal cost} 
 
 For the hybrid strategy, the total cost is given by:
 \begin{equation}
-    C_{\text{hybrid}} = \alpha C_e + (1 - \alpha) C_r
+    C_h = \alpha C_e + (1 - \alpha) C_r
 \end{equation}
 
 where $\alpha \in [0,1]$ represents the proportion of total transportation demand assigned to the space elevator system.
@@ -405,7 +407,7 @@ where $\lambda \in [0,1]$ represents the decision-maker's preference for minimiz
 
 \section{Scenario Analysis}
 
-Consideration of three different scenarios for how the 100 million metric tons of materials ($M=10^9\ \text{tons}$) will
+Consideration of three different scenarios for how the 100 million metric tons of materials ($M=10^8\ \text{tons}$) will
 be delivered to build the 100,000-person Moon Colony.
 
 \subsection{Scenario a: Space Elevator System Only}
@@ -416,17 +418,51 @@ Assume that we use the Space Elevator System's three Galactic Harbor's alone to 
 
 According to the problem statement, the Galactic Harbor will provide an advanced lift system moving 179,000 metric tons every year. So we have:
 
-\[R_e=179000\ \text{tons}\]
+\[R_e=\SI{179000}{tons/year}\]
 
 The time required to deliver all the materials using only the Space Elevator System is:
 
-\[\frac{M}{R_e} = \frac{10^8}{179000} \approx 558.659\ \text{years}\]
+\[T_e=\frac{M}{R_e} = \frac{10^8}{179000} \approx 558.659\ \text{years}\]
 
 \subsubsection{Cost Analysis}
 
+\textbf{Determination of the Cost Constant}
+
+\textbf{Fixed (Capital) Construction Cost of the Three Galactic Harbours}
+
+In Problem B, the final Space Elevator System consists of three \emph{Galactic Harbours} distributed around Earth’s equator, and each Galactic Harbour contains one Earth Port plus two $100{,}000$ km tethers connected to two apex anchors.\footnote{COMAP, \emph{2026 MCM Problem B: Creating a Moon Colony Using a Space Elevator System}, glossary/description of system configuration (three Galactic Harbours; each harbour includes one Earth port, two $100{,}000$ km tethers, and two apex anchors). See \texttt{2026\_MCM\_Problem\_B.pdf}. \ \ :contentReference[oaicite:0]{index=0}}
+Therefore, we treat each Galactic Harbour as one complete “space elevator complex” (Earth Port + tethers + apex anchors) and model the fixed cost as a one-time capital expenditure (CAPEX), independent of transported mass.
+
+A literature survey reports that published capital-cost estimates for building a Space Elevator span approximately \$15--\$100 billion, depending on assumptions such as construction timeline, material availability, and safety factors.\footnote{K. Barry and E. P. Alfaro, ``Acta Astronautica'' \textbf{200} (2022) 586--598, Section 4.3 (Capital cost and financing): ``estimations \dots ranging from \$15 billion to \$100 billion.'' See \texttt{1-s2.0-S0094576522004295-main.pdf}. \ \ :contentReference[oaicite:1]{index=1}}
+Because the problem statement does not provide enough engineering detail to defensibly choose a bespoke point estimate, we adopt the midpoint of this peer-reviewed range as a deterministic planning value (i.e., an expected-value proxy under a neutral prior over the interval):
+\[
+    C_{\mathrm{GH}} \;=\; \frac{15+100}{2}\times 10^{9}\ \mathrm{USD}
+    \;=\; 5.75\times 10^{10}\ \mathrm{USD}.
+\]
+With three Galactic Harbours, the total fixed construction cost is
+\[
+    F_e
+    \;=\; 3\,C_{\mathrm{GH}}
+    \;=\; 3\times 5.75\times 10^{10}
+    \;=\; 1.725\times 10^{11}\ \mathrm{USD}.
+\]
+
+\noindent\textbf{Final fixed-cost value used in the model:}
+\[
+    \boxed{F_e = 1.725\times 10^{11}\ \mathrm{USD}\ (\text{approximately } \$172.5\ \text{billion})}.
+\]
+
+\noindent\textbf{Interpretation.} $F_e$ is a one-time CAPEX covering construction of the three-harbour space-elevator infrastructure (Earth Ports, tethers, and apex anchors). It excludes operating costs, maintenance, and financing/interest costs, which should be modeled separately if needed.
+
 Since no fully operational space elevator system currently exists, cost and performance parameters are estimated based on existing engineering studies and published projections.
 
-According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.4 million USD per metric ton \cite{3,7}.
+According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.35 million USD per metric ton \cite{3,7}.i.e:
+
+\[v_e=\SI{3.5e5}{USD/t}\]
+
+So the total cost of using only the Space Elevator System to deliver all the materials needed for the Moon Colony construction is:
+
+\[C_e=F_e+v_eM=\SI{1.725e11}{USD}+\SI{3.5e5}{USD/t}\times\SI{1e8}{t}=\SI{3.51725e13}{USD}\]
 
 \subsection{Scenario b: Traditional Rocket Launches Only}
 
@@ -437,7 +473,18 @@ The time efficiency of rocket transportation is characterized by the launch inte
 \end{equation}
 where $\beta_t = 0.983\%$ represents the learning rate associated with launch frequency improvement.
 
-For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.
+For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.i.e.:
+
+\[f_r=\frac{365}{2.5}=146\ \mathrm{year^{-1}}\]
+
+The annual transportation capacity of the rocket system is:
+
+\[R_r=N_rP_rf_r=10\times\SI{150}{t}\times\SI{146}{year^{-1}}=\SI{2.19e5}{t/year}\]
+
+The time required to deliver all the materials using only traditional rocket launches is:
+
+\[T_r=\frac{M}{R_r} = \frac{10^8}{2.19\times 10^5} \approx 456.62\ \text{years}\]
+
 \subsubsection{Cost Analysis}
 
 To evaluate the feasibility of relying solely on traditional rockets for large-scale material transportation, we construct a mathematical model to predict both the unit transportation cost and the launch frequency of a single rocket launch site. The model is based on Wright’s learning curve theory, which assumes that unit cost decreases by a fixed proportion as cumulative experience increases \cite{1,2}.
@@ -459,9 +506,13 @@ The cumulative number of launches is estimated using a fitted function:
     N(t) = \left\lfloor 3.342857 t - 0.857143 \right\rfloor .
 \end{equation}
 
-Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.
+Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.i.e.:
 
+\[c_r=\SI{7.3e7}{USD}\]
 
+Thus, the total cost of using only traditional rocket launches to deliver all the materials needed for the Moon Colony construction is:
+
+\[C_r=c_r\cdot\frac{M}{P_r}=7.3\times10^7\times\frac{10^8}{150}=\SI{4.867e13}{USD}\]
 
 \subsection{Scenario c: Hybrid Transportation Strategy}
 
@@ -512,7 +563,7 @@ Substituting the parameters into the cost model, the estimated transportation co
 % ================= 参考文献（美赛要求规范格式）=================
 \newpage
 \begin{thebibliography}{99}
-    
+
     \bibitem{1}
     Lam, K. C., Lee, D., \& Hu, T. (2001).
     Understanding the effect of the learning--forgetting phenomenon on project duration.
