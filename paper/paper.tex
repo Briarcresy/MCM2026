@@ -149,11 +149,11 @@ To avoid complicated description...
 
 \subsection{Assumptions and Justifications}
 \begin{itemize}
-    \item \textbf{Assumption 1:} Assumption text here...
-    \item \textbf{Justification:} Justification text here...
+    \item \textbf{Assumption 1:} Assumption text here\ldots
+    \item \textbf{Justification:} Justification text here\ldots
 
-    \item \textbf{Assumption 2:} Assumption text here...
-    \item \textbf{Justification:} Justification text here...
+    \item \textbf{Assumption 2:} Assumption text here\ldots
+    \item \textbf{Justification:} Justification text here\ldots
 \end{itemize}
 
 \subsection{Notations}
@@ -179,7 +179,6 @@ To avoid complicated description...
     \midrule
     \multicolumn{3}{r}{\textit{Continued on next page}}                                                                                                         \\
     \endfoot
-
     \bottomrule
     \endlastfoot
 
@@ -427,14 +426,21 @@ The time required to deliver all the materials using only the Space Elevator Sys
 
 Since no fully operational space elevator system currently exists, cost and performance parameters are estimated based on existing engineering studies and published projections.
 
-According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.4 million USD per metric ton.
+According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.4 million USD per metric ton \cite{3,7}.
 
 \subsection{Scenario b: Traditional Rocket Launches Only}
 
 \subsubsection{Time Analysis}
+The time efficiency of rocket transportation is characterized by the launch interval of a single launch site. Based on historical data from Cape Canaveral Spaceport, the initial launch interval is estimated as $T_0 = 13.27$ days. A similar learning-based model is applied:
+\begin{equation}
+    T(t) = T_0 (1 - \beta_t)^{N(t)},
+\end{equation}
+where $\beta_t = 0.983\%$ represents the learning rate associated with launch frequency improvement.
+
+For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.
 \subsubsection{Cost Analysis}
 
-To evaluate the feasibility of relying solely on traditional rockets for large-scale material transportation, we construct a mathematical model to predict both the unit transportation cost and the launch frequency of a single rocket launch site. The model is based on Wright’s learning curve theory, which assumes that unit cost decreases by a fixed proportion as cumulative experience increases.
+To evaluate the feasibility of relying solely on traditional rockets for large-scale material transportation, we construct a mathematical model to predict both the unit transportation cost and the launch frequency of a single rocket launch site. The model is based on Wright’s learning curve theory, which assumes that unit cost decreases by a fixed proportion as cumulative experience increases \cite{1,2}.
 
 The cost model is expressed as
 \begin{equation}
@@ -444,9 +450,9 @@ where $C(t)$ denotes the unit transportation cost in year $t$, $C_0$ is the init
 
 Based on publicly available information from SpaceX and related reports, the initial cost is set as
 \[
-    C_0 = 44{,}940.9 \text{ million USD}.
+    C_0 = 44{,}940.9 \text{ million USD} \cite{4}.
 \]
-Considering diminishing learning effects over time, a conservative learning rate of $\beta = 3.7139\%$ is adopted.
+Considering diminishing learning effects over time, a conservative learning rate of $\beta = 3.7139\%$ is adopted \cite{5,6}.
 
 The cumulative number of launches is estimated using a fitted function:
 \begin{equation}
@@ -455,13 +461,7 @@ The cumulative number of launches is estimated using a fitted function:
 
 Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.
 
-In addition to cost, the time efficiency of rocket transportation is characterized by the launch interval of a single launch site. Based on historical data from Cape Canaveral Spaceport, the initial launch interval is estimated as $T_0 = 13.27$ days. A similar learning-based model is applied:
-\begin{equation}
-    T(t) = T_0 (1 - \beta_t)^{N(t)},
-\end{equation}
-where $\beta_t = 0.983\%$ represents the learning rate associated with launch frequency improvement.
 
-For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.
 
 \subsection{Scenario c: Hybrid Transportation Strategy}
 
