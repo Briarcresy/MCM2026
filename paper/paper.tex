@@ -1,4 +1,4 @@
-%% ----------------------------------------------------------------
+
 %% MCM/ICM 2025 Template - Fixed for VS Code Local Environment
 %% ----------------------------------------------------------------
 
@@ -26,7 +26,7 @@
 \usepackage{subcaption} 
 \usepackage{graphicx}
 \usepackage{fancyhdr}
-\usepackage{lastpage}
+% \usepackage{lastpage}
 \usepackage{silence}
 \usepackage{arydshln} % for \cdashline
 
@@ -40,6 +40,8 @@
 
 % 【修改5】页码样式：添加“当前页/总页数”，符合美赛习惯
 \pagestyle{fancy}
+
+% \fancyhead[C]{Page \thepage\ of \pageref{LastPageMain}}
 
 % \cfoot{\thepage/\pageref{LastPage}} % 页脚居中显示“页码/总页数”
 
@@ -513,11 +515,16 @@ Team \#2602787
 
 \newpage
 
-\thispagestyle{empty}
+\clearpage
+\label{LastPageMain}
 
-\backgroundsetup{contents={}}
+% \thispagestyle{empty}
 
 \AImatter
+
+\pagestyle{empty}
+
+\backgroundsetup{contents={}}
 
 \begin{ReportAiUse}{9}
     \bibitem{AI1}
