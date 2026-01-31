@@ -175,7 +175,7 @@ To avoid complicated description...
     \multicolumn{3}{c}{\textit{\textbf{Global Parameters}}}                                                                                                     \\
     \cdashline{1-3}
 
-    $t$                          & Time (years), $t \ge 2050$                                                                          & year                   \\
+    $t$                          & Time index measured from 2019 (t = year $-$ 2019)                                                    & year                   \\
     $M$                          & Total materials required for colony construction                                                    & metric ton             \\
     $M_{\text{colony}}$          & Designed population capacity of the Moon Colony                                                     & person                 \\
     $T_0$                        & Start year of transportation (2025)                                                                 & year                   \\
@@ -244,7 +244,11 @@ To avoid complicated description...
 \section{Model Design}
 
 \subsection{Model Overview}
+To evaluate the feasibility of constructing a 100,000-person Moon Colony, we develop a mathematical model to analyze large-scale material transportation from Earth to the Moon. The model compares three transportation strategies: the Space Elevator System, traditional rocket launches, and a hybrid combination of both.
 
+The proposed framework focuses on two key metrics—total transportation time and overall cost—to assess the efficiency and practicality of each strategy. By formulating unified expressions under consistent assumptions, the model enables a fair comparison among different transportation schemes.
+
+In addition, the model is designed to accommodate non-ideal operating conditions and extended supply requirements, providing a foundation for robustness analysis and long-term sustainability evaluation.
 \subsection{Time Model Development}
 
 To evaluate the total time required to construct the Moon Colony under different transportation strategies, a unified time model is developed to describe the entire process of delivering materials from the Earth's surface to the Moon Colony.
@@ -387,13 +391,46 @@ where $\lambda \in [0,1]$ represents the decision-maker’s preference for minim
 
 \subsection{Scenario a: Space Elevator System Only}
 
+Since no fully operational space elevator system currently exists, cost and performance parameters are estimated based on existing engineering studies and published projections.
+
+According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.4 million USD per metric ton.
+
 \subsection{Scenario b: Traditional Rocket Launches Only}
+
+To evaluate the feasibility of relying solely on traditional rockets for large-scale material transportation, we construct a mathematical model to predict both the unit transportation cost and the launch frequency of a single rocket launch site. The model is based on Wright’s learning curve theory, which assumes that unit cost decreases by a fixed proportion as cumulative experience increases.
+
+The cost model is expressed as
+\begin{equation}
+C(t) = C_0 (1 - \beta)^{N(t)},
+\end{equation}
+where $C(t)$ denotes the unit transportation cost in year $t$, $C_0$ is the initial cost of the first launch, $\beta$ is the learning rate, and $N(t)$ represents the cumulative number of completed launches up to year $t$. Here, $t$ is defined as the calendar year minus 2019, corresponding to the first test flight of SpaceX Starship.
+
+Based on publicly available information from SpaceX and related reports, the initial cost is set as
+\[
+C_0 = 44{,}940.9 \text{ million USD}.
+\]
+Considering diminishing learning effects over time, a conservative learning rate of $\beta = 3.7139\%$ is adopted.
+
+The cumulative number of launches is estimated using a fitted function:
+\begin{equation}
+N(t) = \left\lfloor 3.342857 t - 0.857143 \right\rfloor .
+\end{equation}
+
+Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.
+
+In addition to cost, the time efficiency of rocket transportation is characterized by the launch interval of a single launch site. Based on historical data from Cape Canaveral Spaceport, the initial launch interval is estimated as $T_0 = 13.27$ days. A similar learning-based model is applied:
+\begin{equation}
+T(t) = T_0 (1 - \beta_t)^{N(t)},
+\end{equation}
+where $\beta_t = 0.983\%$ represents the learning rate associated with launch frequency improvement.
+
+For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.
 
 
 \subsection{Scenario III: Hybrid Transportation Strategy}
 
 
-% ================= 第4章：敏感性分析 =================
+% ================= 第5章：敏感性分析 =================
 
 \section{System Reliability and Sensitivity Analysis}
 
@@ -403,7 +440,7 @@ where $\lambda \in [0,1]$ represents the decision-maker’s preference for minim
 \subsection{Robustness Testing}
 % 鲁棒性测试
 
-% ================= 第5章：模型应用 =================
+% ================= 第6章：模型应用 =================
 \section{Water Supply Model for Sustained Operation}
 
 \section{Environmental Impact Analysis}
@@ -436,9 +473,45 @@ where $\lambda \in [0,1]$ represents the decision-maker’s preference for minim
 % ================= 参考文献（美赛要求规范格式）=================
 \newpage
 \begin{thebibliography}{99}
-    \bibitem{1} The Map of Juneau. Retrieved from https://maps.lib.utexas.edu
-    \bibitem{2} Hicks, J.R. (1939). The foundations of welfare economics. \textit{Economic Journal}, 49(196).
-    \bibitem{3} Feng, W., et al. (2024). The Carbon Emission Characteristics...
+
+\bibitem{1}
+Lam, K. C., Lee, D., \& Hu, T. (2001).
+Understanding the effect of the learning--forgetting phenomenon on project duration.
+\textit{International Journal of Project Management}, 19(7), 411--420.
+https://doi.org/10.1016/S0263-7863(00)00025-9
+
+\bibitem{2}
+Kim, S., Koo, J., \& Yoon, E. S. (2012).
+Optimization of sustainable energy planning with consideration of uncertainties in learning rates and external cost factors.
+In \textit{Computer Aided Chemical Engineering} (Vol. 31, pp. 871--875).
+Elsevier.
+https://doi.org/10.1016/B978-0-444-54298-4.50161-6
+
+\bibitem{3}
+Swan, P. (2019, August 18).
+Myths busted: The real reason launch costs are high and how space access infrastructure can reduce launch costs to LEO.
+Conference presentation at the International Space Elevator Conference.
+
+\bibitem{4}
+SpaceX. (n.d.).
+\textit{Starship}.
+Retrieved January 30, 2026, from https://www.spacex.com/vehicles/starship
+
+\bibitem{5}
+Young, W. A., II, Masel, D. T., \& Judd, R. P. (2007).
+A matrix-based methodology for determining a part family’s learning rate.
+\textit{Computers \& Industrial Engineering}, 53(4), 803--811.
+https://doi.org/10.1016/j.cie.2007.08.002
+
+\bibitem{6}
+Young, W. A., II, Masel, D. T., \& Judd, R. P. (2008).
+A matrix-based methodology for determining a part family’s learning rate.
+\textit{Computers \& Industrial Engineering}, 54(3), 390--400.
+https://doi.org/10.1016/j.cie.2007.08.002
+
+\bibitem{7}
+Smitherman, D. V., Jr. (Comp.). (2000). Space elevators: An advanced earth-space infrastructure for the new millennium (NASA/CP—2000–210429). NASA.
+
 \end{thebibliography}
 
 % ================= 备忘录 (最后一页) =================
@@ -474,5 +547,71 @@ where $\lambda \in [0,1]$ represents the decision-maker’s preference for minim
 Sincerely,
 
 Team \#2602787
+
+\newpage
+
+\thispagestyle{empty}
+
+\backgroundsetup{contents={}}
+
+\AImatter
+
+\begin{ReportAiUse}{9}
+    \bibitem{AI1}
+    Bing AI\\
+    Query1: write a sort algorithm\\
+    Output: Sure, I can help you with that. Here is a simple implementation of the selection sort algorithm in Python:
+    \begin{lstlisting}[language=python]
+def selection_sort(arr):
+    for i in range(len(arr)):
+        min_idx = i
+        for j in range(i + 1, len(arr)):
+            if arr[min_idx] > arr[j]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+\end{lstlisting}
+    This algorithm sorts an array by repeatedly finding the minimum element from the unsorted part of the array and putting it at the beginning. \href{https://www.geeksforgeeks.org/sorting-algorithms/}{The time complexity of this algorithm is O($n^2$)}.
+
+    There are many other sorting algorithms available such as bubble sort, insertion sort, merge sort, quick sort, heap sort, and more. Each of these algorithms has its own advantages and disadvantages. You can learn more about them on GeeksforGeeks and Programiz.
+
+    I hope this helps!
+
+    \bibitem{AI2}
+    OpenAl Enie (Nov 5, 2023 version, Ernie 4.0)\\
+    Query1: <insert the exact wording of any subsequent input into the Al tool>\\
+    Output: <insert the complete output from the second query>
+
+    \bibitem{AI3}
+    Github CoPilot (Feb 3, 2024 version)\\
+    Query1: <insert the exact wording you input into the Al tool>\\
+    Output: <insert the complete output fron the Al tool>
+
+    \bibitem{AI4}
+    Google Bard (Feb 2,2024 version)\\
+    Query: <insert the exact wording of your query>\\
+    Output: <irsert the complete output from the Al tool>
+
+    \bibitem{AI5}
+    Bing AI\\
+    Query: write a FFT algorithm\\
+    Output: Sure, here is a Python implementation of the Fast Fourier Transform (FFT) algorithm:
+    \begin{lstlisting}[language=python]
+import numpy as np
+
+def fft(x):
+    n = len(x)
+    if n == 1:
+        return x
+    even = fft(x[0::2])
+    odd = fft(x[1::2])
+    T = [np.exp(-2j * np.pi * k / n) * odd[k] for k in range(n // 2)]
+    return [even[k] + T[k] for k in range(n // 2)] + [even[k] - T[k] for k in range(n // 2)]
+\end{lstlisting}
+    The FFT is a widely used algorithm for computing the \textbf{Discrete Fourier Transform (DFT)} of a sequence. It reduces the number of computations needed from O(n$^2$) to O(n log n) 12. The basic idea of the FFT is to apply divide and conquer. We divide the coefficient vector of the polynomial into two vectors, recursively compute the DFT for each of them, and combine the results to compute the DFT of the complete polynomial 3.
+
+    I hope this helps!
+
+\end{ReportAiUse}
 
 \end{document}
