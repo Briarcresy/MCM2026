@@ -270,10 +270,10 @@ To avoid complicated description...
 
 To evaluate different transportation strategies for constructing the Moon Colony, a unified modeling framework is developed that integrates transportation time, total cost, and their trade-off.
 
-First, time models are established for the Space Elevator System and the Rocket Transportation System based on their respective transportation capacities. 
+First, time models are established for the Space Elevator System and the Rocket Transportation System based on their respective transportation capacities.
 A hybrid transportation model is then constructed by allowing both systems to operate in parallel, with the overall completion time determined by the slower subsystem.
 
-Second, a cost model is formulated to capture the different economic characteristics of the two systems. 
+Second, a cost model is formulated to capture the different economic characteristics of the two systems.
 The Space Elevator System is characterized by high fixed costs and low marginal costs, while the Rocket Transportation System involves high marginal costs per launch.
 The total cost of a hybrid strategy is expressed as a weighted combination of the two systems.
 
@@ -508,14 +508,22 @@ Thus, the second objective is formulated as:
 
 where $F_e$ represents the fixed cost of constructing and operating the space elevator system, while $c_e$ and $c_r$ denote the per-ton transportation costs of the elevator and rocket systems, respectively.
 
+\subsubsection{Time and Cost Normalization}
+
+Since transportation time and cost have different units and magnitudes, both objectives are normalized:
+\begin{equation}
+    f_1 = \frac{T - T_{\min}}{T_{\max} - T_{\min}}, \qquad
+    f_2 = \frac{C - C_{\min}}{C_{\max} - C_{\min}}.
+\end{equation}
+
 \subsubsection{Multi-Objective Optimization Framework}
 
-To resolve the conflict between minimizing time and minimizing cost, the weighted-sum method is employed.
-Both objectives are first normalized to eliminate scale effects, and a composite objective function is constructed as:
+To resolve the conflict between minimizing time and minimizing cost, the \textbf{weighted-sum method} is employed.
+A composite objective function is constructed as:
 
 \begin{equation}
-\min F = \alpha \frac{T - T_{\min}}{T_{\max} - T_{\min}} 
-+ (1-\alpha)\frac{C - C_{\min}}{C_{\max} - C_{\min}}, \quad \alpha \in [0,1]
+    \min F = \alpha f_1
+    + (1-\alpha)f_2, \quad \alpha \in [0,1]
 \end{equation}
 
 By varying the weight parameter $\alpha$, different trade-offs between construction speed and economic efficiency can be explored.
@@ -649,156 +657,100 @@ Thus, the total cost of using only traditional rocket launches to deliver all th
 
 \subsection{Scenario c: Hybrid Transportation Strategy}
 
-In this scenario, the total transportation task is jointly completed by the Space Elevator System and the traditional rocket transportation system.
-To explicitly capture the trade-off between transportation time and cost efficiency, a multi-objective optimization framework is adopted.
+In Scenario (c), construction materials are delivered using a hybrid transportation strategy that combines the space elevator system and traditional rocket launches.
+All results in this subsection are obtained by applying the multi-objective mixed integer linear programming framework developed in Section~3.4, with both transportation modes enabled simultaneously.
 
-\subsubsection{Decision Variables and Feasible Region}
+\subsubsection{Pareto Frontier Generation}
 
-Instead of modeling detailed annual transportation schedules, the hybrid strategy is characterized by two aggregate decision variables:
-\begin{itemize}
-    \item $T$: total completion time (years) required to deliver $M=10^8$ tons;
-    \item $C$: \emph{unit transportation cost} (USD/ton), i.e., total cost divided by total transported mass.
-\end{itemize}
+To explore the trade-off between project completion time and total transportation cost, a large set of feasible solutions is generated through Monte Carlo sampling within the admissible ranges of $T$ and $C$.
+Each sampled solution is filtered using the model constraints to identify the feasible region.
+Pareto-optimal solutions are then extracted by eliminating dominated points.
 
-\paragraph{Bounds from extreme single-mode cases.}
-With three Galactic Harbours operating in parallel, the \emph{total} annual elevator capacity is
-\begin{equation}
-    R_e^{(\mathrm{tot})}=3\times 179{,}000 = 537{,}000\ \text{t/yr}.
-\end{equation}
-The rocket system annual capacity remains
-\begin{equation}
-    R_r = N_r P_r f_r
-    = 10\times 150 \times \frac{365}{2.5}
-    = 219{,}000\ \text{t/yr}.
-\end{equation}
+Figure~\ref{fig:pareto_frontier_norm} illustrates the feasible solution set in the normalized objective space, together with the resulting Pareto frontier.
+The smooth and monotonic shape of the frontier indicates a clear and stable trade-off structure between construction duration and cost.
 
-Thus, the single-mode completion times are
-\begin{equation}
-    T_e^{(\mathrm{only})}=\frac{M}{R_e^{(\mathrm{tot})}}
-    =\frac{10^8}{537{,}000}\approx 186.219\ \text{years},
-    \qquad
-    T_r^{(\mathrm{only})}=\frac{M}{R_r}
-    =\frac{10^8}{219{,}000}\approx 456.621\ \text{years}.
-\end{equation}
-Therefore, we set the feasible time range as
-\begin{equation}
-    T_{\min} \le T \le T_{\max},\qquad
-    T_{\max}=T_r^{(\mathrm{only})}\approx 456.621\ \text{years}.
-\end{equation}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{pareto_frontier_normalized.pdf}
+    \caption{Feasible solutions and Pareto frontier in the normalized objective space.}
+    \label{fig:pareto_frontier_norm}
+\end{figure}
 
-For unit cost (USD/ton), the rocket unit cost for a 150-ton launch is
-\begin{equation}
-    v_r=\frac{c_r}{P_r}=\frac{73\times10^6}{150}\approx 4.8667\times10^5,
-\end{equation}
-and the space-elevator variable unit cost is taken as
-\begin{equation}
-    v_e = 6.0\times 10^5.
-\end{equation}
-Hence, the feasible cost range is
-\begin{equation}
-    C_{\min}=v_r,\qquad C_{\max}=v_e.
-\end{equation}
+\subsubsection{Weight-Based Solution Selection}
 
-\paragraph{Structural feasibility constraints.}
-In addition, the hybrid system must satisfy two structural constraints that reflect the physical and economic coupling between time and cost:
-\begin{equation}
-    \Phi_1(T,C) \ge 0,\qquad \Phi_2(T,C) \le 0,
-\end{equation}
-which ensure that any $(T,C)$ pair corresponds to a realizable combination of space elevator and rocket transportation capacities.
-
-\subsubsection{Analytical Benchmark: Capacity Balancing and Closed-form Estimates}
-
-To provide a transparent benchmark and to validate the simulation-based optimization, we derive a closed-form ``best-case'' hybrid estimate under ideal parallel operations.
-
-\paragraph{Parallel-completion time under a mass-splitting ratio.}
-Let $x\in[0,1]$ denote the fraction of total mass transported by the Space Elevator System. Then
+To support decision-making under different priorities, the weighted-sum method is applied to the Pareto frontier.
+For a given weight parameter $\alpha$, the optimal solution minimizes the composite objective
 \[
-M_e=xM,\qquad M_r=(1-x)M.
+F = \alpha f_1 + (1-\alpha) f_2,
 \]
-With annual capacities $R_e^{(\mathrm{tot})}$ and $R_r$, the subsystem completion times are
-\begin{equation}
-    T_e(x)=\frac{xM}{R_e^{(\mathrm{tot})}},\qquad
-    T_r(x)=\frac{(1-x)M}{R_r}.
-\end{equation}
-Since the two systems operate in parallel, the hybrid completion time is
-\begin{equation}
-    T_h(x)=\max\{T_e(x),\,T_r(x)\}.
-\end{equation}
-Minimizing $T_h(x)$ is achieved by \emph{capacity balancing}, i.e., enforcing $T_e(x)=T_r(x)$:
-\begin{equation}
-    \frac{xM}{R_e^{(\mathrm{tot})}}=\frac{(1-x)M}{R_r}
-    \Rightarrow
-    x^*=\frac{R_e^{(\mathrm{tot})}}{R_e^{(\mathrm{tot})}+R_r}.
-\end{equation}
-Substituting $R_e^{(\mathrm{tot})}=537{,}000$ and $R_r=219{,}000$ gives
-\begin{equation}
-    x^*=\frac{537{,}000}{537{,}000+219{,}000}=\frac{537}{756}\approx 0.7103.
-\end{equation}
-The analytically predicted minimal hybrid completion time is then
-\begin{equation}
-    T_{\min}^{(\mathrm{ana})}
-    =\frac{M}{R_e^{(\mathrm{tot})}+R_r}
-    =\frac{10^8}{756{,}000}
-    \approx 132.275\ \text{years}.
-\end{equation}
+where $f_1$ and $f_2$ are the normalized time- and cost-related objectives.
 
-\paragraph{Analytical unit-cost estimate.}
-We include: (i) the amortized fixed CAPEX of the elevator, and (ii) the variable per-ton costs of elevator and rockets.
-The amortized fixed cost per ton is
-\begin{equation}
-    \frac{F_e}{M}=\frac{1.725\times 10^{11}}{10^{8}}=1725\ \text{USD/ton}.
-\end{equation}
-Thus, for a given split ratio $x$,
-\begin{equation}
-    C(x)=\frac{F_e}{M}+x\,v_e+(1-x)\,v_r.
-\end{equation}
-Substituting $x=x^*$, $v_e=6.0\times10^5$, and $v_r\approx 4.8667\times10^5$ yields
-\begin{equation}
-\begin{aligned}
-    C^{(\mathrm{ana})}
-    &=1725+x^*\cdot 6.0\times10^5+(1-x^*)\cdot 4.8667\times10^5\\
-    &\approx 1725+0.7103\times 6.0\times10^5+0.2897\times 4.8667\times10^5\\
-    &\approx 5.699\times10^5\ \text{USD/ton}.
-\end{aligned}
-\end{equation}
+Figure~\ref{fig:alpha_on_pareto} shows the locations of optimal solutions corresponding to several representative values of $\alpha$ on the Pareto frontier.
+As $\alpha$ increases, the selected solution shifts from cost-oriented to time-oriented, reflecting increased emphasis on rapid construction.
 
-\subsubsection{Time and Cost Normalization}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{alpha_pareto_points.pdf}
+    \caption{Pareto-optimal solutions selected under different weight parameters $\alpha$.}
+    \label{fig:alpha_on_pareto}
+\end{figure}
 
-Since transportation time and cost have different units and magnitudes, both objectives are normalized:
-\begin{equation}
-    f_1 = \frac{T - T_{\min}}{T_{\max} - T_{\min}}, \qquad
-    f_2 = \frac{C - C_{\min}}{C_{\max} - C_{\min}}.
-\end{equation}
+\subsubsection{Feasible Region and Decision Space Interpretation}
 
-\subsubsection{Pareto Frontier Construction}
+To further illustrate the structure of the optimization problem, Figure~\ref{fig:decision_space} presents the feasible region in the original decision space $(T, C)$, together with the Pareto-optimal solutions.
+The feasible region is bounded by linear constraints derived from system capacity and cost relationships.
 
-A Monte Carlo sampling approach is employed to explore the feasible decision space.
-Random samples of $(T,C)$ are generated within the predefined bounds and filtered using the feasibility constraints.
-Pareto-optimal points are identified by the dominance principle, forming the Pareto frontier that represents the optimal trade-offs.
+The Pareto frontier lies along the lower boundary of this region, confirming that optimal solutions are achieved when at least one constraint is active.
 
-\subsubsection{Weighted Objective and Optimal Solution Selection}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{decision_space_pareto.pdf}
+    \caption{Feasible region and Pareto frontier in the original decision space.}
+    \label{fig:decision_space}
+\end{figure}
 
-To select a single recommended solution from the Pareto frontier, a weighted objective is introduced:
-\begin{equation}
-    K(\alpha) = \alpha f_1 + (1 - \alpha) f_2,\qquad 0<\alpha<1.
-\end{equation}
-By scanning $\alpha$, the minimum value of $K(\alpha)$ is obtained and the corresponding $(T^*,C^*)$ is selected.
+\subsubsection{Identification of the Recommended Solution}
 
-In our simulation, the optimal result is obtained at
-\[
-\alpha^* = 0.999,\qquad
-T^* = 132.2879\ \text{years},\qquad
-C^* = 5.6982\times 10^5\ \text{USD/ton}.
-\]
+To determine a recommended hybrid strategy, the weight parameter $\alpha$ is varied continuously over a prescribed range.
+Figure~\ref{fig:k_alpha_curve} shows the variation of the minimum composite objective value $F$ as a function of $\alpha$.
+The curve exhibits a clear minimum, indicating an optimal balance between construction time and transportation cost.
 
-\paragraph{Comparison with analytical benchmark.}
-The analytical benchmark predicts
-\[
-T_{\min}^{(\mathrm{ana})}\approx 132.275\ \text{years},
-\qquad
-C^{(\mathrm{ana})}\approx 5.699\times10^5\ \text{USD/ton}.
-\]
-The simulation optimum matches the benchmark closely. In particular, $T^*$ is only about $0.013$ years above the theoretical lower bound, indicating that the optimizer selects a near-capacity-balanced solution under a strong preference for time minimization (large $\alpha$).
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{k_vs_alpha.pdf}
+    \caption{Variation of the weighted objective value with respect to $\alpha$.}
+    \label{fig:k_alpha_curve}
+\end{figure}
+
+The corresponding optimal solution is highlighted on the Pareto frontier in Figure~\ref{fig:optimal_on_pareto}.
+This solution represents the best compromise under balanced priorities and is selected as the recommended hybrid strategy.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{optimal_on_pareto.pdf}
+    \caption{Location of the recommended solution on the Pareto frontier.}
+    \label{fig:optimal_on_pareto}
+\end{figure}
+
+\subsubsection{Sensitivity of Objectives to Weight Selection}
+
+Finally, the sensitivity of the Pareto-optimal solutions to the weight parameter is examined.
+Figure~\ref{fig:alpha_sensitivity} shows how the individual objective components $f_1$ and $f_2$ vary with $\alpha$.
+The smooth transition confirms that the hybrid strategy responds continuously to changes in decision preference, enhancing its practical applicability.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{alpha_sensitivity.pdf}
+    \caption{Variation of normalized objective components with respect to $\alpha$.}
+    \label{fig:alpha_sensitivity}
+\end{figure}
+
+\subsubsection{Discussion}
+
+The results demonstrate that the hybrid transportation strategy provides substantial flexibility compared with single-mode scenarios.
+By appropriately balancing the use of space elevators and rockets, the hybrid approach achieves solutions that are both faster than elevator-only delivery and more cost-effective than rocket-only delivery.
+This confirms the advantage of coordinated multi-modal transportation for large-scale lunar construction.
+
 
 
 % ================= 第4章：敏感性分析 =================
