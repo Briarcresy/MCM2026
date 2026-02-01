@@ -394,14 +394,133 @@ where $\alpha \in [0,1]$ represents the proportion of total transportation deman
 
 By varying $\alpha$, trade-offs between cost minimization and time efficiency can be systematically explored.
 
-\subsection{Time-Cost Trade-off Metric}
+\subsection{Multi-Objective Mixed Integer Linear Programming Model}
 
-To provide a unified evaluation criterion, a weighted objective function is introduced:
+\subsubsection{Motivation for a Multi-Objective MILP Approach}
+
+The hybrid transportation planning problem involves both continuous decisions, such as annual transported mass, and discrete decisions, such as whether transportation is active in a given year.
+At the same time, minimizing the project completion time and minimizing the total transportation cost are inherently conflicting objectives.
+
+A multi-objective mixed integer linear programming framework allows these trade-offs to be modeled explicitly while maintaining clear physical interpretation of decision variables. Moreover, linear constraints and objective functions ensure computational tractability and guarantee globally optimal solutions under the assumed conditions.
+
+\subsubsection{Decision Variables}
+
+To describe the annual material transportation process, the following decision variables are defined for each year $t$ $(1 \le t \le 600)$:
+
+\begin{itemize}
+    \item $e_t \ge 0$: amount of material (metric tons) transported by the space elevator system in year $t$;
+    \item $r_t \ge 0$: amount of material (metric tons) transported by the rocket system in year $t$;
+    \item $I_t \in \{0,1\}$: binary indicator denoting whether any transportation activity occurs in year $t$.
+\end{itemize}
+
+
+\subsubsection{Constraints}
+
+\textbf{Annual Capacity Constraints}
+
+The transportation capacities of the two systems are limited by their annual maximum payloads:
+
 \begin{equation}
-    J = \lambda T + (1 - \lambda) C
+    0 \le e_t \le R_e, \quad 0 \le r_t \le R_r
 \end{equation}
 
-where $\lambda \in [0,1]$ represents the decision-maker's preference for minimizing time versus cost.
+where $R_e$ and $R_r$ denote the annual transportation capacities of the space elevator and rocket systems, respectively.
+
+
+\textbf{Logical Activation Constraints}
+
+Transportation in year $t$ can occur only when the corresponding binary indicator is active:
+
+\begin{equation}
+    I_t \ge \frac{e_t}{R_e}, \quad I_t \ge \frac{r_t}{R_r}
+\end{equation}
+
+These constraints ensure that if any positive amount of material is transported, the year is counted as an active transportation year.
+
+
+\textbf{Monotonicity Constraint}
+
+To ensure that transportation occurs continuously without interruption once initiated, the following monotonicity constraint is imposed:
+
+\begin{equation}
+    I_t \ge I_{t+1}, \quad \forall t
+\end{equation}
+
+This constraint guarantees that all transportation activities take place within a contiguous time period.
+
+\textbf{Total Material Requirement}
+
+The total amount of material transported over the entire planning horizon must satisfy the construction requirement:
+
+\begin{equation}
+    \sum_{t=1}^{600} \left( e_t + r_t \right) = M
+\end{equation}
+
+where $M$ represents the total mass required for the Moon Colony construction.
+
+
+\subsubsection{Objective Functions}
+
+The hybrid transportation problem involves two conflicting objectives.
+
+\textbf{Objective 1: Minimize Project Completion Time}
+
+The project completion time is defined as the total number of active transportation years:
+
+\begin{equation}
+    \min T = \sum_{t=1}^{600} I_t
+\end{equation}
+
+Minimizing $T$ corresponds to completing the construction as early as possible.
+
+
+\textbf{Objective 2: Minimize Total Transportation Cost}
+
+The total transportation cost consists of fixed and variable components:
+
+\begin{equation}
+    C_e = F_e + \sum_{t=1}^{600} c_e e_t
+\end{equation}
+
+\begin{equation}
+    C_r = \sum_{t=1}^{600} c_r r_t
+\end{equation}
+
+Thus, the second objective is formulated as:
+
+\begin{equation}
+    \min C = C_e + C_r
+\end{equation}
+
+where $F_e$ represents the fixed cost of constructing and operating the space elevator system, while $c_e$ and $c_r$ denote the per-ton transportation costs of the elevator and rocket systems, respectively.
+
+\subsubsection{Multi-Objective Optimization Framework}
+
+To resolve the conflict between minimizing time and minimizing cost, the weighted-sum method is employed.
+Both objectives are first normalized to eliminate scale effects, and a composite objective function is constructed as:
+
+\begin{equation}
+\min F = \alpha \frac{T - T_{\min}}{T_{\max} - T_{\min}} 
++ (1-\alpha)\frac{C - C_{\min}}{C_{\max} - C_{\min}}, \quad \alpha \in [0,1]
+\end{equation}
+
+By varying the weight parameter $\alpha$, different trade-offs between construction speed and economic efficiency can be explored.
+
+\subsubsection{Pareto Frontier Analysis}
+
+To approximate the Pareto frontier of the multi-objective problem, a large number of feasible solutions are generated through random sampling within the admissible ranges of $T$ and $C$.
+Each candidate solution is filtered using the model constraints to identify the feasible region.
+A solution is considered Pareto optimal if no other feasible solution simultaneously improves both objectives.
+
+The resulting Pareto frontier illustrates the trade-off structure between project duration and transportation cost.
+For different values of the weight parameter $\alpha$, the corresponding optimal solutions are located on the Pareto frontier, providing decision-makers with flexible choices under varying priorities.
+
+\subsubsection{Model Insights}
+
+The proposed multi-objective mixed integer linear programming framework enables systematic evaluation of hybrid transportation strategies.
+Results show that an appropriate combination of space elevator and rocket transportation can significantly reduce total cost while maintaining an acceptable construction timeline.
+The Pareto-based analysis further supports informed decision-making by explicitly quantifying the cost--time trade-off.
+
 
 % 求解方法
 
@@ -514,126 +633,7 @@ Thus, the total cost of using only traditional rocket launches to deliver all th
 
 \[C_r=c_{\text{launch}}\cdot\frac{M}{P_r}=7.3\times10^7\times\frac{10^8}{150}=\SI{4.867e13}{USD}\]
 
-\subsection{Scenario c: Hybrid Transportation Strategy (Multi-Objective Mixed Integer Linear Programming Model)}
-
-\subsubsection{Motivation for a Multi-Objective MILP Approach}
-
-The hybrid transportation planning problem involves both continuous decisions, such as annual transported mass, and discrete decisions, such as whether transportation is active in a given year.
-At the same time, minimizing the project completion time and minimizing the total transportation cost are inherently conflicting objectives.
-
-A multi-objective mixed integer linear programming framework allows these trade-offs to be modeled explicitly while maintaining clear physical interpretation of decision variables. Moreover, linear constraints and objective functions ensure computational tractability and guarantee globally optimal solutions under the assumed conditions.
-
-\subsubsection{Decision Variables}
-
-To describe the annual material transportation process, the following decision variables are defined for each year $t$ $(1 \le t \le 600)$:
-
-\begin{itemize}
-    \item $e_t \ge 0$: amount of material (metric tons) transported by the space elevator system in year $t$;
-    \item $r_t \ge 0$: amount of material (metric tons) transported by the rocket system in year $t$;
-    \item $I_t \in \{0,1\}$: binary indicator denoting whether any transportation activity occurs in year $t$.
-\end{itemize}
-
-
-\subsubsection{Constraints}
-
-\textbf{Annual Capacity Constraints}
-
-The transportation capacities of the two systems are limited by their annual maximum payloads:
-
-\begin{equation}
-    0 \le e_t \le R_e, \quad 0 \le r_t \le R_r
-\end{equation}
-
-where $R_e$ and $R_r$ denote the annual transportation capacities of the space elevator and rocket systems, respectively.
-
-
-\textbf{Logical Activation Constraints}
-
-Transportation in year $t$ can occur only when the corresponding binary indicator is active:
-
-\begin{equation}
-    I_t \ge \frac{e_t}{R_e}, \quad I_t \ge \frac{r_t}{R_r}
-\end{equation}
-
-These constraints ensure that if any positive amount of material is transported, the year is counted as an active transportation year.
-
-
-\textbf{Monotonicity Constraint}
-
-To ensure that transportation occurs continuously without interruption once initiated, the following monotonicity constraint is imposed:
-
-\begin{equation}
-    I_t \ge I_{t+1}, \quad \forall t
-\end{equation}
-
-This constraint guarantees that all transportation activities take place within a contiguous time period.
-
-\textbf{Total Material Requirement}
-
-The total amount of material transported over the entire planning horizon must satisfy the construction requirement:
-
-\begin{equation}
-    \sum_{t=1}^{600} \left( e_t + r_t \right) = M
-\end{equation}
-
-where $M$ represents the total mass required for the Moon Colony construction.
-
-
-\subsubsection{Objective Functions}
-
-The hybrid transportation problem involves two conflicting objectives.
-
-\textbf{Objective 1: Minimize Project Completion Time}
-
-The project completion time is defined as the total number of active transportation years:
-
-\begin{equation}
-    \min T = \sum_{t=1}^{600} I_t
-\end{equation}
-
-Minimizing $T$ corresponds to completing the construction as early as possible.
-
-
-\textbf{Objective 2: Minimize Total Transportation Cost}
-
-The total transportation cost consists of fixed and variable components:
-
-\begin{equation}
-    C_e = F_e + \sum_{t=1}^{600} c_e e_t
-\end{equation}
-
-\begin{equation}
-    C_r = \sum_{t=1}^{600} c_r r_t
-\end{equation}
-
-Thus, the second objective is formulated as:
-
-\begin{equation}
-    \min C = C_e + C_r
-\end{equation}
-
-where $F_e$ represents the fixed cost of constructing and operating the space elevator system, while $c_e$ and $c_r$ denote the per-ton transportation costs of the elevator and rocket systems, respectively.
-
-
-\subsubsection{Multi-Objective Optimization Framework}
-
-Minimizing total cost typically favors slower but cheaper transportation strategies, whereas minimizing completion time encourages faster but more expensive delivery methods.
-These conflicting goals motivate a multi-objective optimization framework.
-
-To solve the problem, the weighted-sum method is adopted:
-
-\begin{equation}
-    \min F = \alpha \frac{C}{C^{\max}} + (1-\alpha)\frac{T}{T^{\max}}, \quad \alpha \in [0,1]
-\end{equation}
-
-where $C^{\max}$ and $T^{\max}$ are normalization constants used to avoid scale dominance.
-By varying the weight parameter $\alpha$, different trade-offs between cost efficiency and construction speed can be explored.
-
-\subsubsection{Model Interpretation}
-
-The proposed multi-objective mixed integer linear programming model provides a structured framework for determining the optimal annual allocation of material transportation between space elevators and rockets.
-The binary variables explicitly capture the project timeline, while the continuous variables control transportation volumes, enabling transparent evaluation of cost--time trade-offs.
-
+\subsection{Scenario c: Hybrid Transportation Strategy}
 
 % ================= 第4章：敏感性分析 =================
 
