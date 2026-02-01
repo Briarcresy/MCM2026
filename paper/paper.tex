@@ -29,6 +29,7 @@
 % \usepackage{lastpage}
 \usepackage{silence}
 \usepackage{arydshln} % for \cdashline
+\usepackage{siunitx}
 
 
 \WarningFilter{everypage}{}%忽略everypage警告
@@ -265,6 +266,19 @@ To avoid complicated description...
 
 \subsection{Model Overview}
 
+To evaluate different transportation strategies for constructing the Moon Colony, a unified modeling framework is developed that integrates transportation time, total cost, and their trade-off.
+
+First, time models are established for the Space Elevator System and the Rocket Transportation System based on their respective transportation capacities. 
+A hybrid transportation model is then constructed by allowing both systems to operate in parallel, with the overall completion time determined by the slower subsystem.
+
+Second, a cost model is formulated to capture the different economic characteristics of the two systems. 
+The Space Elevator System is characterized by high fixed costs and low marginal costs, while the Rocket Transportation System involves high marginal costs per launch.
+The total cost of a hybrid strategy is expressed as a weighted combination of the two systems.
+
+Finally, a weighted time--cost objective function is introduced to evaluate trade-offs between construction speed and economic efficiency.
+This framework provides the basis for the scenario analysis and optimization presented in the following sections.
+
+
 \subsection{Time Model Development}
 
 To evaluate the total time required to construct the Moon Colony under different transportation strategies, a unified time model is developed to describe the entire process of delivering materials from the Earth's surface to the Moon Colony.
@@ -405,7 +419,7 @@ where $\lambda \in [0,1]$ represents the decision-maker's preference for minimiz
 
 \section{Scenario Analysis}
 
-Consideration of three different scenarios for how the 100 million metric tons of materials ($M=10^9\ \text{tons}$) will
+Consideration of three different scenarios for how the 100 million metric tons of materials ($M=10^8\ \text{tons}$) will
 be delivered to build the 100,000-person Moon Colony.
 
 \subsection{Scenario a: Space Elevator System Only}
@@ -416,17 +430,51 @@ Assume that we use the Space Elevator System's three Galactic Harbor's alone to 
 
 According to the problem statement, the Galactic Harbor will provide an advanced lift system moving 179,000 metric tons every year. So we have:
 
-\[R_e=179000\ \text{tons}\]
+\[R_e=\SI{179000}{tons/year}\]
 
 The time required to deliver all the materials using only the Space Elevator System is:
 
-\[\frac{M}{R_e} = \frac{10^8}{179000} \approx 558.659\ \text{years}\]
+\[T_e=\frac{M}{R_e} = \frac{10^8}{179000} \approx 558.659\ \text{years}\]
 
 \subsubsection{Cost Analysis}
 
+\textbf{Determination of the Cost Constant}
+
+\textbf{Fixed (Capital) Construction Cost of the Three Galactic Harbours}
+
+In Problem B, the final Space Elevator System consists of three \emph{Galactic Harbours} distributed around Earth’s equator, and each Galactic Harbour contains one Earth Port plus two $100{,}000$ km tethers connected to two apex anchors.\footnote{COMAP, \emph{2026 MCM Problem B: Creating a Moon Colony Using a Space Elevator System}, glossary/description of system configuration (three Galactic Harbours; each harbour includes one Earth port, two $100{,}000$ km tethers, and two apex anchors). See \texttt{2026\_MCM\_Problem\_B.pdf}. \ \ :contentReference[oaicite:0]{index=0}}
+Therefore, we treat each Galactic Harbour as one complete “space elevator complex” (Earth Port + tethers + apex anchors) and model the fixed cost as a one-time capital expenditure (CAPEX), independent of transported mass.
+
+A literature survey reports that published capital-cost estimates for building a Space Elevator span approximately \$15--\$100 billion, depending on assumptions such as construction timeline, material availability, and safety factors.\footnote{K. Barry and E. P. Alfaro, ``Acta Astronautica'' \textbf{200} (2022) 586--598, Section 4.3 (Capital cost and financing): ``estimations \dots ranging from \$15 billion to \$100 billion.'' See \texttt{1-s2.0-S0094576522004295-main.pdf}. \ \ :contentReference[oaicite:1]{index=1}}
+Because the problem statement does not provide enough engineering detail to defensibly choose a bespoke point estimate, we adopt the midpoint of this peer-reviewed range as a deterministic planning value (i.e., an expected-value proxy under a neutral prior over the interval):
+\[
+    C_{\mathrm{GH}} \;=\; \frac{15+100}{2}\times 10^{9}\ \mathrm{USD}
+    \;=\; 5.75\times 10^{10}\ \mathrm{USD}.
+\]
+With three Galactic Harbours, the total fixed construction cost is
+\[
+    F_e
+    \;=\; 3\,C_{\mathrm{GH}}
+    \;=\; 3\times 5.75\times 10^{10}
+    \;=\; 1.725\times 10^{11}\ \mathrm{USD}.
+\]
+
+\noindent\textbf{Final fixed-cost value used in the model:}
+\[
+    \boxed{F_e = 1.725\times 10^{11}\ \mathrm{USD}\ (\text{approximately } \$172.5\ \text{billion})}.
+\]
+
+\noindent\textbf{Interpretation.} $F_e$ is a one-time CAPEX covering construction of the three-harbour space-elevator infrastructure (Earth Ports, tethers, and apex anchors). It excludes operating costs, maintenance, and financing/interest costs, which should be modeled separately if needed.
+
 Since no fully operational space elevator system currently exists, cost and performance parameters are estimated based on existing engineering studies and published projections.
 
-According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.4 million USD per metric ton \cite{3,7}.
+According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.35 million USD per metric ton \cite{3,7}.i.e:
+
+\[v_e=\SI{3.5e5}{USD/t}\]
+
+So the total cost of using only the Space Elevator System to deliver all the materials needed for the Moon Colony construction is:
+
+\[C_e=F_e+v_eM=\SI{1.725e11}{USD}+\SI{3.5e5}{USD/t}\times\SI{1e8}{t}=\SI{3.51725e13}{USD}\]
 
 \subsection{Scenario b: Traditional Rocket Launches Only}
 
@@ -437,7 +485,18 @@ The time efficiency of rocket transportation is characterized by the launch inte
 \end{equation}
 where $\beta_t = 0.983\%$ represents the learning rate associated with launch frequency improvement.
 
-For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.
+For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.i.e.:
+
+\[f_r=\frac{365}{2.5}=146\ \mathrm{year^{-1}}\]
+
+The annual transportation capacity of the rocket system is:
+
+\[R_r=N_rP_rf_r=10\times\SI{150}{t}\times\SI{146}{year^{-1}}=\SI{2.19e5}{t/year}\]
+
+The time required to deliver all the materials using only traditional rocket launches is:
+
+\[T_r=\frac{M}{R_r} = \frac{10^8}{2.19\times 10^5} \approx 456.62\ \text{years}\]
+
 \subsubsection{Cost Analysis}
 
 To evaluate the feasibility of relying solely on traditional rockets for large-scale material transportation, we construct a mathematical model to predict both the unit transportation cost and the launch frequency of a single rocket launch site. The model is based on Wright’s learning curve theory, which assumes that unit cost decreases by a fixed proportion as cumulative experience increases \cite{1,2}.
@@ -459,15 +518,168 @@ The cumulative number of launches is estimated using a fitted function:
     N(t) = \left\lfloor 3.342857 t - 0.857143 \right\rfloor .
 \end{equation}
 
-Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.
+Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.i.e.:
 
+\[c_r=\SI{7.3e7}{USD}\]
+
+Thus, the total cost of using only traditional rocket launches to deliver all the materials needed for the Moon Colony construction is:
+
+\[C_r=c_r\cdot\frac{M}{P_r}=7.3\times10^7\times\frac{10^8}{150}=\SI{4.867e13}{USD}\]
 
 
 \subsection{Scenario c: Hybrid Transportation Strategy}
 
-\subsubsection{Time Analysis}
+In this scenario, the total transportation task is jointly completed by the Space Elevator System and the traditional rocket transportation system.
+To explicitly capture the trade-off between transportation time and cost efficiency, a multi-objective optimization framework is adopted.
 
-\subsubsection{Cost Analysis}
+\subsubsection{Decision Variables and Feasible Region}
+
+Instead of modeling detailed annual transportation schedules, the hybrid strategy is characterized by two aggregate decision variables:
+\begin{itemize}
+    \item $T$: total completion time (years) required to deliver $M=10^8$ tons;
+    \item $C$: \emph{unit transportation cost} (USD/ton), i.e., total cost divided by total transported mass.
+\end{itemize}
+
+\paragraph{Bounds from extreme single-mode cases.}
+With three Galactic Harbours operating in parallel, the \emph{total} annual elevator capacity is
+\begin{equation}
+    R_e^{(\mathrm{tot})}=3\times 179{,}000 = 537{,}000\ \text{t/yr}.
+\end{equation}
+The rocket system annual capacity remains
+\begin{equation}
+    R_r = N_r P_r f_r
+    = 10\times 150 \times \frac{365}{2.5}
+    = 219{,}000\ \text{t/yr}.
+\end{equation}
+
+Thus, the single-mode completion times are
+\begin{equation}
+    T_e^{(\mathrm{only})}=\frac{M}{R_e^{(\mathrm{tot})}}
+    =\frac{10^8}{537{,}000}\approx 186.219\ \text{years},
+    \qquad
+    T_r^{(\mathrm{only})}=\frac{M}{R_r}
+    =\frac{10^8}{219{,}000}\approx 456.621\ \text{years}.
+\end{equation}
+Therefore, we set the feasible time range as
+\begin{equation}
+    T_{\min} \le T \le T_{\max},\qquad
+    T_{\max}=T_r^{(\mathrm{only})}\approx 456.621\ \text{years}.
+\end{equation}
+
+For unit cost (USD/ton), the rocket unit cost for a 150-ton launch is
+\begin{equation}
+    v_r=\frac{c_r}{P_r}=\frac{73\times10^6}{150}\approx 4.8667\times10^5,
+\end{equation}
+and the space-elevator variable unit cost is taken as
+\begin{equation}
+    v_e = 6.0\times 10^5.
+\end{equation}
+Hence, the feasible cost range is
+\begin{equation}
+    C_{\min}=v_r,\qquad C_{\max}=v_e.
+\end{equation}
+
+\paragraph{Structural feasibility constraints.}
+In addition, the hybrid system must satisfy two structural constraints that reflect the physical and economic coupling between time and cost:
+\begin{equation}
+    \Phi_1(T,C) \ge 0,\qquad \Phi_2(T,C) \le 0,
+\end{equation}
+which ensure that any $(T,C)$ pair corresponds to a realizable combination of space elevator and rocket transportation capacities.
+
+\subsubsection{Analytical Benchmark: Capacity Balancing and Closed-form Estimates}
+
+To provide a transparent benchmark and to validate the simulation-based optimization, we derive a closed-form ``best-case'' hybrid estimate under ideal parallel operations.
+
+\paragraph{Parallel-completion time under a mass-splitting ratio.}
+Let $x\in[0,1]$ denote the fraction of total mass transported by the Space Elevator System. Then
+\[
+M_e=xM,\qquad M_r=(1-x)M.
+\]
+With annual capacities $R_e^{(\mathrm{tot})}$ and $R_r$, the subsystem completion times are
+\begin{equation}
+    T_e(x)=\frac{xM}{R_e^{(\mathrm{tot})}},\qquad
+    T_r(x)=\frac{(1-x)M}{R_r}.
+\end{equation}
+Since the two systems operate in parallel, the hybrid completion time is
+\begin{equation}
+    T_h(x)=\max\{T_e(x),\,T_r(x)\}.
+\end{equation}
+Minimizing $T_h(x)$ is achieved by \emph{capacity balancing}, i.e., enforcing $T_e(x)=T_r(x)$:
+\begin{equation}
+    \frac{xM}{R_e^{(\mathrm{tot})}}=\frac{(1-x)M}{R_r}
+    \Rightarrow
+    x^*=\frac{R_e^{(\mathrm{tot})}}{R_e^{(\mathrm{tot})}+R_r}.
+\end{equation}
+Substituting $R_e^{(\mathrm{tot})}=537{,}000$ and $R_r=219{,}000$ gives
+\begin{equation}
+    x^*=\frac{537{,}000}{537{,}000+219{,}000}=\frac{537}{756}\approx 0.7103.
+\end{equation}
+The analytically predicted minimal hybrid completion time is then
+\begin{equation}
+    T_{\min}^{(\mathrm{ana})}
+    =\frac{M}{R_e^{(\mathrm{tot})}+R_r}
+    =\frac{10^8}{756{,}000}
+    \approx 132.275\ \text{years}.
+\end{equation}
+
+\paragraph{Analytical unit-cost estimate.}
+We include: (i) the amortized fixed CAPEX of the elevator, and (ii) the variable per-ton costs of elevator and rockets.
+The amortized fixed cost per ton is
+\begin{equation}
+    \frac{F_e}{M}=\frac{1.725\times 10^{11}}{10^{8}}=1725\ \text{USD/ton}.
+\end{equation}
+Thus, for a given split ratio $x$,
+\begin{equation}
+    C(x)=\frac{F_e}{M}+x\,v_e+(1-x)\,v_r.
+\end{equation}
+Substituting $x=x^*$, $v_e=6.0\times10^5$, and $v_r\approx 4.8667\times10^5$ yields
+\begin{equation}
+\begin{aligned}
+    C^{(\mathrm{ana})}
+    &=1725+x^*\cdot 6.0\times10^5+(1-x^*)\cdot 4.8667\times10^5\\
+    &\approx 1725+0.7103\times 6.0\times10^5+0.2897\times 4.8667\times10^5\\
+    &\approx 5.699\times10^5\ \text{USD/ton}.
+\end{aligned}
+\end{equation}
+
+\subsubsection{Time and Cost Normalization}
+
+Since transportation time and cost have different units and magnitudes, both objectives are normalized:
+\begin{equation}
+    f_1 = \frac{T - T_{\min}}{T_{\max} - T_{\min}}, \qquad
+    f_2 = \frac{C - C_{\min}}{C_{\max} - C_{\min}}.
+\end{equation}
+
+\subsubsection{Pareto Frontier Construction}
+
+A Monte Carlo sampling approach is employed to explore the feasible decision space.
+Random samples of $(T,C)$ are generated within the predefined bounds and filtered using the feasibility constraints.
+Pareto-optimal points are identified by the dominance principle, forming the Pareto frontier that represents the optimal trade-offs.
+
+\subsubsection{Weighted Objective and Optimal Solution Selection}
+
+To select a single recommended solution from the Pareto frontier, a weighted objective is introduced:
+\begin{equation}
+    K(\alpha) = \alpha f_1 + (1 - \alpha) f_2,\qquad 0<\alpha<1.
+\end{equation}
+By scanning $\alpha$, the minimum value of $K(\alpha)$ is obtained and the corresponding $(T^*,C^*)$ is selected.
+
+In our simulation, the optimal result is obtained at
+\[
+\alpha^* = 0.999,\qquad
+T^* = 132.2879\ \text{years},\qquad
+C^* = 5.6982\times 10^5\ \text{USD/ton}.
+\]
+
+\paragraph{Comparison with analytical benchmark.}
+The analytical benchmark predicts
+\[
+T_{\min}^{(\mathrm{ana})}\approx 132.275\ \text{years},
+\qquad
+C^{(\mathrm{ana})}\approx 5.699\times10^5\ \text{USD/ton}.
+\]
+The simulation optimum matches the benchmark closely. In particular, $T^*$ is only about $0.013$ years above the theoretical lower bound, indicating that the optimizer selects a near-capacity-balanced solution under a strong preference for time minimization (large $\alpha$).
+
 
 % ================= 第4章：敏感性分析 =================
 
