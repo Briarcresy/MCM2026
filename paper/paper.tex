@@ -30,7 +30,7 @@
 \usepackage{silence}
 \usepackage{arydshln} % for \cdashline
 \usepackage{siunitx}
-
+\usepackage{siunitx}
 
 \WarningFilter{everypage}{}%忽略everypage警告
 
@@ -204,13 +204,15 @@ To avoid complicated description...
 
     $T_h$                        & Time to deliver required mass via hybrid transportation                                             & year                   \\
 
+    $C_h$                        & Cost to deliver required mass via hybrid transportation                                             & USD                    \\
+
     \cdashline{1-3}
     \multicolumn{3}{c}{\textit{\textbf{Space Elevator System Parameters}}}                                                                                      \\
     \cdashline{1-3}
 
     $T_{e}$                      & Time to deliver required mass via Space Elevator                                                    & year                   \\
 
-    $C_{e}$                      & Cost per metric ton via Space Elevator                                                              & USD/ton                \\
+    $C_{e}$                      & Total cost of space elevator system                                                                 & USD/ton                \\
     $P_{e}$                      & Payload of one Galactic Harbour                                                                     & ton/year               \\
     $R_{e}$                      & Annual transportation capacity of the Space Elevator System                                         & ton/year               \\
     $P_{e}^{\text{tot}}$         & Total annual capacity of three Galactic Harbours                                                    & ton/year               \\
@@ -222,7 +224,7 @@ To avoid complicated description...
     \cdashline{1-3}
 
     $T_{r}$                      & Time to deliver required mass via rockets                                                           & year                   \\
-    $C_{r}$                      & Cost per metric ton via rockets                                                                     & USD/ton                \\
+    $C_{r}$                      & Total cost of rocket transportation system                                                          & USD/ton                \\
     $P_{r}$                      & Payload per rocket launch                                                                           & ton                    \\
     $R_{r}$                      & Annual transportation capacity of the Rocket System                                                 & ton/year               \\
     $N_{r}$                      & Number of launches per year                                                                         & 1/year                 \\
@@ -370,7 +372,7 @@ Let
 The total cost of using the space elevator system is given by:
 
 \[
-    C_e = F_e \cdot T_e + v_e \cdot M
+    C_e = F_e + v_e \cdot M
 \]
 
 This formulation captures the \textbf{high upfront investment but low marginal transportation cost} characteristic of the space elevator system.
@@ -379,7 +381,7 @@ This formulation captures the \textbf{high upfront investment but low marginal t
 
 Let
 \begin{itemize}
-    \item $c_r$ denote the average cost per rocket launch;
+    \item $c_{\text{launch}}$ denote the average cost per rocket launch;
     \item $P_r$ denote the payload capacity per launch (metric tons).
 \end{itemize}
 
@@ -390,7 +392,7 @@ The total number of launches required is:
 
 Thus, the total transportation cost of the rocket system is:
 \begin{equation}
-    C_r = c_r \cdot N_{\text{launch}}
+    C_r = c_{\text{launch}} \cdot N_{\text{launch}}
 \end{equation}
 
 This model reflects the \textbf{low infrastructure cost but high marginal cost} nature of traditional rocket transportation.
@@ -399,21 +401,140 @@ This model reflects the \textbf{low infrastructure cost but high marginal cost} 
 
 For the hybrid strategy, the total cost is given by:
 \begin{equation}
-    C_{\text{hybrid}} = \alpha C_e + (1 - \alpha) C_r
+    C_h = \alpha C_e + (1 - \alpha) C_r
 \end{equation}
 
 where $\alpha \in [0,1]$ represents the proportion of total transportation demand assigned to the space elevator system.
 
 By varying $\alpha$, trade-offs between cost minimization and time efficiency can be systematically explored.
 
-\subsection{Time-Cost Trade-off Metric}
+\subsection{Multi-Objective Mixed Integer Linear Programming Model}
 
-To provide a unified evaluation criterion, a weighted objective function is introduced:
+\subsubsection{Motivation for a Multi-Objective MILP Approach}
+
+The hybrid transportation planning problem involves both continuous decisions, such as annual transported mass, and discrete decisions, such as whether transportation is active in a given year.
+At the same time, minimizing the project completion time and minimizing the total transportation cost are inherently conflicting objectives.
+
+A multi-objective mixed integer linear programming framework allows these trade-offs to be modeled explicitly while maintaining clear physical interpretation of decision variables. Moreover, linear constraints and objective functions ensure computational tractability and guarantee globally optimal solutions under the assumed conditions.
+
+\subsubsection{Decision Variables}
+
+To describe the annual material transportation process, the following decision variables are defined for each year $t$ $(1 \le t \le 600)$:
+
+\begin{itemize}
+    \item $e_t \ge 0$: amount of material (metric tons) transported by the space elevator system in year $t$;
+    \item $r_t \ge 0$: amount of material (metric tons) transported by the rocket system in year $t$;
+    \item $I_t \in \{0,1\}$: binary indicator denoting whether any transportation activity occurs in year $t$.
+\end{itemize}
+
+
+\subsubsection{Constraints}
+
+\textbf{Annual Capacity Constraints}
+
+The transportation capacities of the two systems are limited by their annual maximum payloads:
+
 \begin{equation}
-    J = \lambda T + (1 - \lambda) C
+    0 \le e_t \le R_e, \quad 0 \le r_t \le R_r
 \end{equation}
 
-where $\lambda \in [0,1]$ represents the decision-maker's preference for minimizing time versus cost.
+where $R_e$ and $R_r$ denote the annual transportation capacities of the space elevator and rocket systems, respectively.
+
+
+\textbf{Logical Activation Constraints}
+
+Transportation in year $t$ can occur only when the corresponding binary indicator is active:
+
+\begin{equation}
+    I_t \ge \frac{e_t}{R_e}, \quad I_t \ge \frac{r_t}{R_r}
+\end{equation}
+
+These constraints ensure that if any positive amount of material is transported, the year is counted as an active transportation year.
+
+
+\textbf{Monotonicity Constraint}
+
+To ensure that transportation occurs continuously without interruption once initiated, the following monotonicity constraint is imposed:
+
+\begin{equation}
+    I_t \ge I_{t+1}, \quad \forall t
+\end{equation}
+
+This constraint guarantees that all transportation activities take place within a contiguous time period.
+
+\textbf{Total Material Requirement}
+
+The total amount of material transported over the entire planning horizon must satisfy the construction requirement:
+
+\begin{equation}
+    \sum_{t=1}^{600} \left( e_t + r_t \right) = M
+\end{equation}
+
+where $M$ represents the total mass required for the Moon Colony construction.
+
+
+\subsubsection{Objective Functions}
+
+The hybrid transportation problem involves two conflicting objectives.
+
+\textbf{Objective 1: Minimize Project Completion Time}
+
+The project completion time is defined as the total number of active transportation years:
+
+\begin{equation}
+    \min T = \sum_{t=1}^{600} I_t
+\end{equation}
+
+Minimizing $T$ corresponds to completing the construction as early as possible.
+
+
+\textbf{Objective 2: Minimize Total Transportation Cost}
+
+The total transportation cost consists of fixed and variable components:
+
+\begin{equation}
+    C_e = F_e + \sum_{t=1}^{600} c_e e_t
+\end{equation}
+
+\begin{equation}
+    C_r = \sum_{t=1}^{600} c_r r_t
+\end{equation}
+
+Thus, the second objective is formulated as:
+
+\begin{equation}
+    \min C = C_e + C_r
+\end{equation}
+
+where $F_e$ represents the fixed cost of constructing and operating the space elevator system, while $c_e$ and $c_r$ denote the per-ton transportation costs of the elevator and rocket systems, respectively.
+
+\subsubsection{Multi-Objective Optimization Framework}
+
+To resolve the conflict between minimizing time and minimizing cost, the weighted-sum method is employed.
+Both objectives are first normalized to eliminate scale effects, and a composite objective function is constructed as:
+
+\begin{equation}
+\min F = \alpha \frac{T - T_{\min}}{T_{\max} - T_{\min}} 
++ (1-\alpha)\frac{C - C_{\min}}{C_{\max} - C_{\min}}, \quad \alpha \in [0,1]
+\end{equation}
+
+By varying the weight parameter $\alpha$, different trade-offs between construction speed and economic efficiency can be explored.
+
+\subsubsection{Pareto Frontier Analysis}
+
+To approximate the Pareto frontier of the multi-objective problem, a large number of feasible solutions are generated through random sampling within the admissible ranges of $T$ and $C$.
+Each candidate solution is filtered using the model constraints to identify the feasible region.
+A solution is considered Pareto optimal if no other feasible solution simultaneously improves both objectives.
+
+The resulting Pareto frontier illustrates the trade-off structure between project duration and transportation cost.
+For different values of the weight parameter $\alpha$, the corresponding optimal solutions are located on the Pareto frontier, providing decision-makers with flexible choices under varying priorities.
+
+\subsubsection{Model Insights}
+
+The proposed multi-objective mixed integer linear programming framework enables systematic evaluation of hybrid transportation strategies.
+Results show that an appropriate combination of space elevator and rocket transportation can significantly reduce total cost while maintaining an acceptable construction timeline.
+The Pareto-based analysis further supports informed decision-making by explicitly quantifying the cost--time trade-off.
+
 
 % 求解方法
 
@@ -430,11 +551,11 @@ Assume that we use the Space Elevator System's three Galactic Harbor's alone to 
 
 According to the problem statement, the Galactic Harbor will provide an advanced lift system moving 179,000 metric tons every year. So we have:
 
-\[R_e=\SI{179000}{tons/year}\]
+\[R_e=3\times179000=\SI{537000}{tons/year}\]
 
 The time required to deliver all the materials using only the Space Elevator System is:
 
-\[T_e=\frac{M}{R_e} = \frac{10^8}{179000} \approx 558.659\ \text{years}\]
+\[T_e=\frac{M}{R_e} = \frac{10^8}{537000} \approx 186.22\ \text{years}\]
 
 \subsubsection{Cost Analysis}
 
@@ -468,13 +589,13 @@ With three Galactic Harbours, the total fixed construction cost is
 
 Since no fully operational space elevator system currently exists, cost and performance parameters are estimated based on existing engineering studies and published projections.
 
-According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.35 million USD per metric ton \cite{3,7}.i.e:
+According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.60 million USD per metric ton \cite{3,7}.i.e:
 
-\[v_e=\SI{3.5e5}{USD/t}\]
+\[v_e=\SI{6e5}{USD/t}\]
 
 So the total cost of using only the Space Elevator System to deliver all the materials needed for the Moon Colony construction is:
 
-\[C_e=F_e+v_eM=\SI{1.725e11}{USD}+\SI{3.5e5}{USD/t}\times\SI{1e8}{t}=\SI{3.51725e13}{USD}\]
+\[C_e=F_e+v_eM=\SI{1.725e11}{USD}+\SI{6e5}{USD/t}\times\SI{1e8}{t}=\SI{6.01725e13}{USD}\]
 
 \subsection{Scenario b: Traditional Rocket Launches Only}
 
@@ -520,12 +641,11 @@ The cumulative number of launches is estimated using a fitted function:
 
 Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.i.e.:
 
-\[c_r=\SI{7.3e7}{USD}\]
+\[c_{\text{launch}}=\SI{7.3e7}{USD}\]
 
 Thus, the total cost of using only traditional rocket launches to deliver all the materials needed for the Moon Colony construction is:
 
-\[C_r=c_r\cdot\frac{M}{P_r}=7.3\times10^7\times\frac{10^8}{150}=\SI{4.867e13}{USD}\]
-
+\[C_r=c_{\text{launch}}\cdot\frac{M}{P_r}=7.3\times10^7\times\frac{10^8}{150}=\SI{4.867e13}{USD}\]
 
 \subsection{Scenario c: Hybrid Transportation Strategy}
 
@@ -724,7 +844,7 @@ The simulation optimum matches the benchmark closely. In particular, $T^*$ is on
 % ================= 参考文献（美赛要求规范格式）=================
 \newpage
 \begin{thebibliography}{99}
-    
+
     \bibitem{1}
     Lam, K. C., Lee, D., \& Hu, T. (2001).
     Understanding the effect of the learning--forgetting phenomenon on project duration.
