@@ -3,7 +3,7 @@
 %% ----------------------------------------------------------------
 
 % 【修改1】demo模式仅用于图片占位，提交前删除[demo]
-\documentclass{mcmthesis}
+\documentclass[demo]{mcmthesis}
 
 \mcmsetup{
   CTeX = false,           % 英文论文关闭CTeX
@@ -681,7 +681,7 @@ The smooth and monotonic shape of the frontier indicates a clear and stable trad
 To support decision-making under different priorities, the weighted-sum method is applied to the Pareto frontier.
 For a given weight parameter $\alpha$, the optimal solution minimizes the composite objective
 \[
-F = \alpha f_1 + (1-\alpha) f_2,
+    F = \alpha f_1 + (1-\alpha) f_2,
 \]
 where $f_1$ and $f_2$ are the normalized time- and cost-related objectives.
 
@@ -711,19 +711,38 @@ The Pareto frontier lies along the lower boundary of this region, confirming tha
 
 \subsubsection{Identification of the Recommended Solution}
 
-To determine a recommended hybrid strategy, the weight parameter $\alpha$ is varied continuously over a prescribed range.
-Figure~\ref{fig:k_alpha_curve} shows the variation of the minimum composite objective value $F$ as a function of $\alpha$.
-The curve exhibits a clear minimum, indicating an optimal balance between construction time and transportation cost.
+To determine a recommended hybrid strategy, the weight parameter $\alpha$ is varied over a prescribed range.
+For each $\alpha$, we minimize the normalized weighted objective
+\[
+    F(\alpha)=\alpha f_1+(1-\alpha)f_2,
+\]
+and record the best achievable value.
+
+Figure~\ref{fig:k_alpha_curve} shows the minimum weighted objective value as a function of $\alpha$.
+The curve exhibits a clear minimum, which indicates the recommended balance between construction time and transportation cost.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{k_vs_alpha.pdf}
-    \caption{Variation of the weighted objective value with respect to $\alpha$.}
+    \caption{Variation of the minimum weighted objective value with respect to $\alpha$.}
     \label{fig:k_alpha_curve}
 \end{figure}
 
-The corresponding optimal solution is highlighted on the Pareto frontier in Figure~\ref{fig:optimal_on_pareto}.
-This solution represents the best compromise under balanced priorities and is selected as the recommended hybrid strategy.
+The minimum is attained at
+\[
+    \alpha^\ast = 0.5,
+\]
+yielding the recommended solution
+\[
+    T^\ast = 132.44~\text{years},
+    \qquad
+    C^\ast = 5.69 \times 10^5,
+    \qquad
+    F^\ast = 0.3554.
+\]
+
+To confirm that this recommendation is Pareto-efficient, the solution is located on the Pareto frontier, as shown in Figure~\ref{fig:optimal_on_pareto}.
+This point represents the selected compromise under a strong preference for minimizing completion time, while still maintaining a comparatively low cost through effective utilization of the space elevator system.
 
 \begin{figure}[H]
     \centering
@@ -731,6 +750,44 @@ This solution represents the best compromise under balanced priorities and is se
     \caption{Location of the recommended solution on the Pareto frontier.}
     \label{fig:optimal_on_pareto}
 \end{figure}
+
+Therefore, the computed results indicate that the proportion of cargo transported by the space elevator system is
+\[
+    \lambda = 0.7103,
+\]
+while the proportion transported by the rocket system is
+\[
+    1-\lambda = 0.2897.
+\]
+Accordingly, the total mass transported by the space elevator system is
+\[
+    M_e = \lambda M = 7.103 \times 10^{7}\ \text{t},
+\]
+and the total mass transported by the rocket system is
+\[
+    M_r = (1-\lambda) M = 2.897 \times 10^{7}\ \text{t}.
+\]
+
+\begin{table}[H]
+    \centering
+    \caption{Numerical results for Scenario (c): Hybrid Transportation Strategy}
+    \label{tab:scenario_c_results}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Quantity}                             & \textbf{Value}                 \\
+        \midrule
+        Space elevator transport proportion $\lambda$ & 0.7103                         \\
+        Rocket transport proportion $1-\lambda$       & 0.2897                         \\
+        Mass transported by space elevator $M_e$      & $7.103 \times 10^{7}~\text{t}$ \\
+        Mass transported by rockets $M_r$             & $2.897 \times 10^{7}~\text{t}$ \\
+        \midrule
+        Weight parameter $\alpha^\ast$                & 0.5                            \\
+        Project completion time $T^\ast$              & $132.44~\text{years}$          \\
+        Total transportation cost $C^\ast$            & $5.69 \times 10^{5}$           \\
+        Normalized composite objective $F^\ast$       & 0.3554                         \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 \subsubsection{Sensitivity of Objectives to Weight Selection}
 
@@ -750,6 +807,8 @@ The smooth transition confirms that the hybrid strategy responds continuously to
 The results demonstrate that the hybrid transportation strategy provides substantial flexibility compared with single-mode scenarios.
 By appropriately balancing the use of space elevators and rockets, the hybrid approach achieves solutions that are both faster than elevator-only delivery and more cost-effective than rocket-only delivery.
 This confirms the advantage of coordinated multi-modal transportation for large-scale lunar construction.
+
+\subsection{Comparision between Three Scenarios}
 
 
 
