@@ -1,25 +1,16 @@
-%% 多目标优化：蒙特卡洛模拟求解与帕累托前沿分析（更新版本）
+%% 多目标优化：蒙特卡洛模拟求解与帕累托前沿分析
 clear; clc; close all;
 
 %% 参数定义（使用分数和科学计数法）
-% 注意：这里我修正了原代码中的约束条件，按照您给出的约束条件重新定义
-
-% T的范围约束（约束条件3）
-T_min = 25000/189;      % T的下界
-T_max = 100000/219;     % T的上界
-
-% C的范围约束（约束条件4）
-C_min = 73000000/150;   % C的下界
-C_max = 600000;         % C的上界
+% 根据约束条件(3)和(4)
+T_min = 25000/189;     % T的下界
+T_max = 100000/219;    % T的上界
+C_min = 73000000/150 + 1725;  % C的下界
+C_max = 600000 + 1725;        % C的上界
 
 % 归一化分母
 norm_T = T_max - T_min;
 norm_C = C_max - C_min;
-
-fprintf('参数范围:\n');
-fprintf('T ∈ [%.6f, %.6f]\n', T_min, T_max);
-fprintf('C ∈ [%.6f, %.6f]\n', C_min, C_max);
-fprintf('归一化分母: norm_T=%.6f, norm_C=%.6f\n\n', norm_T, norm_C);
 
 %% 蒙特卡洛模拟 - 生成帕累托前沿数据
 fprintf('正在生成帕累托前沿数据...\n');
@@ -33,22 +24,19 @@ C_rand = C_min + rand(n_samples, 1) * (C_max - C_min);
 valid_mask = true(n_samples, 1);
 
 % 约束条件1: C >= 600000 - (1241/5)T + 1725
-% 即：C >= 601725 - (1241/5)T
-rhs1 = 600000 - (1241/5)*T_rand + 1725;
-valid_mask = valid_mask & (C_rand >= rhs1 - 1e-10);  % 添加容差
+constraint1 = C_rand >= 600000 - (1241/5)*T_rand + 1725;
 
-% 约束条件2: T <= 1460000/3 + (9129/15)T + 1725
-% 注意：这个约束似乎有问题，因为T同时出现在两边
-% 原式：T <= 1460000/3 + (9129/15)T + 1725
-% 移项：T - (9129/15)T <= 1460000/3 + 1725
-% 即：(1 - 9129/15)T <= 1460000/3 + 1725
-% 由于9129/15 ≈ 608.6 > 1，所以左边是负数
-% 我怀疑这里可能有笔误，但暂时按原式处理
-rhs2 = 1460000/3 + (9129/15)*T_rand + 1725;
-valid_mask = valid_mask & (T_rand <= rhs2 + 1e-10);
+% 约束条件2: C <= 1460000/3 + (9129/15)T + 1725
+constraint2 = C_rand <= 1460000/3 + (9129/15)*T_rand + 1725;
 
-% 约束条件3: T的范围已经在生成随机数时考虑了
-% 约束条件4: C的范围已经在生成随机数时考虑了
+% 约束条件3: T范围已经在生成样本时考虑了
+constraint3 = T_rand >= T_min & T_rand <= T_max;
+
+% 约束条件4: C范围已经在生成样本时考虑了
+constraint4 = C_rand >= C_min & C_rand <= C_max;
+
+% 所有约束条件
+valid_mask = constraint1 & constraint2 & constraint3 & constraint4;
 
 % 提取可行解
 feasible_indices = find(valid_mask);
@@ -66,13 +54,12 @@ fprintf('正在识别帕累托前沿...\n');
 n_feasible = length(T_feasible);
 is_pareto = true(n_feasible, 1);  % 初始化所有点都为帕累托最优
 
-% 使用向量化方法提高效率
+% 使用朴素方法识别帕累托前沿（对于中等规模数据）
 for i = 1:n_feasible
     if is_pareto(i)
         % 检查是否有其他点支配当前点
         dominated = (f1_feasible < f1_feasible(i) & f2_feasible <= f2_feasible(i)) | ...
                     (f1_feasible <= f1_feasible(i) & f2_feasible < f2_feasible(i));
-        dominated(i) = false;  % 排除自己
         if any(dominated)
             is_pareto(i) = false;
         end
@@ -151,22 +138,17 @@ ylim([0, 1]);
 % 子图3: 帕累托前沿在原始决策空间中的表示
 subplot(1, 3, 3);
 % 生成网格
-T_grid = linspace(T_min, T_max, 100);
-C_grid = linspace(C_min, C_max, 100);
+T_grid = linspace(T_min, T_max, 200);
+C_grid = linspace(C_min, C_max, 200);
 [T_mesh, C_mesh] = meshgrid(T_grid, C_grid);
 
-% 计算约束条件
-% 约束条件1: C >= 600000 - (1241/5)T + 1725
-constraint1 = C_mesh >= 600000 - (1241/5)*T_mesh + 1725;
+% 计算约束区域
+constraint1_mesh = C_mesh >= 600000 - (1241/5)*T_mesh + 1725;
+constraint2_mesh = C_mesh <= 1460000/3 + (9129/15)*T_mesh + 1725;
+constraint3_mesh = T_mesh >= T_min & T_mesh <= T_max;
+constraint4_mesh = C_mesh >= C_min & C_mesh <= C_max;
 
-% 约束条件2: T <= 1460000/3 + (9129/15)T + 1725
-constraint2 = T_mesh <= 1460000/3 + (9129/15)*T_mesh + 1725;
-
-% 约束条件3和4: T和C的范围
-constraint3 = (T_mesh >= T_min) & (T_mesh <= T_max);
-constraint4 = (C_mesh >= C_min) & (C_mesh <= C_max);
-
-feasible_region = constraint1 & constraint2 & constraint3 & constraint4;
+feasible_region = constraint1_mesh & constraint2_mesh & constraint3_mesh & constraint4_mesh;
 
 % 绘制可行域
 contourf(T_mesh, C_mesh, double(feasible_region), [0.5, 1.5], ...
@@ -178,27 +160,30 @@ hold on;
 C_bound1 = 600000 - (1241/5)*T_grid + 1725;
 plot(T_grid, C_bound1, 'r-', 'LineWidth', 1.5);
 
-% 约束2边界: T = 1460000/3 + (9129/15)T + 1725
-% 这是一个关于T的方程，重新整理：
-% T - (9129/15)T = 1460000/3 + 1725
-% (1 - 9129/15)T = 1460000/3 + 1725
-% 由于9129/15 > 1，左边为负，右边为正，所以方程无解
-% 我们只绘制原始公式
-T_bound2_line = T_grid;  % 绘制y=x线作为参考
-plot(T_grid, 1460000/3 + (9129/15)*T_grid + 1725, 'b-', 'LineWidth', 1.5);
+% 约束2边界: C = 1460000/3 + (9129/15)T + 1725
+C_bound2 = 1460000/3 + (9129/15)*T_grid + 1725;
+plot(T_grid, C_bound2, 'b-', 'LineWidth', 1.5);
 
 % 绘制帕累托前沿在决策空间中的点
 scatter(pareto_T, pareto_C, 40, 'm', 'filled', 'MarkerFaceAlpha', 0.7);
 
+% 绘制边界
+plot([T_min, T_min], [C_min, C_max], 'k--', 'LineWidth', 1);
+plot([T_max, T_max], [C_min, C_max], 'k--', 'LineWidth', 1);
+plot([T_min, T_max], [C_min, C_min], 'k--', 'LineWidth', 1);
+plot([T_min, T_max], [C_max, C_max], 'k--', 'LineWidth', 1);
+
 xlabel('T', 'FontSize', 11);
 ylabel('C', 'FontSize', 11);
 title('决策空间中的帕累托前沿', 'FontSize', 14);
-legend('可行域', '约束1边界: C=601725-(1241/5)T', '约束2边界', '帕累托解', 'Location', 'best');
+legend('可行域', '约束1边界: C=600000-(1241/5)T+1725', ...
+       '约束2边界: C=1460000/3+(9129/15)T+1725', ...
+       '帕累托解', '边界', 'Location', 'best');
 grid on;
 xlim([T_min, T_max]);
 ylim([C_min, C_max]);
 
-%% 寻找最优α
+%% 继续原有代码：寻找最优α
 fprintf('\n=========== 寻找最优权重α ===========\n');
 alpha_values = linspace(0.4, 0.999, 50);  % α从0.4到0.999
 
@@ -244,20 +229,18 @@ fprintf('最优 T = %.6f\n', best_T);
 fprintf('最优 C = %.6f\n', best_C);
 
 % 验证约束条件
-fprintf('\n约束条件验证:\n');
+fprintf('约束条件验证:\n');
 % 约束1: C >= 600000 - (1241/5)T + 1725
-rhs1 = 600000 - (1241/5)*best_T + 1725;
-fprintf('  约束1: %.6f >= %.6f (满足: %s)\n', best_C, rhs1, ...
-    string(best_C >= rhs1 - 1e-10));
+constraint1_val = best_C >= 600000 - (1241/5)*best_T + 1725;
+fprintf('  约束1: C >= 600000 - (1241/5)T + 1725: %s\n', string(constraint1_val));
 
-% 约束2: T <= 1460000/3 + (9129/15)T + 1725
-rhs2 = 1460000/3 + (9129/15)*best_T + 1725;
-fprintf('  约束2: %.6f <= %.6f (满足: %s)\n', best_T, rhs2, ...
-    string(best_T <= rhs2 + 1e-10));
+% 约束2: C <= 1460000/3 + (9129/15)T + 1725
+constraint2_val = best_C <= 1460000/3 + (9129/15)*best_T + 1725;
+fprintf('  约束2: C <= 1460000/3 + (9129/15)T + 1725: %s\n', string(constraint2_val));
 
-fprintf('  约束3: %.6f ∈ [%.6f, %.6f] (满足: %s)\n', ...
+fprintf('  T范围: %.6f ∈ [%.6f, %.6f] (满足: %s)\n', ...
     best_T, T_min, T_max, string(best_T >= T_min-1e-10 & best_T <= T_max+1e-10));
-fprintf('  约束4: %.6f ∈ [%.6f, %.6f] (满足: %s)\n', ...
+fprintf('  C范围: %.2f ∈ [%.2f, %.2f] (满足: %s)\n', ...
     best_C, C_min, C_max, string(best_C >= C_min-1e-10 & best_C <= C_max+1e-10));
 
 %% 新增：帕累托前沿上的最优解可视化
@@ -319,51 +302,63 @@ title('帕累托最优解随\alpha的变化', 'FontSize', 14);
 grid on;
 legend('f_1 (T相关)', 'f_2 (C相关)', 'Location', 'best');
 
-%% 使用fmincon进行精确优化（在最优α附近）
+%% 详细分析最优α附近
 fprintf('\n=========== 最优α附近详细分析 ===========\n');
 alpha_fine = linspace(max(0.4, best_alpha-0.05), min(0.999, best_alpha+0.05), 100);
 fine_results = [];
 
-% 定义目标函数
-obj_fun = @(x, alpha) alpha * (x(1) - T_min)/norm_T + (1-alpha) * (x(2) - C_min)/norm_C;
-
-% 定义约束条件
-% 注意：由于约束条件2可能有问题，我们只使用其他三个约束
-A = [];
-b = [];
-Aeq = [];
-beq = [];
-lb = [T_min, C_min];
-ub = [T_max, C_max];
-
-% 非线性约束
-nonlcon = @(x) deal([
-    % 约束1: C >= 600000 - (1241/5)T + 1725
-    -(x(2) - (600000 - (1241/5)*x(1) + 1725));
-    % 约束2: T <= 1460000/3 + (9129/15)T + 1725
-    x(1) - (1460000/3 + (9129/15)*x(1) + 1725)
-], []);
-
-options = optimoptions('fmincon', 'Display', 'off');
-
 for i = 1:length(alpha_fine)
     alpha = alpha_fine(i);
+    
+    % 使用fmincon在给定α下优化
+    options = optimoptions('fmincon', 'Display', 'off', 'Algorithm', 'interior-point');
+    
+    % 定义目标函数
+    obj_fun = @(x) alpha * (x(1) - T_min)/norm_T ...
+                   + (1-alpha) * (x(2) - C_min)/norm_C;
     
     % 初始点
     x0 = [best_T, best_C];
     
-    % 优化
-    [x_opt, K_opt] = fmincon(@(x) obj_fun(x, alpha), x0, A, b, Aeq, beq, lb, ub, nonlcon, options);
+    % 边界约束
+    lb = [T_min, C_min];
+    ub = [T_max, C_max];
     
-    fine_results = [fine_results; alpha, K_opt, x_opt(1), x_opt(2)];
+    % 非线性约束
+    nonlcon = @(x) deal([
+        % 约束1: C >= 600000 - (1241/5)T + 1725
+        600000 - (1241/5)*x(1) + 1725 - x(2);  % 需要 <= 0
+        % 约束2: C <= 1460000/3 + (9129/15)T + 1725
+        x(2) - (1460000/3 + (9129/15)*x(1) + 1725)  % 需要 <= 0
+    ], []);
+    
+    try
+        % 优化
+        [x_opt, K_opt] = fmincon(obj_fun, x0, [], [], [], [], lb, ub, nonlcon, options);
+        
+        % 检查是否满足约束
+        if x_opt(1) >= T_min && x_opt(1) <= T_max && ...
+           x_opt(2) >= C_min && x_opt(2) <= C_max && ...
+           x_opt(2) >= 600000 - (1241/5)*x_opt(1) + 1725 && ...
+           x_opt(2) <= 1460000/3 + (9129/15)*x_opt(1) + 1725
+           
+            fine_results = [fine_results; alpha, K_opt, x_opt(1), x_opt(2)];
+        end
+    catch
+        continue;
+    end
 end
 
-% 找到更精确的最优α
-[~, idx] = min(fine_results(:,2));
-fprintf('精确最优 α = %.6f\n', fine_results(idx,1));
-fprintf('精确最优 K = %.6f\n', fine_results(idx,2));
-fprintf('精确最优 T = %.6f\n', fine_results(idx,3));
-fprintf('精确最优 C = %.6f\n', fine_results(idx,4));
+if ~isempty(fine_results)
+    % 找到更精确的最优α
+    [min_K_fine, idx] = min(fine_results(:,2));
+    fprintf('精确最优 α = %.6f\n', fine_results(idx,1));
+    fprintf('精确最优 K = %.6f\n', min_K_fine);
+    fprintf('精确最优 T = %.6f\n', fine_results(idx,3));
+    fprintf('精确最优 C = %.6f\n', fine_results(idx,4));
+else
+    fprintf('精细搜索未找到可行解，使用蒙特卡洛结果\n');
+end
 
 %% 输出最终推荐
 fprintf('\n=========== 最终推荐方案 ===========\n');
@@ -377,6 +372,33 @@ fprintf('  可行解数量: %d\n', length(feasible_indices));
 fprintf('  帕累托最优解数量: %d\n', sum(is_pareto));
 fprintf('  最优解在帕累托前沿上: 是\n');
 
-%% 保存结果
-save('optimization_results.mat', 'best_alpha', 'best_T', 'best_C', 'best_K', 'results', 'fine_results');
-fprintf('\n结果已保存到 optimization_results.mat\n');
+%% 计算原始目标函数值（非归一化）
+fprintf('\n=========== 原始目标函数值 ===========\n');
+% 原始目标函数：K = α(T-(25000/189))/(100000/219-25000/189)+(1-α)(C-73000000/150)/(600000-(73000000/150))
+original_K = best_alpha * (best_T - T_min)/norm_T + ...
+             (1-best_alpha) * (best_C - C_min)/norm_C;
+fprintf('原始目标函数值 K = %.6f\n', original_K);
+
+%% 约束条件的详细验证
+fprintf('\n=========== 约束条件详细验证 ===========\n');
+% 约束1的值
+constraint1_value = 600000 - (1241/5)*best_T + 1725;
+fprintf('约束1: C >= 600000 - (1241/5)T + 1725\n');
+fprintf('  右边值: %.6f\n', constraint1_value);
+fprintf('  C值: %.6f\n', best_C);
+fprintf('  满足情况: %s (差值: %.6e)\n', ...
+    string(best_C >= constraint1_value - 1e-10), best_C - constraint1_value);
+
+% 约束2的值
+constraint2_value = 1460000/3 + (9129/15)*best_T + 1725;
+fprintf('\n约束2: C <= 1460000/3 + (9129/15)T + 1725\n');
+fprintf('  右边值: %.6f\n', constraint2_value);
+fprintf('  C值: %.6f\n', best_C);
+fprintf('  满足情况: %s (差值: %.6e)\n', ...
+    string(best_C <= constraint2_value + 1e-10), constraint2_value - best_C);
+
+fprintf('\n边界约束:\n');
+fprintf('  T范围: %.6f ≤ %.6f ≤ %.6f: %s\n', ...
+    T_min, best_T, T_max, string(best_T >= T_min-1e-10 && best_T <= T_max+1e-10));
+fprintf('  C范围: %.2f ≤ %.2f ≤ %.2f: %s\n', ...
+    C_min, best_C, C_max, string(best_C >= C_min-1e-10 && best_C <= C_max+1e-10));
