@@ -736,7 +736,7 @@ yielding the recommended solution
 \[
     T^\ast = 132.44~\text{years},
     \qquad
-    C^\ast = 5.69 \times 10^5,
+    C^\ast = 5.69 \times 10^{13}\ \text{USD},
     \qquad
     F^\ast = 0.3554.
 \]
@@ -774,17 +774,17 @@ and the total mass transported by the rocket system is
     \label{tab:scenario_c_results}
     \begin{tabular}{lc}
         \toprule
-        \textbf{Quantity}                             & \textbf{Value}                 \\
+        \textbf{Quantity}                             & \textbf{Value}                    \\
         \midrule
-        Space elevator transport proportion $\lambda$ & 0.7103                         \\
-        Rocket transport proportion $1-\lambda$       & 0.2897                         \\
-        Mass transported by space elevator $M_e$      & $7.103 \times 10^{7}~\text{t}$ \\
-        Mass transported by rockets $M_r$             & $2.897 \times 10^{7}~\text{t}$ \\
+        Space elevator transport proportion $\lambda$ & 0.7103                            \\
+        Rocket transport proportion $1-\lambda$       & 0.2897                            \\
+        Mass transported by space elevator $M_e$      & $7.103 \times 10^{7}~\text{t}$    \\
+        Mass transported by rockets $M_r$             & $2.897 \times 10^{7}~\text{t}$    \\
         \midrule
-        Weight parameter $\alpha^\ast$                & 0.5                            \\
-        Project completion time $T^\ast$              & $132.44~\text{years}$          \\
-        Total transportation cost $C^\ast$            & $5.69 \times 10^{5}$           \\
-        Normalized composite objective $F^\ast$       & 0.3554                         \\
+        Weight parameter $\alpha^\ast$                & 0.5                               \\
+        Project completion time $T^\ast$              & $132.44~\text{years}$             \\
+        Total transportation cost $C^\ast$            & $5.69 \times 10^{13}\ \text{USD}$ \\
+        Normalized composite objective $F^\ast$       & 0.3554                            \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -810,7 +810,37 @@ This confirms the advantage of coordinated multi-modal transportation for large-
 
 \subsection{Comparision between Three Scenarios}
 
+To clearly evaluate the feasibility of the three delivery strategies, we compare their project completion time and total transportation cost under identical demand $M=10^8~\text{t}$.
+Scenario (a) and (b) results are obtained directly from the single-mode time--cost models, while Scenario (c) uses the hybrid allocation identified in Section~4.3 (i.e., $\lambda=0.7103$ for the space elevator and $1-\lambda=0.2897$ for rockets).
 
+\begin{table}[H]
+    \centering
+    \caption{Comparison of time and cost among three scenarios}
+    \label{tab:scenario_comparison}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Scenario}       & \textbf{Completion Time (years)} & \textbf{Total Cost (USD)}         \\
+        \midrule
+        (a) Space elevator only & $T_e \approx 186.22$             & $C_e = 6.01725\times 10^{13}$     \\
+        (b) Rockets only        & $T_r \approx 456.62$             & $C_r = 4.867\times 10^{13}$       \\
+        (c) Hybrid strategy     & $T_h \approx 132.44$             & $C_h \approx 5.689\times 10^{13}$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{\textbf{Key observations.}}
+
+The rocket-only plan achieves the lowest total cost but requires the longest delivery time, making it unsuitable when schedule is critical.
+The space-elevator-only plan significantly shortens the timeline relative to rockets but remains costlier due to the large fixed investment.
+The hybrid plan delivers the best time performance by operating both systems in parallel and balancing their complementary strengths.
+
+Specifically, Scenario (c) reduces the completion time by approximately $28.9\%$ compared with Scenario (a), and by approximately $71.0\%$ compared with Scenario (b).
+In terms of cost, Scenario (c) is about $5.46\%$ cheaper than Scenario (a), but about $16.9\%$ more expensive than Scenario (b).
+This indicates that the hybrid strategy provides a substantial speed advantage at a moderate cost premium relative to rockets-only delivery.
+
+\paragraph{\textbf{Recommendation.}}
+If the Moon Colony construction prioritizes early completion and operational readiness, Scenario (c) is recommended as the most balanced and practically robust option.
+If the primary objective is to minimize monetary expenditure and the schedule is highly flexible, Scenario (b) becomes preferable.
 
 % ================= 第4章：敏感性分析 =================
 
