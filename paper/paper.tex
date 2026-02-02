@@ -42,7 +42,8 @@
 % 【修改5】页码样式：添加“当前页/总页数”，符合美赛习惯
 \pagestyle{fancy}
 
-% \fancyhead[C]{Page \thepage\ of \pageref{LastPageMain}}
+\fancyhead[R]{Page \thepage\ of \pageref{LastPageMain}}
+
 
 % \cfoot{\thepage/\pageref{LastPage}} % 页脚居中显示“页码/总页数”
 
@@ -103,7 +104,7 @@ How to balance cost, efficiency, and feasibility among different transportation 
         \includegraphics[width=\textwidth]{../figure/Harbour(final).png}
         \caption{Space Elevator System}
         \label{fig:sub1}
-    \end{subfigure}
+    \end{subfigure}.
     \hfill
     \begin{subfigure}[b]{0.45\textwidth}
         \centering
@@ -161,107 +162,120 @@ To avoid complicated description...
 \renewcommand{\arraystretch}{1.25}
 \setlength{\tabcolsep}{10pt}
 
-\begin{longtable}{>{\centering\arraybackslash}p{0.10\linewidth}
-    >{\centering\arraybackslash}p{0.60\linewidth}
-    >{\centering\arraybackslash}p{0.16\linewidth}}
-
-    \caption{Symbol Definitions and Notation}\label{tab:notations}                                                                                              \\
+\begin{longtable}{>{\centering\arraybackslash}p{0.12\linewidth}
+    >{\centering\arraybackslash}p{0.58\linewidth}
+    >{\centering\arraybackslash}p{0.18\linewidth}}
+    \caption{Symbol Definitions and Notation}\label{tab:notations}                                                                                                              \\
 
     \toprule
-    \textit{Symbols}             & \textit{Description}                                                                                & \textit{Unit}          \\
+    \textit{Symbols}              & \textit{Description}                                                                                             & \textit{Unit}            \\
     \midrule
     \endfirsthead
 
     \toprule
-    \textit{Symbols}             & \textit{Description}                                                                                & \textit{Unit}          \\
+    \textit{Symbols}              & \textit{Description}                                                                                             & \textit{Unit}            \\
     \midrule
     \endhead
 
     \midrule
-    \multicolumn{3}{r}{\textit{Continued on next page}}                                                                                                         \\
+    \multicolumn{3}{r}{\textit{Continued on next page}}                                                                                                                         \\
     \endfoot
     \bottomrule
     \endlastfoot
 
-    % ======= your rows start =======
-
-    \multicolumn{3}{c}{\textit{\textbf{Sets and Indices}}}                                                                                                      \\
+    % =========================
+    \multicolumn{3}{c}{\textit{\textbf{Sets and Indices}}}                                                                                                                      \\
     \cdashline{1-3}
+    $i$                           & Transportation mode index ($i\in\{\mathrm{e},\mathrm{r}\}$, e=elevator, r=rocket)                                & --                       \\
+    $j$                           & Galactic Harbour index ($j=1,2,3$)                                                                               & --                       \\
+    $k$                           & Rocket launch site index ($k=1,2,\dots,10$)                                                                      & --                       \\
 
-    $i$                          & Transportation method index ($i \in \{\text{e}, \text{r}\}$, where e = Space Elevator, r = Rockets) & --                     \\
-    $j$                          & Galactic Harbour index ($j = 1,2,3$)                                                                & --                     \\
-    $k$                          & Rocket launch site index ($k = 1,2,3,\dots,10$)                                                     & --                     \\
-
+    % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Global Parameters}}}                                                                                                     \\
+    \multicolumn{3}{c}{\textit{\textbf{Global Parameters}}}                                                                                                                     \\
     \cdashline{1-3}
+    $t$                           & Time index measured from 2019 ($t=\text{year}-2019$)                                                             & year                     \\
+    $M$                           & Total mass of construction materials required                                                                    & metric ton (t)           \\
+    $M_{\text{colony}}$           & Designed population capacity of the Moon Colony                                                                  & person                   \\
+    $T_0$                         & Start year of transportation (e.g., 2025)                                                                        & year                     \\
 
-    $t$                          & Time index measured from 2019 (t = year $-$ 2019)                                                   & year                   \\
-    $M$                          & Total materials required for colony construction                                                    & metric ton             \\
-    $M_{\text{colony}}$          & Designed population capacity of the Moon Colony                                                     & person                 \\
-    $T_0$                        & Start year of transportation (2025)                                                                 & year                   \\
-    $\alpha$                     & Fraction transported by Space Elevator $(0\le \alpha\le 1)$                                         & --                     \\
+    % --- Key fix: separate lambda vs alpha ---
+    $\lambda$                     & Payload fraction transported by the space elevator in the hybrid strategy ($0\le\lambda\le1$)                    & --                       \\
+    $\alpha$                      & Weight parameter in weighted-sum multi-objective optimization ($0\le\alpha\le1$)                                 & --                       \\
 
-    $T_h$                        & Time to deliver required mass via hybrid transportation                                             & year                   \\
-
-    $C_h$                        & Cost to deliver required mass via hybrid transportation                                             & USD                    \\
-
+    % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Space Elevator System Parameters}}}                                                                                      \\
+    \multicolumn{3}{c}{\textit{\textbf{Time Variables}}}                                                                                                                        \\
     \cdashline{1-3}
+    $T_{\mathrm{e}}$              & Time to deliver $M$ using space elevator only                                                                    & year                     \\
+    $T_{\mathrm{r}}$              & Time to deliver $M$ using rockets only                                                                           & year                     \\
+    $T_{\mathrm{h}}$              & Completion time under hybrid strategy, $T_{\mathrm{h}}=\max(T_{\mathrm{e}},T_{\mathrm{r}})$                      & year                     \\
 
-    $T_{e}$                      & Time to deliver required mass via Space Elevator                                                    & year                   \\
-
-    $C_{e}$                      & Total cost of space elevator system                                                                 & USD/ton                \\
-    $P_{e}$                      & Payload of one Galactic Harbour                                                                     & ton/year               \\
-    $R_{e}$                      & Annual transportation capacity of the Space Elevator System                                         & ton/year               \\
-    $P_{e}^{\text{tot}}$         & Total annual capacity of three Galactic Harbours                                                    & ton/year               \\
-    $\eta_{\text{e}}$            & Operational efficiency of Space Elevator System                                                     & --                     \\
-    $M_{e}$                      & Mass delivered by Space Elevator ($xM$)                                                             & ton                    \\
-
+    % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Rocket Transportation Parameters}}}                                                                                      \\
+    \multicolumn{3}{c}{\textit{\textbf{Space Elevator System}}}                                                                                                                 \\
     \cdashline{1-3}
+    $R_{\mathrm{e}}$              & Annual transportation capacity of the elevator system (all harbours)                                             & t/year                   \\
+    $P_{\mathrm{e}}$              & Payload capacity per Galactic Harbour per year understanding                                                     & t/year                   \\
+    $P_{\mathrm{e}}^{\text{tot}}$ & Total annual capacity of three Galactic Harbours                                                                 & t/year                   \\
+    $\eta_{\mathrm{e}}$           & Operational efficiency / availability of the elevator system                                                     & --                       \\
+    $F_{\mathrm{e}}$              & Fixed (capital) cost of the elevator infrastructure (three harbours)                                             & USD                      \\
+    $v_{\mathrm{e}}$              & Variable transportation cost per ton by the elevator                                                             & USD/t                    \\
 
-    $T_{r}$                      & Time to deliver required mass via rockets                                                           & year                   \\
-    $C_{r}$                      & Total cost of rocket transportation system                                                          & USD/ton                \\
-    $P_{r}$                      & Payload per rocket launch                                                                           & ton                    \\
-    $R_{r}$                      & Annual transportation capacity of the Rocket System                                                 & ton/year               \\
-    $N_{r}$                      & Number of launches per year                                                                         & 1/year                 \\
-    $\eta_{r}$                   & Rocket launch success rate                                                                          & --                     \\
-    $M_{r}$                      & Mass delivered by rockets ($(1-x)M$)                                                                & ton                    \\
-
+    % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Water and Sustenance Notations}}}                                                                                        \\
+    \multicolumn{3}{c}{\textit{\textbf{Rocket Transportation}}}                                                                                                                 \\
     \cdashline{1-3}
+    $N_{\mathrm{r}}$              & Number of active rocket launch sites                                                                             & --                       \\
+    $P_{\mathrm{r}}$              & Payload capacity per rocket launch                                                                               & t/launch                 \\
+    $f_{\mathrm{r}}$              & Launch frequency per site                                                                                        & launch/(site$\cdot$year) \\
+    $R_{\mathrm{r}}$              & Annual transportation capacity of the rocket system, $R_{\mathrm{r}}=N_{\mathrm{r}}P_{\mathrm{r}}f_{\mathrm{r}}$ & t/year                   \\
+    $\eta_{\mathrm{r}}$           & Rocket launch success rate                                                                                       & --                       \\
+    $c_{\text{launch}}$           & Average cost per rocket launch                                                                                   & USD/launch               \\
 
-    $W_d$                        & Daily water demand per person                                                                       & ton/(person$\cdot$day) \\
-    $W_{\text{year}}$            & Annual water requirement for the colony                                                             & ton                    \\
-    $M_{\text{sup}}$             & Annual mass of routine supplies                                                                     & ton                    \\
-
+    % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Cost and Performance Metrics}}}                                                                                          \\
+    \multicolumn{3}{c}{\textit{\textbf{Mass Allocation (Hybrid)}}}                                                                                                              \\
     \cdashline{1-3}
+    $M_{\mathrm{e}}$              & Mass delivered by the elevator in hybrid strategy, $M_{\mathrm{e}}=\lambda M$                                    & t                        \\
+    $M_{\mathrm{r}}$              & Mass delivered by rockets in hybrid strategy, $M_{\mathrm{r}}=(1-\lambda)M$                                      & t                        \\
 
-    $\text{Cost}_{\text{e}}$     & Total cost of Space Elevator transportation                                                         & USD                    \\
-    $\text{Cost}_{\text{r}}$     & Total cost of rocket transportation                                                                 & USD                    \\
-    $\text{Cost}_{\text{total}}$ & Total transportation cost                                                                           & USD                    \\
-    $T_{\text{finish}}$          & Total completion time of construction delivery                                                      & year                   \\
-
+    % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Environmental Impact Indicators}}}                                                                                       \\
+    \multicolumn{3}{c}{\textit{\textbf{Cost Variables}}}                                                                                                                        \\
     \cdashline{1-3}
+    $C_{\mathrm{e}}$              & Total cost of elevator-based delivery (fixed + variable)                                                         & USD                      \\
+    $C_{\mathrm{r}}$              & Total cost of rocket-based delivery                                                                              & USD                      \\
+    $C_{\mathrm{h}}$              & Total cost under hybrid strategy                                                                                 & USD                      \\
 
-    $E_{\text{e}}$               & Environmental impact index per ton (Space Elevator)                                                 & --                     \\
-    $E_{\text{r}}$               & Environmental impact index per ton (Rockets)                                                        & --                     \\
-    $E_{\text{total}}$           & Total environmental impact index                                                                    & --                     \\
+    % =========================
+    \cdashline{1-3}
+    \multicolumn{3}{c}{\textit{\textbf{Multi-objective Metrics}}}                                                                                                               \\
+    \cdashline{1-3}
+    $T_{\min},T_{\max}$           & Lower/upper bounds used for time normalization                                                                   & year                     \\
+    $C_{\min},C_{\max}$           & Lower/upper bounds used for cost normalization                                                                   & USD                      \\
+    $f_1$                         & Normalized time objective, $f_1=\dfrac{T-T_{\min}}{T_{\max}-T_{\min}}$                                           & --                       \\
+    $f_2$                         & Normalized cost objective, $f_2=\dfrac{C-C_{\min}}{C_{\max}-C_{\min}}$                                           & --                       \\
+    $F$                           & Weighted-sum composite objective, $F=\alpha f_1+(1-\alpha)f_2$                                                   & --                       \\
 
-    % ======= your rows end =======
+    % =========================
+    \cdashline{1-3}
+    \multicolumn{3}{c}{\textit{\textbf{Water and Sustenance}}}                                                                                                                  \\
+    \cdashline{1-3}
+    $W_d$                         & Daily water demand per person                                                                                    & t/(person$\cdot$day)     \\
+    $W_{\text{year}}$             & Annual water replenishment requirement                                                                           & t/year                   \\
+    $M_{\text{sup}}$              & Annual mass of routine supplies                                                                                  & t/year                   \\
+
+    % =========================
+    \cdashline{1-3}
+    \multicolumn{3}{c}{\textit{\textbf{Environmental Impact}}}                                                                                                                  \\
+    \cdashline{1-3}
+    $E_{\mathrm{e}}$              & Environmental impact indicator per ton (elevator)                                                                & --                       \\
+    $E_{\mathrm{r}}$              & Environmental impact indicator per ton (rockets)                                                                 & --                       \\
+    $E_{\text{total}}$            & Total environmental impact indicator                                                                             & --                       \\
 \end{longtable}
 
 
-
-\subsection{Basic components}
 
 % ================= 第三章：模型设计 =================
 \section{Model Design}
@@ -327,11 +341,11 @@ This formulation reflects the high-speed, high-rate, short-duration characterist
 
 \subsubsection{Time Model for the Hybrid Transportation System}
 
-Let $\alpha$ represent the proportion of materials transported by the space elevator system, where $0 \leq \alpha \leq 1$.
+Let $\lambda$ represent the proportion of materials transported by the space elevator system, where $0 \leq \lambda \leq 1$.
 
 Then:
 \[
-    M_e = \alpha M,\quad M_r = (1-\alpha)M
+    M_e = \lambda M,\quad M_r = (1-\lambda)M
 \]
 
 The corresponding transportation times are:
@@ -401,12 +415,12 @@ This model reflects the \textbf{low infrastructure cost but high marginal cost} 
 
 For the hybrid strategy, the total cost is given by:
 \begin{equation}
-    C_h = \alpha C_e + (1 - \alpha) C_r
+    C_h = \lambda C_e + (1 - \lambda) C_r
 \end{equation}
 
-where $\alpha \in [0,1]$ represents the proportion of total transportation demand assigned to the space elevator system.
+where $\lambda \in [0,1]$ represents the proportion of total transportation demand assigned to the space elevator system.
 
-By varying $\alpha$, trade-offs between cost minimization and time efficiency can be systematically explored.
+By varying $\lambda$, trade-offs between cost minimization and time efficiency can be systematically explored.
 
 \subsection{Multi-Objective Mixed Integer Linear Programming Model}
 
@@ -671,7 +685,7 @@ The smooth and monotonic shape of the frontier indicates a clear and stable trad
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/4.png}
+    \includegraphics[width=0.8\textwidth]{../figure/4.png}
     \caption{Feasible solutions and Pareto frontier in the normalized objective space.}
     \label{fig:4}
 \end{figure}
@@ -691,9 +705,9 @@ As $\alpha$ increases, the selected solution shifts from cost-oriented to time-o
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/5.png}
+    \includegraphics[width=0.5\textwidth]{../figure/5.png}
     \caption{Pareto-optimal solutions selected under different weight parameters $\alpha$.}
-    \label{fig:5}
+    \label{fig:alpha_on_pareto}
 \end{figure}
 
 \subsubsection{Feasible Region and Decision Space Interpretation}
@@ -705,9 +719,9 @@ The Pareto frontier lies along the lower boundary of this region, confirming tha
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/6.png}
+    \includegraphics[width=0.6\textwidth]{../figure/6.png}
     \caption{Feasible region and Pareto frontier in the original decision space.}
-    \label{fig:6}
+    \label{fig:decision_space}
 \end{figure}
 
 \subsubsection{Identification of the Recommended Solution}
@@ -724,9 +738,9 @@ The curve exhibits a clear minimum, which indicates the recommended balance betw
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/k_a.png}
+    \includegraphics[width=0.8\textwidth]{../figure/k_a.png}
     \caption{Variation of the minimum weighted objective value with respect to $\alpha$.}
-    \label{fig:k_a}
+    \label{fig:k_alpha_curve}
 \end{figure}
 
 The minimum is attained at
@@ -742,12 +756,12 @@ yielding the recommended solution
     F^\ast = 0.3554.
 \]
 
-To confirm that this recommendation is Pareto-efficient, the solution is located on the Pareto frontier, as shown in Figure~\ref{fig:optimal_on_pareto}.
+To confirm that this recommendation is Pareto-efficient, the solution is located on the Pareto frontier, as shown in Figure~\ref{fig:pareto_front_best}.
 This point represents the selected compromise under a strong preference for minimizing completion time, while still maintaining a comparatively low cost through effective utilization of the space elevator system.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/pareto_front_best_solution.png}
+    \includegraphics[width=0.5\textwidth]{../figure/pareto_front_best_solution.png}
     \caption{Location of the recommended solution on the Pareto frontier.}
     \label{fig:pareto_front_best}
 \end{figure}
@@ -800,7 +814,7 @@ The smooth transition confirms that the hybrid strategy responds continuously to
     \centering
     \includegraphics[width=0.9\textwidth]{../figure/3.png}
     \caption{Variation of normalized objective components with respect to $\alpha$.}
-    \label{fig:3}
+    \label{fig:alpha_sensitivity}
 \end{figure}
 
 \subsubsection{Discussion}
@@ -873,7 +887,7 @@ Once the Moon Colony is fully operational with a population of 100,000 people, a
           \]
     \item \textbf{Annual water requirement:}
           \[
-              M_{\text{water}} = L_d \times 365 = 365,000\ \text{metric tons}
+              W_{\text{year}} = L_d \times 365 = 365,000\ \text{metric tons}
           \]
 \end{itemize}
 
@@ -907,7 +921,7 @@ To ensure one full year of water supply after the colony becomes operational, we
 
 The total mass to be transported now becomes:
 \[
-    M_{\text{total}} = M_{\text{material}} + M_{\text{water}} = 10^8 + 3.65 \times 10^5 = 100,365,000\ \text{metric tons}
+    M_{\text{total}} = M_{\text{material}} + W_{\text{year}} = 10^8 + 3.65 \times 10^5 = 100,365,000\ \text{metric tons}
 \]
 
 We consider three scenarios for water delivery:
@@ -1488,6 +1502,8 @@ For the MCM Agency, we recommend adopting an environmentally extended optimizati
 
 % ================= 备忘录 (最后一页) =================
 \newpage
+
+\label{LastPageMain}
 % 开启背景图片
 % 注意：即使是 demo 模式，最好也确保目录下有个随便叫什么名字的jpg文件，或者先把这行注释掉
 
@@ -1535,16 +1551,16 @@ Sincerely,
 
 Team \#2602787
 
-\newpage
 
-\clearpage
-\label{LastPageMain}
+% \clearpage
+% \label{LastPageMain}
 
 % \thispagestyle{empty}
 
 \AImatter
-
 \pagestyle{empty}
+\thispagestyle{empty}
+
 
 \backgroundsetup{contents={}}
 
@@ -1583,26 +1599,6 @@ def selection_sort(arr):
     Google Bard (Feb 2,2024 version)\\
     Query: <insert the exact wording of your query>\\
     Output: <irsert the complete output from the Al tool>
-
-    \bibitem{AI5}
-    Bing AI\\
-    Query: write a FFT algorithm\\
-    Output: Sure, here is a Python implementation of the Fast Fourier Transform (FFT) algorithm:
-    \begin{lstlisting}[language=python]
-import numpy as np
-
-def fft(x):
-    n = len(x)
-    if n == 1:
-        return x
-    even = fft(x[0::2])
-    odd = fft(x[1::2])
-    T = [np.exp(-2j * np.pi * k / n) * odd[k] for k in range(n // 2)]
-    return [even[k] + T[k] for k in range(n // 2)] + [even[k] - T[k] for k in range(n // 2)]
-\end{lstlisting}
-    The FFT is a widely used algorithm for computing the \textbf{Discrete Fourier Transform (DFT)} of a sequence. It reduces the number of computations needed from O(n$^2$) to O(n log n) 12. The basic idea of the FFT is to apply divide and conquer. We divide the coefficient vector of the polynomial into two vectors, recursively compute the DFT for each of them, and combine the results to compute the DFT of the complete polynomial 3.
-
-    I hope this helps!
 
 \end{ReportAiUse}
 
