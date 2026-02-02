@@ -931,11 +931,11 @@ Using our multi-objective MILP framework extended to include water transportatio
     \label{tab:water_delivery}
     \begin{tabular}{lcc}
         \toprule
-        \textbf{Scenario}   & \textbf{Additional Time (years)} & \textbf{Additional Cost (USD)}  \\
+        \textbf{Scenario}   & \textbf{Additional Time (years)} & \textbf{Additional Cost (USD)} \\
         \midrule
         Space Elevator Only & $0.68$                           & $2.19 \times 10^{11}$          \\
-        Rockets Only        & $1.67$                             & $1.776 \times 10^{11}$           \\
-        Hybrid Strategy     & $0.34$                             & $1.459 \times 10^{11}$           \\
+        Rockets Only        & $1.67$                           & $1.776 \times 10^{11}$         \\
+        Hybrid Strategy     & $0.34$                           & $1.459 \times 10^{11}$         \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -961,10 +961,10 @@ The water transportation requirement is highly sensitive to the recycling effici
         \toprule
         \textbf{Recycling Efficiency} & \textbf{Annual Water Requirement (tons)} & \textbf{Additional Cost (Hybrid)} \\
         \midrule
-        $90\%$                          & $730,000$                                  & $\$2.92 \times 10^{11}$             \\
-        $95\%$                          & $365,000$                                  & $\$1.46 \times 10^{11}$             \\
-        $98\%$                          & $146,000$                                  & $\$5.84 \times 10^{10}$             \\
-        $99\%$                          & $73,000$                                   & $\$2.92 \times 10^{10}$             \\
+        $90\%$                        & $730,000$                                & $\$2.92 \times 10^{11}$           \\
+        $95\%$                        & $365,000$                                & $\$1.46 \times 10^{11}$           \\
+        $98\%$                        & $146,000$                                & $\$5.84 \times 10^{10}$           \\
+        $99\%$                        & $73,000$                                 & $\$2.92 \times 10^{10}$           \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -1082,7 +1082,7 @@ Using our normalized scoring assumptions:
 \noindent\textbf{Key clarification (resolving the apparent contradiction).}
 Although $EII_a^{\text{total}}$ is high due to the one-time construction burden, the elevator is still the \textbf{cleanest option during operation} because its \textbf{atmospheric emissions while transporting cargo are negligible} compared with rockets. In other words,
 \[
-E_a^{\text{op}} \ll E_b^{\text{op}},
+    E_a^{\text{op}} \ll E_b^{\text{op}},
 \]
 even if $EII_a^{\text{total}}$ can exceed $EII_b^{\text{total}}$ under certain normalization choices.
 
@@ -1132,7 +1132,7 @@ For the hybrid strategy, we separate the elevator's construction burden (still r
 
 Since the hybrid strategy still requires building the elevator infrastructure,
 \[
-E_c^{\text{build}} \approx E_a^{\text{build}}.
+    E_c^{\text{build}} \approx E_a^{\text{build}}.
 \]
 However, operational impact is reduced because fewer rocket launches are required. With the recommended payload split $\lambda=0.7103$:
 \begin{equation}
@@ -1151,11 +1151,11 @@ Therefore, the hybrid approach achieves:
     \label{tab:eii_decomposition}
     \begin{tabular}{lccc}
         \toprule
-        \textbf{Scenario} & $E^{\text{build}}$ & $E^{\text{op}}$ & $EII^{\text{total}}=E^{\text{build}}+E^{\text{op}}$ \\
+        \textbf{Scenario} & $E^{\text{build}}$ & $E^{\text{op}}$                           & $EII^{\text{total}}=E^{\text{build}}+E^{\text{op}}$ \\
         \midrule
-        (a) Elevator only & 0.85 & 0.12 & 0.97 \\
-        (b) Rockets only  & 0.05 & 0.80 & 0.85 \\
-        (c) Hybrid        & 0.85 & $\lambda\cdot 0.12+(1-\lambda)\cdot 0.80$ & $0.85+E_c^{\text{op}}$ \\
+        (a) Elevator only & 0.85               & 0.12                                      & 0.97                                                \\
+        (b) Rockets only  & 0.05               & 0.80                                      & 0.85                                                \\
+        (c) Hybrid        & 0.85               & $\lambda\cdot 0.12+(1-\lambda)\cdot 0.80$ & $0.85+E_c^{\text{op}}$                              \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -1181,13 +1181,13 @@ To explicitly minimize environmental impact, we extend our MILP model from Secti
 We add a third objective to minimize total environmental impact:
 
 \[
-\min E = \sum_{t=1}^{600} E_t
+    \min E = \sum_{t=1}^{600} E_t
 \]
 
 where \(E_t\) is calculated as:
 
 \[
-E_t = \gamma_1 \cdot s_t \cdot E_{\text{elevator, fixed}} + \gamma_2 \cdot e_t \cdot E_{\text{elevator, variable}} + \gamma_3 \cdot l_t \cdot E_{\text{launch}}
+    E_t = \gamma_1 \cdot s_t \cdot E_{\text{elevator, fixed}} + \gamma_2 \cdot e_t \cdot E_{\text{elevator, variable}} + \gamma_3 \cdot l_t \cdot E_{\text{launch}}
 \]
 
 with \(\gamma_i\) as weighting factors reflecting different impact categories.
@@ -1197,7 +1197,7 @@ with \(\gamma_i\) as weighting factors reflecting different impact categories.
 We reformulate the problem as a three-objective optimization:
 
 \[
-\min \left[ T, C, E \right]
+    \min \left[ T, C, E \right]
 \]
 
 and solve using the $\varepsilon $-constraint method:
@@ -1215,7 +1215,7 @@ and solve using the $\varepsilon $-constraint method:
 To align with climate goals, we impose a carbon budget constraint:
 
 \[
-\sum_{t=1}^{600} \text{CO2}_t \leq B_{\text{CO2}}
+    \sum_{t=1}^{600} \text{CO2}_t \leq B_{\text{CO2}}
 \]
 
 where \(B_{\text{CO2}}\) is the allocated carbon budget for the Moon Colony project.
@@ -1225,7 +1225,7 @@ where \(B_{\text{CO2}}\) is the allocated carbon budget for the Moon Colony proj
 Reflecting potential regulatory constraints:
 
 \[
-\text{CO2}_t \leq L_{\text{annual}}, \quad \forall t
+    \text{CO2}_t \leq L_{\text{annual}}, \quad \forall t
 \]
 
 \paragraph{Technology-Specific Constraints}
@@ -1242,7 +1242,7 @@ Reflecting potential regulatory constraints:
 We adjust the cost model to include environmental externalities:
 
 \[
-C_{\text{total}} = C_{\text{transport}} + p_{\text{CO2}} \cdot \text{CO2}_{\text{total}} + p_{\text{BC}} \cdot \text{BC}_{\text{total}}
+    C_{\text{total}} = C_{\text{transport}} + p_{\text{CO2}} \cdot \text{CO2}_{\text{total}} + p_{\text{BC}} \cdot \text{BC}_{\text{total}}
 \]
 
 where \(p_{\text{CO2}}\) and \(p_{\text{BC}}\) represent carbon and black carbon prices.
@@ -1252,7 +1252,7 @@ where \(p_{\text{CO2}}\) and \(p_{\text{BC}}\) represent carbon and black carbon
 Using projected Social Cost of Carbon (SCC) values for 2050:
 
 \[
-p_{\text{CO2}} = \$200/\text{ton CO2} \quad \text{(2050 estimate)}
+    p_{\text{CO2}} = \$200/\text{ton CO2} \quad \text{(2050 estimate)}
 \]
 
 This significantly increases the apparent cost of rocket-based transportation.
@@ -1264,7 +1264,7 @@ This significantly increases the apparent cost of rocket-based transportation.
 We extend the learning curve model from Section~4.2 to environmental parameters:
 
 \[
-EI(t) = EI_0 \cdot (1 - \beta_E)^{N(t)}
+    EI(t) = EI_0 \cdot (1 - \beta_E)^{N(t)}
 \]
 
 where \(EI(t)\) is the environmental impact per launch in year \(t\), and \(\beta_E\) is the environmental learning rate.
@@ -1342,10 +1342,10 @@ The environmental learning rate \(\beta_E\) significantly affects long-term stra
         \toprule
         \(\beta_E\) & Optimal \(\lambda\) & Environmental Impact Reduction \\
         \midrule
-        0.5\% & 0.82 & 12.3\% \\
-        1.0\% & 0.79 & 14.8\% \\
-        2.0\% & 0.75 & 18.2\% \\
-        5.0\% & 0.70 & 23.7\% \\
+        0.5\%       & 0.82                & 12.3\%                         \\
+        1.0\%       & 0.79                & 14.8\%                         \\
+        2.0\%       & 0.75                & 18.2\%                         \\
+        5.0\%       & 0.70                & 23.7\%                         \\
         \bottomrule
     \end{tabular}
 \end{table}
