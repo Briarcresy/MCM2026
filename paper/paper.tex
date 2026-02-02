@@ -90,9 +90,9 @@
 
 \subsection{Problem Background}
 
-As humanity's technological capabilities continue to advance, the demand for scalable, safe, and environmentally friendly access to space has become increasingly critical. Traditional rocket-based launch systems have enabled early space exploration; however, their high costs, limited payload capacity, and environmental impacts pose significant challenges to long-term extraterrestrial development.
+As humanity’s technological capabilities advance, the need for scalable, safe, and environmentally sustainable access to space has grown urgent. Traditional rocket-based launch systems, while foundational to early space exploration, are constrained by high costs, limited payload capacity, and environmental impacts—posing significant challenges to long-term extraterrestrial development.
 
-On one hand, emerging technologies such as space elevator systems offer a promising alternative by enabling continuous, electrically powered transportation of materials from Earth to orbit, potentially reducing costs and atmospheric pollution. On the other hand, the construction of a large-scale lunar colony requires the delivery of enormous quantities of materials and supplies, placing stringent demands on transportation capacity, reliability, and timelines.
+Emerging alternatives such as the space elevator could enable continuous, electric-powered transport from Earth to orbit, dramatically lowering costs and pollution. Yet the establishment of a large-scale lunar colony also demands the reliable, high-volume delivery of materials within strict timelines. This dual necessity—for revolutionary Earth-to-orbit transport and high-capacity lunar supply chains—highlights the pressing need for next-generation space logistics solutions.
 
 How to balance cost, efficiency, and feasibility among different transportation strategies is therefore central to the successful construction and sustainable operation of a 100,000-person lunar colony. Addressing this challenge requires a quantitative evaluation of alternative logistics schemes through mathematical modeling and systematic comparison.
 
@@ -281,17 +281,13 @@ To avoid complicated description...
 
 \subsection{Model Overview}
 
-To evaluate different transportation strategies for constructing the Moon Colony, a unified modeling framework is developed that integrates transportation time, total cost, and their trade-off.
+A unified modeling framework is developed to evaluate transportation strategies for constructing the Moon Colony, integrating transportation time and total cost.
 
-First, time models are established for the Space Elevator System and the Rocket Transportation System based on their respective transportation capacities.
-A hybrid transportation model is then constructed by allowing both systems to operate in parallel, with the overall completion time determined by the slower subsystem.
+Time models are established for both a Space Elevator System and a Rocket Transportation System based on their respective capacities. A hybrid model allows both systems to operate in parallel, with overall completion time constrained by the slower subsystem.
 
-Second, a cost model is formulated to capture the different economic characteristics of the two systems.
-The Space Elevator System is characterized by high fixed costs and low marginal costs, while the Rocket Transportation System involves high marginal costs per launch.
-The total cost of a hybrid strategy is expressed as a weighted combination of the two systems.
+A cost model captures their distinct economic profiles: the Space Elevator entails high fixed but low marginal costs, while rockets incur high marginal costs per launch. The total hybrid cost is a weighted combination of both.
 
-Finally, a weighted time--cost objective function is introduced to evaluate trade-offs between construction speed and economic efficiency.
-This framework provides the basis for the scenario analysis and optimization presented in the following sections.
+Finally, a weighted time-cost objective function is introduced to evaluate the trade-off between construction speed and economic efficiency. This framework forms the basis for the subsequent scenario analysis and optimization.
 
 
 \subsection{Time Model Development}
@@ -584,8 +580,7 @@ The time required to deliver all the materials using only the Space Elevator Sys
 
 \textbf{Fixed (Capital) Construction Cost of the Three Galactic Harbours}
 
-In Problem B, the final Space Elevator System consists of three \emph{Galactic Harbours} distributed around Earth’s equator, and each Galactic Harbour contains one Earth Port plus two $100{,}000$ km tethers connected to two apex anchors.\footnote{COMAP, \emph{2026 MCM Problem B: Creating a Moon Colony Using a Space Elevator System}, glossary/description of system configuration (three Galactic Harbours; each harbour includes one Earth port, two $100{,}000$ km tethers, and two apex anchors). See \texttt{2026\_MCM\_Problem\_B.pdf}. \ \ :contentReference[oaicite:0]{index=0}}
-Therefore, we treat each Galactic Harbour as one complete “space elevator complex” (Earth Port + tethers + apex anchors) and model the fixed cost as a one-time capital expenditure (CAPEX), independent of transported mass.
+According to the problem conditions, each \emph{Galactic Harbour} can be regarded as a complete space elevator complex (Earth Port + tethers + apex anchors), and its fixed cost is modeled as a one-time capital expenditure (CAPEX), independent of the transported mass.
 
 A literature survey reports that published capital-cost estimates for building a Space Elevator span approximately \$15--\$100 billion, depending on assumptions such as construction timeline, material availability, and safety factors.\footnote{K. Barry and E. P. Alfaro, ``Acta Astronautica'' \textbf{200} (2022) 586--598, Section 4.3 (Capital cost and financing): ``estimations \dots ranging from \$15 billion to \$100 billion.'' See \texttt{1-s2.0-S0094576522004295-main.pdf}. \ \ :contentReference[oaicite:1]{index=1}}
 Because the problem statement does not provide enough engineering detail to defensibly choose a bespoke point estimate, we adopt the midpoint of this peer-reviewed range as a deterministic planning value (i.e., an expected-value proxy under a neutral prior over the interval):
@@ -601,12 +596,10 @@ With three Galactic Harbours, the total fixed construction cost is
     \;=\; 1.725\times 10^{11}\ \mathrm{USD}.
 \]
 
-\noindent\textbf{Final fixed-cost value used in the model:}
+\noindent\textbf{The fixed cost used in the model for constructing the space elevator:}
 \[
     \boxed{F_e = 1.725\times 10^{11}\ \mathrm{USD}\ (\text{approximately } \$172.5\ \text{billion})}.
 \]
-
-\noindent\textbf{Interpretation.} $F_e$ is a one-time CAPEX covering construction of the three-harbour space-elevator infrastructure (Earth Ports, tethers, and apex anchors). It excludes operating costs, maintenance, and financing/interest costs, which should be modeled separately if needed.
 
 Since no fully operational space elevator system currently exists, cost and performance parameters are estimated based on existing engineering studies and published projections.
 
@@ -621,57 +614,56 @@ So the total cost of using only the Space Elevator System to deliver all the mat
 \subsection{Scenario b: Traditional Rocket Launches Only}
 
 \subsubsection{Time Analysis}
-The time efficiency of rocket transportation is characterized by the launch interval of a single launch site. Based on historical data from Cape Canaveral Spaceport, the initial launch interval is estimated as $T_0 = 13.27$ days. A similar learning-based model is applied:
+The rocket-only strategy relies entirely on traditional launches. Historical data from Cape Canaveral gives an initial launch interval of \(T_0 = 13.27\) days. Applying a learning model with rate \(\beta_t = 0.983\%\):
 \begin{equation}
     T(t) = T_0 (1 - \beta_t)^{N(t)},
 \end{equation}
-where $\beta_t = 0.983\%$ represents the learning rate associated with launch frequency improvement.
+the interval is projected to improve to about 2.5 days per mission by 2050 (\(t = 51\)).
 
-For $t = 51$ (corresponding to the year 2050), the estimated launch interval decreases to approximately 2.5 days per mission. Therefore, under the rocket-only scenario in 2050, the system achieves a unit cost of approximately 73 million USD and a launch interval of 2.5 days per 150-ton payload for each launch site.i.e.:
+Thus, the annual launch frequency per site is:
+\[
+    f_r = \frac{365}{2.5} = 146\ \mathrm{year^{-1}}.
+\]
 
-\[f_r=\frac{365}{2.5}=146\ \mathrm{year^{-1}}\]
+With \(N_r = 10\) sites, each carrying \(P_r = 150\ \mathrm{t}\), the annual transport capacity becomes:
+\[
+    R_r = N_r P_r f_r = 10 \times 150 \times 146 = 2.19 \times 10^5\ \mathrm{t/year}.
+\]
 
-The annual transportation capacity of the rocket system is:
-
-\[R_r=N_rP_rf_r=10\times\SI{150}{t}\times\SI{146}{year^{-1}}=\SI{2.19e5}{t/year}\]
-
-The time required to deliver all the materials using only traditional rocket launches is:
-
-\[T_r=\frac{M}{R_r} = \frac{10^8}{2.19\times 10^5} \approx 456.62\ \text{years}\]
+For a total mass \(M = 10^8\ \mathrm{t}\), the delivery time is:
+\[
+    T_r = \frac{M}{R_r} = \frac{10^8}{2.19 \times 10^5} \approx 456.62\ \text{years}.
+\]
 
 \subsubsection{Cost Analysis}
 
-To evaluate the feasibility of relying solely on traditional rockets for large-scale material transportation, we construct a mathematical model to predict both the unit transportation cost and the launch frequency of a single rocket launch site. The model is based on Wright’s learning curve theory, which assumes that unit cost decreases by a fixed proportion as cumulative experience increases \cite{1,2}.
-
-The cost model is expressed as
+Transportation cost is modeled using Wright's learning curve \cite{1,2}:
 \begin{equation}
     C(t) = C_0 (1 - \beta)^{N(t)},
 \end{equation}
-where $C(t)$ denotes the unit transportation cost in year $t$, $C_0$ is the initial cost of the first launch, $\beta$ is the learning rate, and $N(t)$ represents the cumulative number of completed launches up to year $t$. Here, $t$ is defined as the calendar year minus 2019, corresponding to the first test flight of SpaceX Starship.
-
-Based on publicly available information from SpaceX and related reports, the initial cost is set as
+where \(C(t)\) is the unit cost in year \(t\), \(C_0 = 44{,}940.9\) million USD \cite{4} is the initial launch cost, \(\beta = 3.7139\%\) \cite{5,6} is the learning rate, and \(N(t)\) is the cumulative number of launches, fitted by:
 \[
-    C_0 = 44{,}940.9 \text{ million USD} \cite{4}.
+    N(t) = \lfloor 3.342857t - 0.857143 \rfloor.
 \]
-Considering diminishing learning effects over time, a conservative learning rate of $\beta = 3.7139\%$ is adopted \cite{5,6}.
 
-The cumulative number of launches is estimated using a fitted function:
-\begin{equation}
-    N(t) = \left\lfloor 3.342857 t - 0.857143 \right\rfloor .
-\end{equation}
+By 2050, the estimated cost per launch (150-ton payload) reduces to approximately 73 million USD, giving:
+\[
+    c_{\text{launch}} = \SI{7.3e7}{USD}.
+\]
 
-Substituting the parameters into the cost model, the estimated transportation cost for a 150-ton payload in the year 2050 is approximately 73 million USD per launch. For modeling simplicity and to account for uncertainty, this value is rounded to 73 million USD per mission.i.e.:
+The total number of launches required is:
+\[
+    N_{\text{launch}} = \frac{M}{P_r} = \frac{10^8}{150} \approx 6.67 \times 10^5.
+\]
 
-\[c_{\text{launch}}=\SI{7.3e7}{USD}\]
-
-Thus, the total cost of using only traditional rocket launches to deliver all the materials needed for the Moon Colony construction is:
-
-\[C_r=c_{\text{launch}}\cdot\frac{M}{P_r}=7.3\times10^7\times\frac{10^8}{150}=\SI{4.867e13}{USD}\]
+Thus, the total transportation cost for the rocket-only scenario is:
+\[
+    C_r = c_{\text{launch}} \cdot N_{\text{launch}} = 7.3 \times 10^7 \times \frac{10^8}{150} = \SI{4.867e13}{USD}.
+\]
 
 \subsection{Scenario c: Hybrid Transportation Strategy}
 
-In Scenario (c), construction materials are delivered using a hybrid transportation strategy that combines the space elevator system and traditional rocket launches.
-All results in this subsection are obtained by applying the multi-objective mixed integer linear programming framework developed in Section~3.4, with both transportation modes enabled simultaneously.
+This subsection employs the multi-objective mixed integer linear programming model developed in Section 3.4 to solve the hybrid transportation strategy problem.
 
 \subsubsection{Pareto Frontier Generation}
 
@@ -817,8 +809,7 @@ This confirms the advantage of coordinated multi-modal transportation for large-
 
 \subsection{Comparision between Three Scenarios}
 
-To clearly evaluate the feasibility of the three delivery strategies, we compare their project completion time and total transportation cost under identical demand $M=10^8~\text{t}$.
-Scenario (a) and (b) results are obtained directly from the single-mode time--cost models, while Scenario (c) uses the hybrid allocation identified in Section~4.3 (i.e., $\lambda=0.7103$ for the space elevator and $1-\lambda=0.2897$ for rockets).
+We compare the completion time and transportation cost of the three scenarios under the same transportation requirement ($M=10^8~\text{t}$).
 
 \begin{table}[H]
     \centering
@@ -837,13 +828,9 @@ Scenario (a) and (b) results are obtained directly from the single-mode time--co
 
 \paragraph{\textbf{Key observations.}}
 
-The rocket-only plan achieves the lowest total cost but requires the longest delivery time, making it unsuitable when schedule is critical.
-The space-elevator-only plan significantly shortens the timeline relative to rockets but remains costlier due to the large fixed investment.
-The hybrid plan delivers the best time performance by operating both systems in parallel and balancing their complementary strengths.
+The rocket-only plan yields the lowest total cost but has the longest delivery time, making it viable only under highly flexible schedules. The space-elevator-only plan reduces time substantially compared to rockets but incurs higher costs due to its large fixed investment. The hybrid plan achieves the best time performance by operating both systems in parallel and leveraging their complementary strengths.
 
-Specifically, Scenario (c) reduces the completion time by approximately $28.9\%$ compared with Scenario (a), and by approximately $71.0\%$ compared with Scenario (b).
-In terms of cost, Scenario (c) is about $5.46\%$ cheaper than Scenario (a), but about $16.9\%$ more expensive than Scenario (b).
-This indicates that the hybrid strategy provides a substantial speed advantage at a moderate cost premium relative to rockets-only delivery.
+Specifically, Scenario (c) reduces completion time by about $28.9\%$ relative to Scenario (a) and by about $71.0\%$ relative to Scenario (b). In cost terms, Scenario (c) is approximately $5.46\%$ cheaper than Scenario (a) but about $16.9\%$ more expensive than Scenario (b). This shows that the hybrid strategy offers a significant speed advantage with a moderate cost premium compared to the rockets-only approach.
 
 \paragraph{\textbf{Recommendation.}}
 If the Moon Colony construction prioritizes early completion and operational readiness, Scenario (c) is recommended as the most balanced and practically robust option.
@@ -1001,9 +988,7 @@ This provides a feasible framework for large-scale extraterrestrial resource tra
 % ================= 第5章：模型应用 =================
 \section{Water Supply Model for Sustained Operation —— System Dynamics Model}
 
-\subsection{Water Resource Recycling System }
-
-Once the Moon Colony is fully operational with a population of 100,000 people, a reliable and sustainable water supply system becomes essential. We develop a system dynamics model to analyze the water requirements, recycling efficiency, and the resulting transportation needs for water delivery from Earth.
+In this section, we develop a system dynamics model to analyze water demand, recycling efficiency, and the resulting transportation requirements for water supply from Earth, in order to address the water needs of 100,000 people.
 
 \subsection{Water Demand and Recycling System}
 
