@@ -789,47 +789,43 @@ If the primary objective is to minimize monetary expenditure and the schedule is
 \section{Robustness Analysis under Non-Ideal Operating Conditions}
 
 \subsection{Model Assumptions: Non-Ideal Scenario Construction}
-\subsubsection{Basic Configuration}
-The total mission weight is $W_0 = 1$ billion tons.
-Rocket and space elevator parameters are configured as follows:
+\textbf{Failure Probability:}
 \begin{itemize}
-    \item \textbf{Rocket (10 bases):} Capacity $w_R = 1500$ tons, Cost $c_R = 37000$ M\$, Time $t_R = 2.5/365$ years.
-    \item \textbf{Space Elevator:} Annual capacity $C_E = 537000$ tons/year, Unit cost $60.00$ M\$/ton.
+    \item Rocket single-transport failure: $p_R = 0.0016$ (projected 2050 reliability).
+    \item Elevator annual failures: Poisson with $\lambda = 0.002$.
 \end{itemize}
 
-\subsubsection{Failure and Delay Modeling}
-\textbf{Failure Probability}
-\begin{itemize}
-    \item Rocket single-transport failure probability: $p_R = 0.0016$ (derived from projected 2050 reliability).
-    \item Elevator annual failures: Poisson distribution with $\lambda = 0.002$.
-\end{itemize}
-
-\textbf{Delay Time Distribution}
-Failure-induced delays follow a mixed Weibull distribution:
+\textbf{Delay Time Distribution:} Mixed Weibull
 \[
-    f(t) = \alpha \cdot f_{1}(t;\beta_{1},\eta_{1}) + (1 - \alpha) \cdot f_{2}(t;\beta_{2},\eta_{2})
+    f(t) = \alpha f_{1}(t;\beta_{1},\eta_{1}) + (1-\alpha) f_{2}(t;\beta_{2},\eta_{2}),\quad
+    f_i(t)=\frac{\beta_i}{\eta_i}\!\left(\frac{t}{\eta_i}\right)^{\!\beta_i-1}\!e^{-(t/\eta_i)^{\beta_i}}.
 \]
-where $f_i(t) = \frac{\beta_i}{\eta_i} \left( \frac{t}{\eta_i} \right)^{\beta_i-1} e^{-(t/\eta_i)^{\beta_i}}$.
-\begin{itemize}
-    \item \textbf{Elevator:} $\alpha = 0.995$, $\beta_1=2.2$, $\eta_1=30/365$ (short), $\beta_2=1.5$, $\eta_2=10$ (long).
-    \item \textbf{Rocket:} $\alpha = 0.9$, $\beta_1=1.5$, $\eta_1=10/365$ (short), $\beta_2=2.2$, $\eta_2=70/365$ (long).
-\end{itemize}
-Simulation results: average elevator delay = 3.2 years; average rocket delay = 0.2 years.
 
-\textbf{Failure Cost Functions}
-\begin{itemize}
-    \item Elevator: $C_{E}(t) = \dfrac{5.175 \times 10^{7}}{1 + e^{- 0.0154(t + 19.5)(t - 13)}}$
-    \item Rocket: $C_{R}(t) = \dfrac{1200}{1 + e^{- 20(t - 0.2466)}}$
-\end{itemize}
-
-\begin{figure}[htbp]
+\begin{table}[htbp]
     \centering
-    \includegraphics[
-        width=0.6\textwidth,
-        height=\textheight,
-        keepaspectratio
-    ]{../figure/Flow Chart.png}
-    % \includegraphics[width=0.8\textwidth]{}
+    \label{tab:parameters}
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{System} & $\alpha$ & $\beta_1$ & $\eta_1$         & $\beta_2$ & $\eta_2$        \\
+        \midrule
+        Elevator        & 0.995    & 2.2       & $30/365$ (short) & 1.5       & $10$ (long)     \\
+        Rocket          & 0.9      & 1.5       & $10/365$ (short) & 2.2       & $70/365$ (long) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\vspace{0.5em}
+Simulation results: average elevator delay = 3.2 years; average rocket delay = 0.2 years.
+
+\textbf{Failure Cost Functions:}
+\[
+    C_{E}(t)=\frac{5.175\times10^{7}}{1+e^{-0.0154(t+19.5)(t-13)}},\qquad
+    C_{R}(t)=\frac{1200}{1+e^{-20(t-0.2466)}}.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../figure/Flow Chart.png}
     \caption{Decision logic flowchart for the joint transportation model.}
     \label{fig:flowchart}
 \end{figure}
@@ -839,17 +835,14 @@ Simulation results: average elevator delay = 3.2 years; average rocket delay = 0
 \subsubsection{Simulation Framework}
 Monte Carlo simulations ($N=10^5$) yield stable results:
 \begin{itemize}
-    \item Cost coefficient of variation: 0.006.
-    \item Time coefficient of variation: 0.037.
-    \item Mean total cost: 67.39 trillion USD.
-    \item Mean total time: 182.2 years.
+    \item Cost coefficient of variation: 0.006; time coefficient of variation: 0.037.
+    \item Mean total cost: 67.39 trillion USD; mean total time: 182.2 years.
 \end{itemize}
 
 \subsubsection{Key Statistical Relationships}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
-
     \begin{subfigure}[t]{0.32\textwidth}
         \centering
         \includegraphics[width=\textwidth]{../figure/Transport Weight Allocation Relationship.png}
@@ -870,20 +863,19 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
         \caption{Cost composition}
         \label{fig:cost_box}
     \end{subfigure}
-
     \caption{Relationships among transportation weight allocation, time--cost proportion, and cost composition.}
     \label{fig:transport_relationships}
 \end{figure}
 
 \subsection{Correlation and Sensitivity Findings}
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../figure/Impact of Factors on Total Time.png}
     \caption{Impact of various factors on total mission time.}
     \label{fig:sens_time}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../figure/Key Variable Correlation Coefficient Matrix.png}
     \caption{Correlation matrix of key model variables.}
@@ -893,7 +885,7 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \textbf{Key insights:}
 \begin{itemize}
     \item Total time is most strongly correlated with the number of rocket transports.
-    \item Rocket cost proportion and elevator failure count also show significant correlation with total time.
+    \item Rocket cost proportion and elevator failure count also show significant correlation.
     \item Rocket failures have relatively weaker impact on overall time.
 \end{itemize}
 
@@ -901,13 +893,13 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \subsection{Summary and Recommended Plan}
 \textbf{Performance Summary}
 \begin{enumerate}
-    \item \textbf{Cost:} Average 67.39 trillion USD (saves 72.7\% vs. pure rocket; 10.9\% vs. pure elevator).
-    \item \textbf{Time:} Average 182.2 years (70.5\% of cases complete within 180 years).
+    \item \textbf{Cost:} Average 67.39 trillion USD (saves 72.7\% vs. pure rocket; 10.9\% vs. pure elevator).
+    \item \textbf{Time:} Average 182.2 years (70.5\% of cases complete within 180 years).
     \item \textbf{Allocation:} Elevator handles 95.9\% of mass; rockets 4.0\%.
     \item \textbf{Failure Impact:} Delays constitute only 1.9\% of total time.
 \end{enumerate}
 
-\begin{figure}[htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{../figure/Transportation Plan Cost-Time Distribution(n=100000).png}
     \caption{Joint distribution of cost and time for the transportation plan.}
@@ -917,8 +909,8 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \textbf{Recommended Implementation Plan}
 \begin{itemize}
     \item \textbf{Strategy:} Elevator-core (95.9\% mass), rocket-supplement (4.0\% mass).
-    \item \textbf{Time Target:} 190 years (based on 182.2-year average with buffer).
-    \item \textbf{Budget:} 78 trillion USD (based on 67.39 trillion average with contingency).
+    \item \textbf{Time Target:} 190 years (based on 182.2-year average with buffer).
+    \item \textbf{Budget:} 78 trillion USD (based on 67.39 trillion average with contingency).
     \item \textbf{Risk Focus:} Mitigate 0.5\% probability long-delay elevator failures.
 \end{itemize}
 
