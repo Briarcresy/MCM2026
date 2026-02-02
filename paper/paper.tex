@@ -236,82 +236,82 @@ Figure \ref{fig:workchart} provides an overview of our work, which systematicall
     >{\centering\arraybackslash}p{0.62\linewidth}
     >{\centering\arraybackslash}p{0.18\linewidth}}
     % \small
-    \caption{Symbol Definitions and Notation}\label{tab:notations}                                                                                                 \\
+    \caption{Symbol Definitions and Notation}\label{tab:notations}                                                                              \\
 
     \toprule
-    \textit{Symbols} & \textit{Description}                                                                                             & \textit{Unit}            \\
+    \textit{Symbols} & \textit{Description}                                                                          & \textit{Unit}            \\
     \midrule
     \endfirsthead
 
     \toprule
-    \textit{Symbols} & \textit{Description}                                                                                             & \textit{Unit}            \\
+    \textit{Symbols} & \textit{Description}                                                                          & \textit{Unit}            \\
     \midrule
     \endhead
 
     \midrule
-    \multicolumn{3}{r}{\textit{Continued on next page}}                                                                                                            \\
+    \multicolumn{3}{r}{\textit{Continued on next page}}                                                                                         \\
     \endfoot
     \bottomrule
     \endlastfoot
 
     % =========================
 
-    \multicolumn{3}{c}{\textit{\textbf{Global Parameters}}}                                                                                                        \\
+    \multicolumn{3}{c}{\textit{\textbf{Global Parameters}}}                                                                                     \\
     \cdashline{1-3}
-    $t$              & Time index measured from 2019 ($t=\text{year}-2019$)                                                             & year                     \\
-    $M$              & Total mass of construction materials required                                                                    & metric ton (t)           \\
+    $t$              & Time index measured from 2019 ($t=\text{year}-2019$)                                          & year                     \\
+    $M$              & Total mass of construction materials required                                                 & metric ton (t)           \\
 
     % --- Key fix: separate lambda vs alpha ---
-    $\lambda$        & Payload fraction transported by the space elevator in the hybrid strategy ($0\le\lambda\le1$)                    & --                       \\
-    $\alpha$         & Weight parameter in weighted-sum multi-objective optimization ($0\le\alpha\le1$)                                 & --                       \\
+    $\lambda$        & Payload fraction transported by the space elevator in the hybrid strategy ($0\le\lambda\le1$) & --                       \\
+    $\alpha$         & Weight parameter in weighted-sum multi-objective optimization ($0\le\alpha\le1$)              & --                       \\
 
     % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Time Variables}}}                                                                                                           \\
+    \multicolumn{3}{c}{\textit{\textbf{Time Variables}}}                                                                                        \\
     \cdashline{1-3}
-    $T_{\mathrm{e}}$ & Time to deliver $M$ using space elevator only                                                                    & year                     \\
-    $T_{\mathrm{r}}$ & Time to deliver $M$ using rockets only                                                                           & year                     \\
-    $T_{\mathrm{h}}$ & Time to deliver $M$ using hybrid strategy                                                                        & year                     \\
+    $T_{\mathrm{e}}$ & Time to deliver $M$ using space elevator only                                                 & year                     \\
+    $T_{\mathrm{r}}$ & Time to deliver $M$ using rockets only                                                        & year                     \\
+    $T_{\mathrm{h}}$ & Time to deliver $M$ using hybrid strategy                                                     & year                     \\
 
     % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Space Elevator System}}}                                                                                                    \\
+    \multicolumn{3}{c}{\textit{\textbf{Space Elevator System}}}                                                                                 \\
     \cdashline{1-3}
-    $R_{\mathrm{e}}$ & Annual transportation capacity of the elevator system (all harbours)                                             & t/year                   \\
-    $P_{\mathrm{e}}$ & Payload capacity per Galactic Harbour per year                                                                   & t/year                   \\
-    $R_{\mathrm{e}}$ & Total annual capacity of three Galactic Harbours                                                                 & t/year                   \\
+    $R_{\mathrm{e}}$ & Annual transportation capacity of the elevator system (all harbours)                          & t/year                   \\
+    $P_{\mathrm{e}}$ & Payload capacity per Galactic Harbour per year                                                & t/year                   \\
+    $R_{\mathrm{e}}$ & Total annual capacity of three Galactic Harbours                                              & t/year                   \\
 
     % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Rocket Transportation}}}                                                                                                    \\
+    \multicolumn{3}{c}{\textit{\textbf{Rocket Transportation}}}                                                                                 \\
     \cdashline{1-3}
-    $N_{\mathrm{r}}$ & Number of active rocket launch sites                                                                             & --                       \\
-    $P_{\mathrm{r}}$ & Payload capacity per rocket launch                                                                               & t/launch                 \\
-    $f_{\mathrm{r}}$ & Launch frequency per site                                                                                        & launch/(site$\cdot$year) \\
-    $R_{\mathrm{r}}$ & Annual transportation capacity of the rocket system & t/year                   \\
+    $N_{\mathrm{r}}$ & Number of active rocket launch sites                                                          & --                       \\
+    $P_{\mathrm{r}}$ & Payload capacity per rocket launch                                                            & t/launch                 \\
+    $f_{\mathrm{r}}$ & Launch frequency per site                                                                     & launch/(site$\cdot$year) \\
+    $R_{\mathrm{r}}$ & Annual transportation capacity of the rocket system                                           & t/year                   \\
 
     % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Mass Allocation (Hybrid)}}}                                                                                                 \\
+    \multicolumn{3}{c}{\textit{\textbf{Mass Allocation (Hybrid)}}}                                                                              \\
     \cdashline{1-3}
-    $M_{\mathrm{e}}$ & Mass delivered by the elevator in hybrid strategy                                                                & t                        \\
-    $M_{\mathrm{r}}$ & Mass delivered by rockets in hybrid strategy                                                                     & t                        \\
+    $M_{\mathrm{e}}$ & Mass delivered by the elevator in hybrid strategy                                             & t                        \\
+    $M_{\mathrm{r}}$ & Mass delivered by rockets in hybrid strategy                                                  & t                        \\
 
     % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Cost Variables}}}                                                                                                           \\
+    \multicolumn{3}{c}{\textit{\textbf{Cost Variables}}}                                                                                        \\
     \cdashline{1-3}
-    $C_{\mathrm{e}}$ & Total cost of elevator-based delivery (fixed + variable)                                                         & USD                      \\
-    $C_{\mathrm{r}}$ & Total cost of rocket-based delivery                                                                              & USD                      \\
-    $C_{\mathrm{h}}$ & Total cost under hybrid strategy                                                                                 & USD                      \\
+    $C_{\mathrm{e}}$ & Total cost of elevator-based delivery (fixed + variable)                                      & USD                      \\
+    $C_{\mathrm{r}}$ & Total cost of rocket-based delivery                                                           & USD                      \\
+    $C_{\mathrm{h}}$ & Total cost under hybrid strategy                                                              & USD                      \\
 
     % =========================
     \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Multi-objective Metrics}}}                                                                                                  \\
+    \multicolumn{3}{c}{\textit{\textbf{Multi-objective Metrics}}}                                                                               \\
     \cdashline{1-3}
-    $f_1$            & Normalized time objective                                                                                        & --                       \\
-    $f_2$            & Normalized cost objective                                                                                        & --                       \\
-    $F$              & Weighted-sum composite objective                                                                                 & --                       \\
+    $f_1$            & Normalized time objective                                                                     & --                       \\
+    $f_2$            & Normalized cost objective                                                                     & --                       \\
+    $F$              & Weighted-sum composite objective                                                              & --                       \\
 
     % =========================
 \end{longtable}
