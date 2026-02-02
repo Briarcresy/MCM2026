@@ -685,7 +685,7 @@ The smooth and monotonic shape of the frontier indicates a clear and stable trad
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{../figure/4.png}
+    \includegraphics[width=0.5\textwidth]{../figure/4.png}
     \caption{Feasible solutions and Pareto frontier in the normalized objective space.}
     \label{fig:4}
 \end{figure}
@@ -700,16 +700,6 @@ For a given weight parameter $\alpha$, the optimal solution minimizes the compos
 \]
 where $f_1$ and $f_2$ are the normalized time- and cost-related objectives.
 
-Figure~\ref{fig:alpha_on_pareto} shows the locations of optimal solutions corresponding to several representative values of $\alpha$ on the Pareto frontier.
-As $\alpha$ increases, the selected solution shifts from cost-oriented to time-oriented, reflecting increased emphasis on rapid construction.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.5\textwidth]{../figure/5.png}
-    \caption{Pareto-optimal solutions selected under different weight parameters $\alpha$.}
-    \label{fig:alpha_on_pareto}
-\end{figure}
-
 \subsubsection{Feasible Region and Decision Space Interpretation}
 
 To further illustrate the structure of the optimization problem, Figure~\ref{fig:decision_space} presents the feasible region in the original decision space $(T, C)$, together with the Pareto-optimal solutions.
@@ -719,7 +709,7 @@ The Pareto frontier lies along the lower boundary of this region, confirming tha
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{../figure/6.png}
+    \includegraphics[width=0.5\textwidth]{../figure/6.png}
     \caption{Feasible region and Pareto frontier in the original decision space.}
     \label{fig:decision_space}
 \end{figure}
@@ -735,13 +725,6 @@ and record the best achievable value.
 
 Figure~\ref{fig:k_alpha_curve} shows the minimum weighted objective value as a function of $\alpha$.
 The curve exhibits a clear minimum, which indicates the recommended balance between construction time and transportation cost.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{../figure/k_a.png}
-    \caption{Variation of the minimum weighted objective value with respect to $\alpha$.}
-    \label{fig:k_alpha_curve}
-\end{figure}
 
 The minimum is attained at
 \[
@@ -761,9 +744,19 @@ This point represents the selected compromise under a strong preference for mini
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{../figure/pareto_front_best_solution.png}
-    \caption{Location of the recommended solution on the Pareto frontier.}
-    \label{fig:pareto_front_best}
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../figure/k_a.png}
+        \caption{Variation of the minimum weighted objective value with respect to $\alpha$.}
+        \label{fig:k_alpha_curve}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../figure/pareto_front_best_solution.png}
+        \caption{Location of the recommended solution on the Pareto frontier.}
+        \label{fig:pareto_front_best}
+    \end{minipage}
 \end{figure}
 
 Therefore, the computed results indicate that the proportion of cargo transported by the space elevator system is
@@ -812,7 +805,7 @@ The smooth transition confirms that the hybrid strategy responds continuously to
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/3.png}
+    \includegraphics[width=0.5\textwidth]{../figure/3.png}
     \caption{Variation of normalized objective components with respect to $\alpha$.}
     \label{fig:alpha_sensitivity}
 \end{figure}
@@ -880,7 +873,7 @@ Rocket and space elevator parameters are configured as follows:
 \textbf{Delay Time Distribution}
 Failure-induced delays follow a mixed Weibull distribution:
 \[
-f(t) = \alpha \cdot f_{1}(t;\beta_{1},\eta_{1}) + (1 - \alpha) \cdot f_{2}(t;\beta_{2},\eta_{2})
+    f(t) = \alpha \cdot f_{1}(t;\beta_{1},\eta_{1}) + (1 - \alpha) \cdot f_{2}(t;\beta_{2},\eta_{2})
 \]
 where $f_i(t) = \frac{\beta_i}{\eta_i} \left( \frac{t}{\eta_i} \right)^{\beta_i-1} e^{-(t/\eta_i)^{\beta_i}}$.
 \begin{itemize}
@@ -895,11 +888,16 @@ Simulation results: average elevator delay = 3.2 years; average rocket delay = 0
     \item Rocket: $C_{R}(t) = \dfrac{1200}{1 + e^{- 20(t - 0.2466)}}$
 \end{itemize}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.7\textwidth]{../figure/Flow Chart.png}
-\caption{Decision logic flowchart for the joint transportation model.}
-\label{fig:flowchart}
+\begin{figure}[H]
+    \centering
+    \includegraphics[
+        width=\textwidth,
+        height=\textheight,
+        keepaspectratio
+    ]{../figure/Flow Chart.png}
+    % \includegraphics[width=0.8\textwidth]{}
+    \caption{Decision logic flowchart for the joint transportation model.}
+    \label{fig:flowchart}
 \end{figure}
 
 % ==================== PART 2: Sensitivity Analysis ====================
@@ -914,40 +912,48 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \end{itemize}
 
 \subsubsection{Key Statistical Relationships}
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.75\textwidth]{../figure/Transport Weight Allocation Relationship.png}
-\caption{Transport weight allocation between rocket and elevator.}
-\label{fig:allocation}
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../figure/Transport Weight Allocation Relationship.png}
+        \caption{Transport weight allocation}
+        \label{fig:allocation}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../figure/Time vs Cost Proportion Relationship.png}
+        \caption{Time--cost proportion}
+        \label{fig:time_cost}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../figure/Cost Composition Box Plot.png}
+        \caption{Cost composition}
+        \label{fig:cost_box}
+    \end{subfigure}
+
+    \caption{Relationships among transportation weight allocation, time--cost proportion, and cost composition.}
+    \label{fig:transport_relationships}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.75\textwidth]{../figure/Time vs Cost Proportion Relationship.png}
-\caption{Relationship between time and cost proportion.}
-\label{fig:time_cost}
+\subsection{Correlation and Sensitivity Findings}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../figure/Impact of Factors on Total Time.png}
+    \caption{Impact of various factors on total mission time.}
+    \label{fig:sens_time}
 \end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.75\textwidth]{../figure/Cost Composition Box Plot.png}
-\caption{Box plot of cost composition.}
-\label{fig:cost_box}
-\end{figure}
-
-\textbf{Correlation and Sensitivity Findings}
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.75\textwidth]{../figure/Impact of Factors on Total Time.png}
-\caption{Impact of various factors on total mission time.}
-\label{fig:sens_time}
-\end{figure}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.75\textwidth]{../figure/Key Variable Correlation Coefficient Matrix.png}
-\caption{Correlation matrix of key model variables.}
-\label{fig:corr_matrix}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../figure/Key Variable Correlation Coefficient Matrix.png}
+    \caption{Correlation matrix of key model variables.}
+    \label{fig:corr_matrix}
 \end{figure}
 
 \textbf{Key insights:}
@@ -967,11 +973,11 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
     \item \textbf{Failure Impact:} Delays constitute only 1.9\% of total time.
 \end{enumerate}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.75\textwidth]{../figure/Transportation Plan Cost-Time Distribution(n=100000).png}
-\caption{Joint distribution of cost and time for the transportation plan.}
-\label{fig:cost_time_dist}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{../figure/Transportation Plan Cost-Time Distribution(n=100000).png}
+    \caption{Joint distribution of cost and time for the transportation plan.}
+    \label{fig:cost_time_dist}
 \end{figure}
 
 \textbf{Recommended Implementation Plan}
@@ -1022,7 +1028,7 @@ The water recycling system can be described by the following stock-flow diagram:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{../figure/water_flow.png}
+    \includegraphics[width=0.5\textwidth]{../figure/water_flow.png}
     \caption{Stock-flow diagram of the water recycling system}
     \label{fig:water_system}
 \end{figure}
@@ -1059,7 +1065,9 @@ We consider three scenarios for water delivery:
 
 For our analysis, we adopt the integrated delivery approach, which minimizes total project duration by allowing water to be transported whenever transportation capacity is available.
 
-\subsection{Time and Cost Analysis for Water Delivery}
+\subsection{Results and Key Findings}
+
+\textbf{Time and Cost Analysis for Water Delivery}
 
 Using our multi-objective MILP framework extended to include water transportation, we obtain the following results for each scenario:
 
@@ -1083,13 +1091,13 @@ Using our multi-objective MILP framework extended to include water transportatio
 
 The hybrid strategy demonstrates the best performance for water delivery, adding only 0.51 years to the construction timeline while keeping additional costs moderate.
 
-\subsection{Sensitivity Analysis on Recycling Efficiency}
+\textbf{Sensitivity Analysis on Recycling Efficiency}
 
 The water transportation requirement is highly sensitive to the recycling efficiency $\eta_{\text{recycle}}$. We analyze how varying this parameter affects the annual water requirement:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\textwidth]{../figure/water_recycling_sensitivity_detailed.png}
+    \includegraphics[width=0.9\textwidth]{../figure/water_recycling_sensitivity_detailed.png}
     \caption{Annual water requirement vs. recycling efficiency}
     \label{fig:water_sensitivity}
 \end{figure}
@@ -1110,7 +1118,7 @@ The water transportation requirement is highly sensitive to the recycling effici
     \end{tabular}
 \end{table}
 
-\subsection{Optimization of Water Delivery Schedule}
+\textbf{Optimization of Water Delivery Schedule}
 
 We extend our MILP model to optimize the water delivery schedule. The optimal strategy transports water during periods of lower construction material transportation, utilizing the transportation systems' available capacity more efficiently.
 
@@ -1121,7 +1129,7 @@ The optimal water delivery schedule for the hybrid strategy is:
     \item This reduces the total project duration increase to only 0.28 years
 \end{itemize}
 
-\subsection{Water Delivery Cost Breakdown}
+\textbf{Water Delivery Cost Breakdown}
 
 For the recommended hybrid strategy ($\alpha = 0.5$), the water delivery cost breakdown is:
 \begin{align*}
@@ -1130,7 +1138,7 @@ For the recommended hybrid strategy ($\alpha = 0.5$), the water delivery cost br
     \text{Total water delivery cost:} & \quad \$2.070 \times 10^{11}
 \end{align*}
 
-\subsection{Key Findings}
+\textbf{Key Findings}
 
 \begin{enumerate}
     \item The 100,000-person Moon Colony requires approximately 365,000 metric tons of water annually, assuming a $95\%$ recycling efficiency.
@@ -1251,7 +1259,6 @@ Rocket impacts are dominated by \textbf{operational atmospheric emissions} accum
 \end{equation}
 where $E_b^{\text{build}}$ is relatively small (launch-site upgrades), but $E_b^{\text{op}}$ scales with the number of launches.
 
-From Section~4.2:
 \begin{itemize}
     \item $N_{\text{launches}} = \frac{10^8}{150} \approx 6.67\times 10^5$
     \item $E_b^{\text{build}} = 0.05$ \quad (infrastructure upgrades)
@@ -1306,7 +1313,7 @@ When we say ``the elevator is cleaner'', we specifically mean \textbf{cleaner du
 
 \subsection{Model Adjustment to Minimize Environmental Impact}
 
-\subsubsection{Extended Multi-Objective Optimization Framework}
+\textbf{Extended Multi-Objective Optimization Framework}
 
 To explicitly minimize environmental impact, we extend our MILP model from Section~3.4 to include environmental objectives.
 
@@ -1349,7 +1356,7 @@ and solve using the $\varepsilon $-constraint method:
     \item Vary \(\epsilon\) to trace the Pareto surface in three dimensions
 \end{enumerate}
 
-\subsubsection{Environmental Constraints Integration}
+\textbf{Environmental Constraints Integration}
 
 \paragraph{Carbon Budget Constraint}
 
@@ -1376,7 +1383,7 @@ Reflecting potential regulatory constraints:
     \item \textbf{Material sustainability}: Constraints on rare material usage for tether construction
 \end{itemize}
 
-\subsubsection{Environmental Cost Internalization}
+\textbf{Environmental Cost Internalization}
 
 \paragraph{Carbon Pricing Integration}
 
@@ -1398,7 +1405,7 @@ Using projected Social Cost of Carbon (SCC) values for 2050:
 
 This significantly increases the apparent cost of rocket-based transportation.
 
-\subsubsection{Technological Improvement Integration}
+\textbf{Technological Improvement Integration}
 
 \paragraph{Learning Curves for Environmental Performance}
 
@@ -1417,7 +1424,7 @@ where \(EI(t)\) is the environmental impact per launch in year \(t\), and \(\bet
     \item \textbf{Circular economy principles}: Recycling and reuse of materials in both systems
 \end{itemize}
 
-\subsubsection{Optimization Results with Environmental Considerations}
+\textbf{Optimization Results with Environmental Considerations}
 
 Applying the extended model with environmental objectives yields significantly different optimal strategies.
 
@@ -1427,7 +1434,7 @@ The three-objective optimization produces a Pareto surface showing trade-offs be
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/pareto_3d.png}
+    \includegraphics[width=0.7\textwidth]{../figure/pareto_3d.png}
     \caption{Pareto surface showing trade-offs between time, cost, and environmental impact}
     \label{fig:pareto_3d}
 \end{figure}
@@ -1453,13 +1460,13 @@ Imposing a carbon budget of \(B_{\text{CO2}} = 1.0 \times 10^9\) tons $CO_2$ (ap
 
 \subsection{Sensitivity Analysis of Environmental Factors}
 
-\subsubsection{Sensitivity to Carbon Price}
+\textbf{Sensitivity to Carbon Price}
 
 The optimal strategy is highly sensitive to the carbon price assumption:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/carbon_price_sensitivity.png}
+    \includegraphics[width=0.6\textwidth]{../figure/carbon_price_sensitivity.png}
     \caption{Optimal space elevator fraction vs. carbon price}
     \label{fig:carbon_sensitivity}
 \end{figure}
@@ -1471,7 +1478,7 @@ The optimal strategy is highly sensitive to the carbon price assumption:
     \item \textbf{At \(p_{\text{CO2}} = \$500\)}: \(\lambda^* = 0.94\) (approaching elevator-only)
 \end{itemize}
 
-\subsubsection{Sensitivity to Environmental Learning Rates}
+\textbf{Sensitivity to Environmental Learning Rates}
 
 The environmental learning rate \(\beta_E\) significantly affects long-term strategies:
 
@@ -1491,7 +1498,7 @@ The environmental learning rate \(\beta_E\) significantly affects long-term stra
     \end{tabular}
 \end{table}
 
-\subsubsection{Sensitivity to Renewable Energy Penetration}
+\textbf{Sensitivity to Renewable Energy Penetration}
 
 The environmental advantage of the space elevator depends on the carbon intensity of electricity:
 
@@ -1508,47 +1515,6 @@ The environmental advantage of the space elevator depends on the carbon intensit
     \item \textbf{At 100\% renewables}: Space elevator EII = 0.18 (operation only)
 \end{itemize}
 
-\subsection{Policy Implications and Recommendations}
-
-\subsubsection{Environmental Policy Instruments}
-
-Based on our analysis, we recommend the following policy approaches to minimize environmental impact:
-
-\begin{enumerate}
-    \item \textbf{Carbon pricing implementation}: Internalize environmental costs into transportation decisions
-    \item \textbf{Technology-specific standards}: Emission limits for rocket launches
-    \item \textbf{Renewable energy mandates}: Minimum clean energy requirements for space elevator operation
-    \item \textbf{Research and development incentives}: Accelerate development of green propulsion and sustainable space infrastructure
-\end{enumerate}
-
-\subsubsection{Strategic Environmental Recommendations for MCM Agency}
-
-\begin{enumerate}
-    \item \textbf{Prioritize space elevator development} despite higher initial costs, due to superior long-term environmental performance
-    \item \textbf{Implement progressive carbon budgeting} that tightens over time as climate constraints become more binding
-    \item \textbf{Invest in renewable energy infrastructure} at Earth ports to maximize environmental benefits of space elevator
-    \item \textbf{Develop contingency plans} for accelerated green technology adoption if environmental learning rates exceed expectations
-    \item \textbf{Establish environmental monitoring and mitigation programs} for both rocket launch sites and space elevator construction/operation
-\end{enumerate}
-
-\subsubsection{Model Limitations and Future Improvements}
-
-Our environmental impact analysis has several limitations that suggest directions for future research:
-
-\begin{enumerate}
-    \item \textbf{Incomplete impact categories}: Does not fully account for biodiversity loss, water pollution, or social impacts
-    \item \textbf{Uncertainty in future parameters}: Energy mix, technological progress, and policy environment are highly uncertain
-    \item \textbf{Simplified atmospheric chemistry}: Rocket emission impacts on ozone and stratospheric chemistry are modeled simplistically
-    \item \textbf{Space-based environmental impacts}: Does not account for orbital debris or lunar surface environmental impacts
-\end{enumerate}
-
-Future model extensions should include:
-\begin{itemize}
-    \item Life Cycle Assessment (LCA) across full supply chains
-    \item Dynamic integration with Earth system models
-    \item Stochastic modeling of technological breakthroughs
-    \item Multi-criteria decision analysis incorporating non-monetary environmental values
-\end{itemize}
 
 \subsection{Conclusion}
 
@@ -1561,10 +1527,6 @@ The environmental impact analysis reveals significant differences among the thre
 \end{enumerate}
 
 By extending our mathematical model to incorporate environmental objectives, we demonstrate that environmentally optimal strategies involve higher utilization of space elevators than pure cost-optimization suggests. The sensitivity of optimal strategies to carbon pricing highlights the importance of policy frameworks that internalize environmental externalities.
-
-For the MCM Agency, we recommend adopting an environmentally extended optimization framework for all transportation planning, implementing progressive environmental constraints aligned with climate goals, and prioritizing investments in sustainable space infrastructure that minimizes the Earth environmental footprint of extraterrestrial expansion.
-
-\noindent\textit{Note: This analysis assumes continuation of current environmental policy trends. More aggressive climate action or technological breakthroughs in green propulsion could significantly alter the optimal strategy toward even greater use of space elevators or entirely new transportation modalities.}
 
 % ================= 第六章 =================
 \section{Model Evaluation}
