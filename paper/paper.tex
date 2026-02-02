@@ -853,18 +853,18 @@ If the primary objective is to minimize monetary expenditure and the schedule is
     f_i(t)=\frac{\beta_i}{\eta_i}\!\left(\frac{t}{\eta_i}\right)^{\!\beta_i-1}\!e^{-(t/\eta_i)^{\beta_i}}.
 \]
 
-\noindent\begin{minipage}[t]{0.48\textwidth}
-\textbf{Elevator:}\\
-$\alpha = 0.995$,\\
-$\beta_1=2.2$, $\eta_1=30/365$ (short),\\
-$\beta_2=1.5$, $\eta_2=10$ (long).
-\end{minipage}\hfill
-\begin{minipage}[t]{0.48\textwidth}
-\textbf{Rocket:}\\
-$\alpha = 0.9$,\\
-$\beta_1=1.5$, $\eta_1=10/365$ (short),\\
-$\beta_2=2.2$, $\eta_2=70/365$ (long).
-\end{minipage}
+\begin{table}[htbp]
+\centering
+\label{tab:parameters}
+\begin{tabular}{lccccc}
+\toprule
+\textbf{System} & $\alpha$ & $\beta_1$ & $\eta_1$ & $\beta_2$ & $\eta_2$ \\
+\midrule
+Elevator & 0.995 & 2.2 & $30/365$ (short) & 1.5 & $10$ (long) \\
+Rocket & 0.9 & 1.5 & $10/365$ (short) & 2.2 & $70/365$ (long) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \vspace{0.5em}
 Simulation results: average elevator delay = 3.2 years; average rocket delay = 0.2 years.
@@ -975,7 +975,6 @@ The joint transportation model demonstrates:
     \item Optimized resource allocation leveraging elevator scale and rocket flexibility.
 \end{enumerate}
 This provides a feasible framework for large-scale extraterrestrial resource transportation.
-
 
 
 % ================= 第5章：模型应用 =================
