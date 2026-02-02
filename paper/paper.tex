@@ -766,6 +766,13 @@ Scenario (c) reduces time by 28.9\% relative to (a) and 71.0\% relative to (b). 
 
 \section{Robustness Analysis under Non-Ideal Operating Conditions}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth,height=\textheight,keepaspectratio]{../figure/Flow Chart.png}
+    \caption{Decision logic flowchart for the joint transportation model.}
+    \label{fig:flowchart}
+\end{figure}
+
 \subsection{Model Assumptions: Non-Ideal Scenario Construction}
 \textbf{Failure Probability:}
 \begin{itemize}
@@ -783,7 +790,7 @@ Scenario (c) reduces time by 28.9\% relative to (a) and 71.0\% relative to (b). 
 \]
 \vspace{-12pt}
 
-\begin{table}[htbp]
+\begin{table}[H]
     \centering
     \label{tab:parameters}
     \begin{tabular}{lccccc}
@@ -807,13 +814,6 @@ Simulation results: average elevator delay = 3.2 years; average rocket delay = 0
 \]
 \vspace{-16pt}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.5\textwidth,height=\textheight,keepaspectratio]{../figure/Flow Chart.png}
-    \caption{Decision logic flowchart for the joint transportation model.}
-    \label{fig:flowchart}
-\end{figure}
-
 % ==================== PART 2: Sensitivity Analysis ====================
 \subsection{Model Sensitivity Analysis}
 \subsubsection{Simulation Framework}
@@ -825,23 +825,25 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 
 \subsubsection{Key Statistical Relationships}
 
-\begin{figure}[htbp]
+% The key statistical relationships are shown in Figure \ref{fig:transport_relationships}.
+
+\begin{figure}[H]
     \centering
-    \begin{subfigure}[t]{0.32\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
         \includegraphics[width=\textwidth]{../figure/Transport Weight Allocation Relationship.png}
         \caption{Transport weight allocation}
         \label{fig:allocation}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.32\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
         \includegraphics[width=\textwidth]{../figure/Time vs Cost Proportion Relationship.png}
         \caption{Time--cost proportion}
         \label{fig:time_cost}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[t]{0.32\textwidth}
+    \begin{subfigure}[t]{0.30\textwidth}
         \centering
         \includegraphics[width=\textwidth]{../figure/Cost Composition Box Plot.png}
         \caption{Cost composition}
@@ -852,6 +854,8 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \end{figure}
 
 \subsection{Correlation and Sensitivity Findings}
+
+Figure \ref{fig:sensitivity_correlation} presents sensitivity and correlation analyses of key variables in the time model.
 
 \begin{figure}[htbp]
     \centering
@@ -916,7 +920,7 @@ The joint transportation model demonstrates:
 This provides a feasible framework for large-scale extraterrestrial resource transportation.
 
 % ================= 第5章：模型应用 =================
-% ================= 第5章：模型应用 =================
+
 \section{Water Supply Model for Sustained Operation —— System Dynamics Model}
 
 A system dynamics model analyzes water demand, recycling efficiency, and transportation requirements for 100,000 people.
@@ -1132,7 +1136,7 @@ Space elevator offers near-zero atmospheric emissions during cargo transport, wi
 
 \textbf{Environmental Advantages and Concerns}
 
-\begin{table}[H]
+\begin{table}[htbp]
     \centering
     \caption{Environmental Assessment by Transportation Strategy}
     \label{tab:strategy_assessment}
@@ -1272,7 +1276,7 @@ Using projected Social Cost of Carbon for 2050: $p_{\text{CO2}} = \$200/\text{to
         \label{fig:carbon_sensitivity}
     \end{figure}
 
-    \begin{table}[H]
+    \begin{table}[htbp]
         \centering
         \caption{Carbon Price Sensitivity}
         \label{tab:carbon_price_sensitivity}
@@ -1562,7 +1566,7 @@ transportation schemes, evaluated with respect to \textbf{time}, \textbf{cost},
     Query1: <If we want to search for literature related to space elevator, which words are more efficient to use when searching?>\\
     Output: <The world's advanced launch vehicles mainly include:
 
-    \begin{table}[H]
+    \begin{table}[htbp]
         \centering
         \label{tab:advanced_rockets}
         \begin{tabular}{|c|c|c|}
