@@ -815,7 +815,7 @@ If the primary objective is to minimize monetary expenditure and the schedule is
 \end{table}
 
 \vspace{0.5em}
-Simulation results: average elevator delay = 3.2 years; average rocket delay = 0.2 years.
+Simulation results: average elevator delay = 3.2 years; average rocket delay = 0.2 years.
 
 \textbf{Failure Cost Functions:}
 \[
@@ -823,9 +823,9 @@ Simulation results: average elevator delay = 3.2 years; average rocket delay =
     C_{R}(t)=\frac{1200}{1+e^{-20(t-0.2466)}}.
 \]
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{../figure/Flow Chart.png}
+    \includegraphics[width=0.6\textwidth,height=\textheight,keepaspectratio]{../figure/Flow Chart.png}
     \caption{Decision logic flowchart for the joint transportation model.}
     \label{fig:flowchart}
 \end{figure}
@@ -836,12 +836,12 @@ Simulation results: average elevator delay = 3.2 years; average rocket delay =
 Monte Carlo simulations ($N=10^5$) yield stable results:
 \begin{itemize}
     \item Cost coefficient of variation: 0.006; time coefficient of variation: 0.037.
-    \item Mean total cost: 67.39 trillion USD; mean total time: 182.2 years.
+    \item Mean total cost: 67.39 trillion USD; mean total time: 182.2 years.
 \end{itemize}
 
 \subsubsection{Key Statistical Relationships}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \begin{subfigure}[t]{0.32\textwidth}
         \centering
@@ -868,19 +868,26 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \end{figure}
 
 \subsection{Correlation and Sensitivity Findings}
-\begin{figure}[H]
+
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.75\textwidth]{../figure/Impact of Factors on Total Time.png}
-    \caption{Impact of various factors on total mission time.}
-    \label{fig:sens_time}
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../figure/Impact of Factors on Total Time.png}
+        \caption{Impact of various factors on total mission time.}
+        \label{fig:sens_time}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{../figure/Key Variable Correlation Coefficient Matrix.png}
+        \caption{Correlation matrix of key model variables.}
+        \label{fig:corr_matrix}
+    \end{subfigure}
+    \caption{Sensitivity and correlation analysis of key variables in the time model.}
+    \label{fig:sensitivity_correlation}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{../figure/Key Variable Correlation Coefficient Matrix.png}
-    \caption{Correlation matrix of key model variables.}
-    \label{fig:corr_matrix}
-\end{figure}
 
 \textbf{Key insights:}
 \begin{itemize}
@@ -893,15 +900,15 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \subsection{Summary and Recommended Plan}
 \textbf{Performance Summary}
 \begin{enumerate}
-    \item \textbf{Cost:} Average 67.39 trillion USD (saves 72.7\% vs. pure rocket; 10.9\% vs. pure elevator).
-    \item \textbf{Time:} Average 182.2 years (70.5\% of cases complete within 180 years).
+    \item \textbf{Cost:} Average 67.39 trillion USD (saves 72.7\% vs. pure rocket; 10.9\% vs. pure elevator).
+    \item \textbf{Time:} Average 182.2 years (70.5\% of cases complete within 180 years).
     \item \textbf{Allocation:} Elevator handles 95.9\% of mass; rockets 4.0\%.
     \item \textbf{Failure Impact:} Delays constitute only 1.9\% of total time.
 \end{enumerate}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.75\textwidth]{../figure/Transportation Plan Cost-Time Distribution(n=100000).png}
+    \includegraphics[width=0.6\textwidth]{../figure/Transportation Plan Cost-Time Distribution(n=100000).png}
     \caption{Joint distribution of cost and time for the transportation plan.}
     \label{fig:cost_time_dist}
 \end{figure}
@@ -909,8 +916,8 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \textbf{Recommended Implementation Plan}
 \begin{itemize}
     \item \textbf{Strategy:} Elevator-core (95.9\% mass), rocket-supplement (4.0\% mass).
-    \item \textbf{Time Target:} 190 years (based on 182.2-year average with buffer).
-    \item \textbf{Budget:} 78 trillion USD (based on 67.39 trillion average with contingency).
+    \item \textbf{Time Target:} 190 years (based on 182.2-year average with buffer).
+    \item \textbf{Budget:} 78 trillion USD (based on 67.39 trillion average with contingency).
     \item \textbf{Risk Focus:} Mitigate 0.5\% probability long-delay elevator failures.
 \end{itemize}
 
@@ -952,7 +959,7 @@ The water recycling system can be described by the following stock-flow diagram:
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.5\textwidth]{../figure/water_flow.png}
+    \includegraphics[width=0.4\textwidth]{../figure/water_flow.png}
     \caption{Stock-flow diagram of the water recycling system}
     \label{fig:water_system}
 \end{figure}
@@ -1021,7 +1028,7 @@ The water transportation requirement is highly sensitive to the recycling effici
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/water_recycling_sensitivity_detailed.png}
+    \includegraphics[width=0.75\textwidth]{../figure/water_recycling_sensitivity_detailed.png}
     \caption{Annual water requirement vs. recycling efficiency}
     \label{fig:water_sensitivity}
 \end{figure}
@@ -1358,7 +1365,7 @@ The three-objective optimization produces a Pareto surface showing trade-offs be
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{../figure/pareto_3d.png}
+    \includegraphics[width=0.6\textwidth]{../figure/pareto_3d.png}
     \caption{Pareto surface showing trade-offs between time, cost, and environmental impact}
     \label{fig:pareto_3d}
 \end{figure}
@@ -1428,7 +1435,7 @@ The environmental advantage of the space elevator depends on the carbon intensit
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.9\textwidth]{../figure/renewable_sensitivity.png}
+    \includegraphics[width=0.8\textwidth]{../figure/renewable_sensitivity.png}
     \caption{Environmental impact vs. renewable energy percentage for space elevator}
     \label{fig:renewable_sensitivity}
 \end{figure}
@@ -1577,39 +1584,20 @@ Team \#2602787
 
 \begin{ReportAiUse}{9}
     \bibitem{AI1}
-    Bing AI\\
-    Query1: write a sort algorithm\\
-    Output: Sure, I can help you with that. Here is a simple implementation of the selection sort algorithm in Python:
-    \begin{lstlisting}[language=python]
-def selection_sort(arr):
-    for i in range(len(arr)):
-        min_idx = i
-        for j in range(i + 1, len(arr)):
-            if arr[min_idx] > arr[j]:
-                min_idx = j
-        arr[i], arr[min_idx] = arr[min_idx], arr[i]
-    return arr
-\end{lstlisting}
-    This algorithm sorts an array by repeatedly finding the minimum element from the unsorted part of the array and putting it at the beginning. \href{https://www.geeksforgeeks.org/sorting-algorithms/}{The time complexity of this algorithm is O($n^2$)}.
-
-    There are many other sorting algorithms available such as bubble sort, insertion sort, merge sort, quick sort, heap sort, and more. Each of these algorithms has its own advantages and disadvantages. You can learn more about them on GeeksforGeeks and Programiz.
-
-    I hope this helps!
+    DeepSeek (December 1,2025,V3.2)\\
+    Query1: <I need you to help me write a MATLAB code for Monte Carlo simulation and Pareto frontier analysis of multi-objective optimization problems. This is a constrained two objective optimization problem, which needs to optimize two conflicting goals at the same time: T (the first variable, the smaller the better) and C (the second variable, the smaller the better). Please generate ideas and methods for writing code for me.>\\
+    Output: <The ideas are as follows: 1. problem definition: make clear the definition domain and constraints of the two objective functions T (x) and C (x). 2. Monte Carlo sampling: in the feasible region of decision variables, a large number of sample points are generated by Rand or better Latin hypercube sampling. 3. evaluation and screening: calculate the T and C values of each sample, and check whether the constraints are met. Remove the points that violate the constraints. 4. Pareto front recognition: in the residual feasible solution, the two targets are sorted non dominated, and all solutions that are not dominated by other solutions are found (that is, at least one of T or C is better and the other is not bad), forming the Pareto front. 5. visualization: use scatter to draw all feasible solutions and Pareto front respectively, so as to visually show the conflict relationship and optimal boundary.>
 
     \bibitem{AI2}
-    OpenAl Enie (Nov 5, 2023 version, Ernie 4.0)\\
-    Query1: <insert the exact wording of any subsequent input into the Al tool>\\
-    Output: <insert the complete output from the second query>
+    DeepSeek (December 2,2025,V3.2)\\
+    Query1: <I need you to provide me with some clues and suggestions. What kind of mathematical distribution should I know and use to more scientifically simulate the failure frequency and failure time of rockets and space elevators?>\\
+    Output: <For modeling failure frequency, Poisson distribution is commonly used to describe the number of random failures in a fixed task cycle (such as a single launch).
 
-    \bibitem{AI3}
-    Github CoPilot (Feb 3, 2024 version)\\
-    Query1: <insert the exact wording you input into the Al tool>\\
-    Output: <insert the complete output fron the Al tool>
+    For the time between failures,the exponential distribution is suitable for the random failure stage with constant failure rate.
 
-    \bibitem{AI4}
-    Google Bard (Feb 2,2024 version)\\
-    Query: <insert the exact wording of your query>\\
-    Output: <irsert the complete output from the Al tool>
+    Weibull distribution is the most critical and flexible. Its shape parameters can describe the complete life cycle of decreasing failure rate (early failure), constant (random failure) or increasing (wear aging). This is essential for the modeling of space elevator components with fatigue and wear.
+
+    The core proposal: the rocket short-term mission can focus on Poisson and exponential distribution; The long-term cycle operation and structural aging of space elevator must be modeled with Weibull distribution. The final selection needs to be determined by fitting historical or simulation data.>
 
 \end{ReportAiUse}
 
