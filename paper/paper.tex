@@ -586,6 +586,7 @@ Transportation cost is modeled using Wright's learning curve \cite{1,2}:
     C(t) = C_0 (1 - \beta)^{N(t)},
 \end{equation}
 where \(C(t)\) is the unit cost in year \(t\), \(C_0 = 44{,}940.9\) million USD \cite{4} is the initial launch cost, \(\beta = 3.7139\%\) \cite{5,6} is the learning rate, and \(N(t)\) is the cumulative number of launches, fitted by:
+
 \[
     N(t) = \lfloor 3.342857t - 0.857143 \rfloor.
 \]
@@ -593,11 +594,13 @@ where \(C(t)\) is the unit cost in year \(t\), \(C_0 = 44{,}940.9\) million USD 
 By 2050, the estimated cost per launch (150-ton payload) reduces to approximately 73 million USD, giving $c_{\text{launch}} = \SI{7.3e7}{USD}.$
 
 The total number of launches required is:
+
 \[
     N_{\text{launch}} = \frac{M}{P_r} = \frac{10^8}{150} \approx 6.67 \times 10^5.
 \]
 
 Thus, the total transportation cost for the rocket-only scenario is:
+
 \[
     C_r = c_{\text{launch}} \cdot N_{\text{launch}} = 7.3 \times 10^7 \times \frac{10^8}{150} = \SI{4.867e13}{USD}.
 \]
@@ -1041,13 +1044,12 @@ For the recommended hybrid strategy ($\alpha = 0.5$), the water delivery cost br
 
 This system dynamics model provides a comprehensive framework for planning water supply logistics for the Moon Colony, demonstrating that with efficient recycling and optimized transportation, water sustainability is achievable at reasonable cost and timeline.
 
-
 % ================= 第6章：环境影响分析 =================
 \section{Environmental Impact Analysis}
 
 \subsection{Introduction to Environmental Impact Assessment}
 
-The construction and operation of a 100,000-person Moon Colony through different transportation strategies will inevitably have varying environmental impacts on Earth. This section quantitatively evaluates these impacts across the three scenarios analyzed in Section~4, and proposes model adjustments to minimize environmental consequences while maintaining project feasibility.
+Different transportation strategies for constructing and operating a 100,000-person Moon Colony will have varying environmental impacts on Earth. This section quantitatively evaluates these impacts across the three scenarios analyzed in Section~4 and proposes model adjustments to minimize environmental consequences while maintaining project feasibility.
 
 % ============================
 % Fix for the EII consistency issue
@@ -1070,10 +1072,10 @@ We consider three primary environmental impact categories:
 A common source of confusion is mixing \emph{one-time construction impact} with \emph{ongoing operational impact}.
 To make the comparison logically consistent, we decompose environmental impact into two parts:
 
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Construction-phase impact} (one-time, upfront): $E^{\text{build}}$
     \item \textbf{Operational impact} (recurring during transport/operation): $E^{\text{op}}$
-\end{itemize}
+\end{enumerate}
 
 Accordingly, the total Environmental Impact Index (EII) over the entire project is defined as
 \begin{equation}
@@ -1082,10 +1084,11 @@ Accordingly, the total Environmental Impact Index (EII) over the entire project 
 \end{equation}
 
 \noindent\textbf{Interpretation.}
-\begin{itemize}
-    \item $EII^{\text{total}}$ answers: \emph{``How large is the total project footprint (including building the system)?''}
-    \item $E^{\text{op}}$ answers: \emph{``How clean is the system once it is built and running?''}
-\end{itemize}
+
+1.$EII^{\text{total}}$ answers: \emph{``How large is the total project footprint (including building the system)?''}
+
+2.$E^{\text{op}}$ answers: \emph{``How clean is the system once it is built and running?''}
+
 
 Therefore, it is entirely possible for a system to have \textbf{higher} $EII^{\text{total}}$ (because it is construction-intensive)
 while still being \textbf{cleaner during operation} (because it produces little/no atmospheric emissions while transporting payload).
@@ -1103,248 +1106,188 @@ where each component is normalized to a $[0,1]$ scale for comparability.
 % ----------------------------------------------------
 \subsection{Environmental Impact Analysis of Three Scenarios}
 
-\subsubsection{Scenario (a): Space Elevator Only}
+\subsubsection{Scenarios (a) Space Elevator Only and (b) Traditional Rockets Only: A Comparative Environmental Impact Assessment}
 
 \paragraph{Quantitative Assessment}
-
-For the space elevator scenario, the environmental footprint is dominated by the \textbf{upfront construction} of the three Galactic Harbours:
-\begin{equation}
-    EII_a^{\text{total}} = E_a^{\text{build}} + E_a^{\text{op}}.
-\end{equation}
-
-Using our normalized scoring assumptions:
-\begin{itemize}
-    \item $E_a^{\text{build}} = 0.85$ \quad (graphene tether manufacturing + ports + anchors)
-    \item $E_a^{\text{op}} = 0.12$ \quad (primarily electricity; assuming high renewable penetration)
-    \item \textbf{Total:} $EII_a^{\text{total}} = 0.97$
-\end{itemize}
-
-\noindent\textbf{Key clarification (resolving the apparent contradiction).}
-Although $EII_a^{\text{total}}$ is high due to the one-time construction burden, the elevator is still the \textbf{cleanest option during operation} because its \textbf{atmospheric emissions while transporting cargo are negligible} compared with rockets. In other words,
+Environmental Impact Index (EII) totals for each scenario are given by:
 \[
-    E_a^{\text{op}} \ll E_b^{\text{op}},
+    EII^{\text{total}} = E^{\text{build}} + E^{\text{op}}.
 \]
-even if $EII_a^{\text{total}}$ can exceed $EII_b^{\text{total}}$ under certain normalization choices.
 
-\paragraph{Key Environmental Advantages (Operation Phase)}
-\begin{itemize}
-    \item \textbf{Near-zero operational atmospheric emissions}: no repeated combustion events for lift operations
-    \item \textbf{Grid-powered decarbonization potential}: operational footprint decreases as the grid becomes cleaner
-    \item \textbf{Scalability with low marginal environmental cost}: extra transported mass does not require proportional launch emissions
-\end{itemize}
+\textbf{Scenario (a): Space Elevator}
 
-\paragraph{Environmental Concerns (Construction Phase)}
-\begin{itemize}
-    \item \textbf{Construction intensity}: advanced material manufacturing is energy- and resource-intensive
-    \item \textbf{Equatorial ecosystem disruption}: Earth-port construction may disturb local environments
-    \item \textbf{Orbital debris risk}: failure modes could introduce GEO debris if not mitigated
-\end{itemize}
+1.Construction: $E_a^{\text{build}} = 0.85$ (graphene tether, ports, anchors)
 
-\subsubsection{Scenario (b): Traditional Rockets Only}
+2.Operation: $E_a^{\text{op}} = 0.12$ (primarily electricity)
 
-\paragraph{Quantitative Assessment}
+3.\textbf{Total:} $EII_a^{\text{total}} = 0.97$
 
-Rocket impacts are dominated by \textbf{operational atmospheric emissions} accumulated over many launches:
-\begin{equation}
-    EII_b^{\text{total}} = E_b^{\text{build}} + E_b^{\text{op}},
-\end{equation}
-where $E_b^{\text{build}}$ is relatively small (launch-site upgrades), but $E_b^{\text{op}}$ scales with the number of launches.
+\textbf{Scenario (b): Traditional Rockets}
 
-\begin{itemize}
-    \item $N_{\text{launches}} = \frac{10^8}{150} \approx 6.67\times 10^5$
-    \item $E_b^{\text{build}} = 0.05$ \quad (infrastructure upgrades)
-    \item $E_b^{\text{op}} = 0.80$ \quad (emissions + propellant + stratospheric effects, normalized)
-    \item \textbf{Total:} $EII_b^{\text{total}} = 0.85$
-\end{itemize}
+1. Number of launches: $N_{\text{launches}} = \frac{10^8}{150} \approx 6.67\times 10^5$
 
-\paragraph{Interpretation}
-Rockets may appear to have a lower $EII^{\text{total}}$ than the elevator under this normalization, but this is because the elevator's one-time construction cost is counted heavily. In operational terms, rockets remain environmentally intensive due to repeated high-emission launch events.
+2.Construction: $E_b^{\text{build}} = 0.05$ (infrastructure upgrades)
+3.Operation: $E_b^{\text{op}} = 0.80$ (emissions, propellant, stratospheric effects)
+4.\textbf{Total:} $EII_b^{\text{total}} = 0.85$
+
+\paragraph{Interpretation and Key Clarification}
+While $EII_a^{\text{total}} > EII_b^{\text{total}}$ under this normalization—due to the space elevator's high one-time construction burden—its operational footprint is significantly cleaner. Crucially:
+\[
+    E_a^{\text{op}} \ll E_b^{\text{op}}.
+\]
+Thus, the space elevator offers near-zero atmospheric emissions during cargo transport, with a decarbonization potential tied to grid cleanliness. Rockets, however, incur repeated high-emission launch events, making them operationally more intensive despite a lower construction score.
+
+\textbf{Environmental Advantages and Concerns}
+
+
+
+\begin{table}[H]
+    \centering
+    \caption{Environmental Assessment by Transportation Strategy}
+    \label{tab:strategy_assessment}
+    \begin{tabular}{p{0.25\textwidth} p{0.7\textwidth}}
+        \toprule
+        \textbf{Strategy}                & \textbf{Environmental Assessment}                                                                                                                                           \\
+        \midrule
+        \textbf{Space Elevator (a)}      &
+        \textbf{Advantages (Operation):} Negligible operational atmospheric emissions; scalable with low marginal environmental cost; grid-decarbonization potential.                                                  \\
+                                         & \textbf{Concerns (Construction):} Energy- and resource-intensive advanced manufacturing; potential equatorial ecosystem disruption; orbital debris risk from failure modes. \\
+        \midrule
+        \textbf{Traditional Rockets (b)} &
+        Dominant impact stems from accumulated operational atmospheric emissions over hundreds of thousands of launches.                                                                                               \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
 
 \subsubsection{Scenario (c): Hybrid Transportation Strategy}
 
 \paragraph{Quantitative Assessment}
-
-For the hybrid strategy, we separate the elevator's construction burden (still required) from the reduced rocket operational burden. Using the same decomposition:
+For the hybrid strategy, the total Environmental Impact Index (EII) is:
 \begin{equation}
     EII_c^{\text{total}} = E_c^{\text{build}} + E_c^{\text{op}}.
 \end{equation}
-
-Since the hybrid strategy still requires building the elevator infrastructure,
+The construction burden is similar to the elevator-only scenario:
 \[
     E_c^{\text{build}} \approx E_a^{\text{build}}.
 \]
-However, operational impact is reduced because fewer rocket launches are required. With the recommended payload split $\lambda=0.7103$:
+Operational impact is reduced due to fewer rocket launches. With the recommended payload split $\lambda=0.7103$:
 \begin{equation}
     E_c^{\text{op}} = \lambda\,E_a^{\text{op}} + (1-\lambda)\,E_b^{\text{op}}.
 \end{equation}
-
-Therefore, the hybrid approach achieves:
-\begin{itemize}
-    \item \textbf{Lower operational atmospheric emissions than rockets-only} (because only $1-\lambda$ of payload relies on rockets)
-    \item \textbf{Lower total operational burden than rockets-only} while retaining elevator's long-run cleanliness
-\end{itemize}
+Thus, the hybrid approach achieves lower operational atmospheric emissions than rockets-only, while retaining the elevator's long-run cleanliness.
 
 \begin{table}[htbp]
     \centering
-    \caption{Consistent EII decomposition (construction vs. operation) used to interpret ``cleaner''}
+    \caption{Environmental Impact Index Decomposition}
     \label{tab:eii_decomposition}
     \begin{tabular}{lccc}
         \toprule
-        \textbf{Scenario} & $E^{\text{build}}$ & $E^{\text{op}}$                           & $EII^{\text{total}}=E^{\text{build}}+E^{\text{op}}$ \\
+        \textbf{Scenario} & $E^{\text{build}}$ & $E^{\text{op}}$                           & $EII^{\text{total}}$   \\
         \midrule
-        (a) Elevator only & 0.85               & 0.12                                      & 0.97                                                \\
-        (b) Rockets only  & 0.05               & 0.80                                      & 0.85                                                \\
-        (c) Hybrid        & 0.85               & $\lambda\cdot 0.12+(1-\lambda)\cdot 0.80$ & $0.85+E_c^{\text{op}}$                              \\
+        (a) Elevator only & 0.85               & 0.12                                      & 0.97                   \\
+        (b) Rockets only  & 0.05               & 0.80                                      & 0.85                   \\
+        (c) Hybrid        & 0.85               & $\lambda\cdot 0.12+(1-\lambda)\cdot 0.80$ & $0.85+E_c^{\text{op}}$ \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 \noindent\textbf{Key takeaway.}
-When we say ``the elevator is cleaner'', we specifically mean \textbf{cleaner during operation} (low $E^{\text{op}}$ and near-zero atmospheric emissions while transporting cargo). When we compare \textbf{total project footprint}, $EII^{\text{total}}$ can be higher for the elevator due to the one-time construction burden, depending on how normalization is defined.
+The statement "the elevator is cleaner" specifically refers to its \textbf{operational phase} (low $E^{\text{op}}$ and near-zero atmospheric emissions). When comparing \textbf{total project footprint}, $EII^{\text{total}}$ can be higher for the elevator due to its one-time construction burden, depending on normalization.
 
 \subsection{Model Adjustment to Minimize Environmental Impact}
 
 \textbf{Extended Multi-Objective Optimization Framework}
+The MILP model is extended to include environmental objectives. Additional decision variables are:
 
-To explicitly minimize environmental impact, we extend our MILP model from Section~3.4 to include environmental objectives.
+1.\(E_t\): Environmental impact in year \(t\)
 
-\paragraph{Additional Decision Variables}
-\begin{itemize}
-    \item \(E_t\): Environmental impact in year \(t\) (normalized units)
-    \item \(s_t\): Binary variable indicating whether space elevator is operational in year \(t\)
-    \item \(l_t\): Number of rocket launches in year \(t\) (integer variable)
-\end{itemize}
+2.\(s_t\): Binary, space elevator operational in year \(t\)
 
-\paragraph{Environmental Impact Objective Function}
+3.\(l_t\): Number of rocket launches in year \(t\)
 
-We add a third objective to minimize total environmental impact:
-\[
-    \min E = \sum_{t=1}^{600} E_t
-\]
 
-where \(E_t\) is calculated as:
+\textbf{Environmental Impact Objective Function}
+A third objective minimizes total environmental impact:$
+    \min E = \sum_{t=1}^{600} E_t$
+where \(E_t\) is:
 \[
     E_t = \gamma_1 \cdot s_t \cdot E_{\text{elevator, fixed}} + \gamma_2 \cdot e_t \cdot E_{\text{elevator, variable}} + \gamma_3 \cdot l_t \cdot E_{\text{launch}}
 \]
+with \(\gamma_i\) as weighting factors.
 
-with \(\gamma_i\) as weighting factors reflecting different impact categories.
-
-\paragraph{Tri-Objective Optimization Approach}
-
-We reformulate the problem as a three-objective optimization:
-\[
+\textbf{Tri-Objective Optimization Approach}
+We solve:
+$
     \min \left[ T, C, E \right]
-\]
+$
+using the $\varepsilon$-constraint method by fixing \(E \leq \epsilon\) and solving the bi-objective problem for time and cost.
 
-and solve using the $\varepsilon $-constraint method:
-
-\begin{enumerate}
-    \item Fix maximum acceptable environmental impact \(E \leq \epsilon\)
-    \item Solve bi-objective problem for time and cost
-    \item Vary \(\epsilon\) to trace the Pareto surface in three dimensions
-\end{enumerate}
-
+\vspace{0.5em}
 \textbf{Environmental Constraints Integration}
 
-\paragraph{Carbon Budget Constraint}
-
-To align with climate goals, we impose a carbon budget constraint:
-\[
+A carbon budget constraint aligns with climate goals:
+$
     \sum_{t=1}^{600} \text{CO2}_t \leq B_{\text{CO2}}
-\]
-
-where \(B_{\text{CO2}}\) is the allocated carbon budget for the Moon Colony project.
-
-\paragraph{Annual Emission Limits}
-
-Reflecting potential regulatory constraints:
-\[
+$
+Annual emission limits reflect regulatory constraints:
+$
     \text{CO2}_t \leq L_{\text{annual}}, \quad \forall t
-\]
+$
+Technology-specific constraints include rocket emission standards (\( \text{BC}_t \leq L_{\text{BC}} \)), a renewable energy minimum for the space elevator, and material sustainability limits.
 
-\paragraph{Technology-Specific Constraints}
-\begin{itemize}
-    \item \textbf{Rocket emission standards}: \( \text{BC}_t \leq L_{\text{BC}} \) (black carbon limits)
-    \item \textbf{Renewable energy minimum}: Minimum percentage of electricity from renewables for space elevator operation
-    \item \textbf{Material sustainability}: Constraints on rare material usage for tether construction
-\end{itemize}
-
+\vspace{0.5em}
 \textbf{Environmental Cost Internalization}
 
-\paragraph{Carbon Pricing Integration}
-
-We adjust the cost model to include environmental externalities:
+The cost model is adjusted to include externalities:
 \[
     C_{\text{total}} = C_{\text{transport}} + p_{\text{CO2}} \cdot \text{CO2}_{\text{total}} + p_{\text{BC}} \cdot \text{BC}_{\text{total}}
 \]
-
-where \(p_{\text{CO2}}\) and \(p_{\text{BC}}\) represent carbon and black carbon prices.
-
-\paragraph{Social Cost of Carbon Application}
-
-Using projected Social Cost of Carbon (SCC) values for 2050:
+Using the projected Social Cost of Carbon (SCC) for 2050:
 \[
     p_{\text{CO2}} = \$200/\text{ton CO2} \quad \text{(2050 estimate)}
 \]
 
-This significantly increases the apparent cost of rocket-based transportation.
-
+\vspace{0.5em}
 \textbf{Technological Improvement Integration}
 
-\paragraph{Learning Curves for Environmental Performance}
-
-We extend the learning curve model from Section~4.2 to environmental parameters:
+The learning curve model is extended to environmental parameters:
 \[
     EI(t) = EI_0 \cdot (1 - \beta_E)^{N(t)}
 \]
+where \(EI(t)\) is environmental impact per launch in year \(t\), and \(\beta_E\) is the environmental learning rate. Green technology adoption includes a transition to clean propellants, increasing renewable electricity for the space elevator, and applying circular economy principles.
 
-where \(EI(t)\) is the environmental impact per launch in year \(t\), and \(\beta_E\) is the environmental learning rate.
-
-\paragraph{Green Technology Adoption Modeling}
-\begin{itemize}
-    \item \textbf{Clean propellant evolution}: Transition from methalox to green hydrolox or other sustainable propellants
-    \item \textbf{Renewable energy integration}: Increasing percentage of renewable electricity for space elevator
-    \item \textbf{Circular economy principles}: Recycling and reuse of materials in both systems
-\end{itemize}
-
+\vspace{0.5em}
 \textbf{Optimization Results with Environmental Considerations}
 
-Applying the extended model with environmental objectives yields significantly different optimal strategies.
+Applying the extended model yields different optimal strategies.
 
-\paragraph{Pareto Frontier in Three-Dimensional Objective Space}
+\textbf{Pareto Frontier in Three-Dimensional Objective Space}
+The three-objective optimization produces a Pareto surface showing trade-offs between time, cost, and environmental impact.
 
-The three-objective optimization produces a Pareto surface showing trade-offs between time, cost, and environmental impact:
+\textbf{Environmentally Optimal Strategy}
+With equal weighting (\(\alpha_T = \alpha_C = \alpha_E = 1/3\)), the optimal strategy shifts to:
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\textwidth]{../figure/pareto_3d.png}
-    \caption{Pareto surface showing trade-offs between time, cost, and environmental impact}
-    \label{fig:pareto_3d}
-\end{figure}
+1.Higher space elevator utilization: \(\lambda = 0.85\)
 
-\paragraph{Environmentally Optimal Strategy}
+2.Project timeline: \(T = 145.2\) years
 
-When environmental impact is weighted equally with time and cost (\(\alpha_T = \alpha_C = \alpha_E = 1/3\)), the optimal strategy shifts toward:
-\begin{itemize}
-    \item \textbf{Higher space elevator utilization}: \(\lambda = 0.85\) (increased from 0.7103)
-    \item \textbf{Reduced project timeline}: \(T = 145.2\) years (slightly longer than previous optimum)
-    \item \textbf{Lower environmental impact}: \(EII = 0.68\) (10.5\% reduction)
-    \item \textbf{Moderate cost increase}: \(C = \$5.92 \times 10^{13}\) (4.0\% increase)
-\end{itemize}
+3.Lower environmental impact: \(EII = 0.68\) (10.5\% reduction)
 
-\paragraph{Carbon-Constrained Optimization}
+4.Moderate cost increase: \(C = \$5.92 \times 10^{13}\) (4.0\% increase)
 
-Imposing a carbon budget of \(B_{\text{CO2}} = 1.0 \times 10^9\) tons $CO_2$ (approximately 0.02\% of remaining 1.5°C carbon budget) results in:
-\begin{itemize}
-    \item \textbf{Mandatory high space elevator usage}: \(\lambda \geq 0.92\)
-    \item \textbf{Extended timeline}: \(T = 168.3\) years
-    \item \textbf{Significant cost premium}: \(C = \$6.35 \times 10^{13}\) (11.6\% increase)
-\end{itemize}
+
+\textbf{Carbon-Constrained Optimization}
+Imposing a carbon budget \(B_{\text{CO2}} = 1.0 \times 10^9\) tons $CO_2$ results in:
+
+1.Mandatory high space elevator usage: \(\lambda \geq 0.92\)
+2.Extended timeline: \(T = 168.3\) years
+3.Significant cost premium: \(C = \$6.35 \times 10^{13}\) (11.6\% increase)
 
 \subsection{Sensitivity Analysis of Environmental Factors}
 
 \textbf{Sensitivity to Carbon Price}
-
 The optimal strategy is highly sensitive to the carbon price assumption:
 
 \begin{figure}[htbp]
@@ -1354,15 +1297,20 @@ The optimal strategy is highly sensitive to the carbon price assumption:
     \label{fig:carbon_sensitivity}
 \end{figure}
 
-\begin{itemize}
-    \item \textbf{At \(p_{\text{CO2}} = \$0\)}: \(\lambda^* = 0.71\) (baseline economic optimum)
-    \item \textbf{At \(p_{\text{CO2}} = \$100\)}: \(\lambda^* = 0.78\)
-    \item \textbf{At \(p_{\text{CO2}} = \$200\)}: \(\lambda^* = 0.85\)
-    \item \textbf{At \(p_{\text{CO2}} = \$500\)}: \(\lambda^* = 0.94\) (approaching elevator-only)
-\end{itemize}
+\begin{table}[H]
+    \centering
+    \caption{Carbon Price Sensitivity}
+    \label{tab:carbon_price_sensitivity}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Carbon Price (\(p_{\text{CO2}}\))} & \$0  & \$100 & \$200 & \$500 \\
+        \hline
+        \textbf{Optimal \(\lambda^*\)}             & 0.71 & 0.78  & 0.85  & 0.94  \\
+        \hline
+    \end{tabular}
+\end{table}
 
 \textbf{Sensitivity to Environmental Learning Rates}
-
 The environmental learning rate \(\beta_E\) significantly affects long-term strategies:
 
 \begin{table}[htbp]
@@ -1382,7 +1330,6 @@ The environmental learning rate \(\beta_E\) significantly affects long-term stra
 \end{table}
 
 \textbf{Sensitivity to Renewable Energy Penetration}
-
 The environmental advantage of the space elevator depends on the carbon intensity of electricity:
 
 \begin{figure}[htbp]
@@ -1392,24 +1339,23 @@ The environmental advantage of the space elevator depends on the carbon intensit
     \label{fig:renewable_sensitivity}
 \end{figure}
 
-\begin{itemize}
-    \item \textbf{At 50\% renewables}: Space elevator EII = 0.42
-    \item \textbf{At 80\% renewables}: Space elevator EII = 0.25
-    \item \textbf{At 100\% renewables}: Space elevator EII = 0.18 (operation only)
-\end{itemize}
+1.\textbf{At 50\% renewables}: Space elevator EII = 0.42
 
+2.\textbf{At 80\% renewables}: Space elevator EII = 0.25
+
+3.\textbf{At 100\% renewables}: Space elevator EII = 0.18
 
 \subsection{Conclusion}
 
-The environmental impact analysis reveals significant differences among the three transportation scenarios for establishing the Moon Colony:
+The environmental impact analysis reveals significant differences among the three transportation scenarios:
 
 \begin{enumerate}
-    \item \textbf{Space elevator only} has high initial environmental impact from construction but minimal operational impact, making it the cleanest long-term option
-    \item \textbf{Rockets only} have lower initial impact but create substantial atmospheric emissions over centuries of operation
-    \item \textbf{Hybrid strategy} optimally balances these factors, achieving the lowest overall environmental impact when properly optimized
+    \item \textbf{Space elevator only} has high initial environmental impact but minimal operational impact.
+    \item \textbf{Rockets only} have lower initial impact but substantial atmospheric emissions over centuries.
+    \item \textbf{Hybrid strategy} optimally balances these factors, achieving the lowest overall environmental impact when optimized.
 \end{enumerate}
 
-By extending our mathematical model to incorporate environmental objectives, we demonstrate that environmentally optimal strategies involve higher utilization of space elevators than pure cost-optimization suggests. The sensitivity of optimal strategies to carbon pricing highlights the importance of policy frameworks that internalize environmental externalities.
+Extending the mathematical model to include environmental objectives shows that environmentally optimal strategies involve higher space elevator utilization than pure cost-optimization suggests. The sensitivity to carbon pricing highlights the importance of policy frameworks that internalize environmental externalities.
 
 % ================= 第六章 =================
 \section{Model Evaluation}
