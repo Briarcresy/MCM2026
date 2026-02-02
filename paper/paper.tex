@@ -56,7 +56,8 @@
 }
 
 % --- 标题信息 ---
-\title{Your Title Here}
+\title{Breaking the Bottleneck of Earth–Moon Transportation:
+A Multi-objective Framework for Sustainable Large-scale Lunar Colonization}
 \author{Team \#2602787}
 \date{\today}
 
@@ -66,16 +67,16 @@
 % --- 摘要页（美赛要求单独一页）---
 \begin{abstract}
     % \setlength{\parindent}{15pt}
-    The development of tourism can lead to economic growth, but excessive development can cause ecological and social issues. This paper analyzes the situation of tourism in Juneau, Alaska, and formulates an optimization model...
+    To support the establishment and long-term development of a future lunar colony accommodating 100,000 inhabitants, this paper systematically compares the overall performance of different transport strategies in terms of construction efficiency, economic cost, and sustainability, focusing on large-scale material transport between Earth and the Moon. Three scenarios are examined: a Galaxy Port scheme relying solely on space elevator systems, a scheme utilising existing rocket bases exclusively, and a hybrid transport scheme combining both approaches.
 
-    For Problem 1, ...
+To address the substantial material transport demands during lunar base construction, time and cost models are established under transport capacity constraints, and the conflicting objectives of minimising construction duration and total expenditure are integrated within a multi-objective mixed-integer linear programming framework. A normalised weighting approach generates feasible solution sets and corresponding Pareto frontiers, quantitatively illustrating time–cost trade-offs under varying transport proportions. Results indicate that, relative to single-mode transport, hybrid strategies significantly shorten the overall construction period while introducing only limited incremental costs, yielding superior performance among the three schemes.
 
-    For Problem 2, ...
+To enhance applicability under real-world conditions, the robustness of the transport system is further examined under non-ideal operational scenarios, assessing the impacts of reduced efficiency and delays. In addition, a system dynamics approach is employed to model annual water demand for long-term colony operation, incorporating water recycling efficiency and replenishment scheduling, with associated transport requirements linked to the optimisation framework. Environmental impacts of each scheme during long-term operation are also comparatively analysed.
 
-    For Problem 3...
+Overall, the proposed modelling framework elucidates the inherent trade-offs between time, cost, and environmental impact across Earth–Moon transportation schemes. The study concludes that integrating emerging space elevator technology with conventional rocket transportation provides a realistic pathway for constructing and sustaining large-scale lunar colonies, balancing engineering feasibility, economic rationality, and long-term sustainability.
 
     \begin{keywords}
-        Sustainable tourism; Optimization; MCM
+       Earth-Moon transport system; Space elevator; Multi-objective optimisation; Pareto frontier; System dynamics; Robustness analysis; Sustainability assessment
     \end{keywords}
 \end{abstract}
 
@@ -1464,15 +1465,34 @@ By extending our mathematical model to incorporate environmental objectives, we 
 
 \subsection{Strengths}
 \begin{itemize}
-    \item \textbf{Strength 1:} ...
-    \item \textbf{Strength 2:} ...
+    \item \textbf{Strength 1: Unified and coherent modeling framework.}  
+    The model integrates time and cost into a single framework to evaluate large-scale Earth--Moon transportation, capturing the essential trade-offs in lunar colony construction.
+
+    \item \textbf{Strength 2: Sound multi-objective optimization approach.}  
+    A multi-objective mixed integer linear programming model is employed to balance construction duration and total cost, with Pareto frontier analysis providing clear decision guidance.
+
+    \item \textbf{Strength 3: Effective hybrid transportation design.}  
+    By allowing space elevators and rockets to operate in parallel, the hybrid strategy exploits their complementary strengths and achieves superior time--cost performance.
+
+    \item \textbf{Strength 4: Stable and robust results.}  
+    Robustness analysis shows that the model outcomes remain stable under non-ideal operating conditions and parameter uncertainty.
+
+    \item \textbf{Strength 5: Good extensibility for long-term operation.}  
+    The framework is readily extended to long-term water supply analysis using system dynamics, supporting sustainable colony operation.
 \end{itemize}
 
 \subsection{Weaknesses and Future Improvements}
 \begin{itemize}
-    \item \textbf{Weakness 1:} ...
-    \item \textbf{Weakness 2:} ...
+    \item \textbf{Weakness 1: Reliance on projected future parameters.}  
+    Some parameters are based on current literature and technological projections, which may evolve over time without affecting the relative comparison of strategies.
+
+    \item \textbf{Weakness 2: Simplified treatment of detailed operational constraints.}  
+    Fine-grained orbital mechanics and scheduling constraints are simplified and can be incorporated in future, more detailed studies.
+
+    \item \textbf{Weakness 3: Scope for incorporating in-situ resource utilization.}  
+    Future work may extend the model to account for lunar resource utilization, further reducing reliance on Earth-based transport.
 \end{itemize}
+
 
 % ================= 参考文献（美赛要求规范格式）=================
 \newpage
@@ -1549,25 +1569,69 @@ By extending our mathematical model to incorporate environmental objectives, we 
     {\Huge \textbf{MEMORANDUM}}
 \end{center}
 \large
-\noindent
-\textbf{To:} The Tourist Council of Juneau \\
-\textbf{From:} Team \#2602787 \\
-\textbf{Subject:} Policy Advice on the Sustainable Tourism of Juneau \\
-\textbf{Date:} January 27, 2025
-\vspace{0.5cm}
-\hrule
-\vspace{1cm}
+% ---------- Memo Block (Screenshot-style) ----------
+\noindent\textbf{To:} fictional MCM Agency\\
+\textbf{From:} Team \#2602787\\
+\textbf{Re:} Recommended Course of Action for a Sustainable Colony\\
+\textbf{Date:} february 3, 2026
 
-hello
+\vspace{0.4em}
+
+\setlength{\parskip}{2pt}
+\setlength{\parindent}{0pt}
 
 \normalsize
-% 备忘录正文内容
+\setlength{\parindent}{2em}
+\setlength{\parskip}{2pt}
 
+We respectfully submit this memorandum to recommend a course of action for building
+and sustaining a \textbf{100,000-person Moon Colony}. Our recommendation is based on a
+comparison of \textbf{space-elevator-only}, \textbf{rocket-only}, and \textbf{hybrid}
+transportation schemes, evaluated with respect to \textbf{time}, \textbf{cost},
+\textbf{robustness}, \textbf{water supply}, and \textbf{environmental impact}.
 
-\vspace{1cm}
-Sincerely,
+\noindent\textbf{Predictions and Key Findings:}
+\vspace{-0.3em}
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\topsep}{1pt}
+  \setlength{\parsep}{0pt}
+  \item \textbf{Preferred Strategy (Hybrid):}
+  The hybrid scheme provides the best balance between construction time and total cost.
+  \item \textbf{Robustness Under Non-Ideal Operation:}
+  Diversified transport modes reduce schedule risk and single-point failure.
+  \item \textbf{Sustained Operation (Water):}
+  Long-term water resupply can be integrated with limited additional burden.
+  \item \textbf{Environmental Implications:}
+  Elevator-dominated transport significantly lowers long-term environmental impact.
+\end{itemize}
 
-Team \#2602787
+\noindent\textbf{Policy Measures and Their Effects:}
+\vspace{-0.3em}
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\topsep}{1pt}
+  \setlength{\parsep}{0pt}
+  \item \textbf{Mode Allocation:}
+  Use elevators for bulk transport with rockets as parallel support.
+  \item \textbf{Reliability Planning:}
+  Maintain rocket buffer capacity for contingency operation.
+  \item \textbf{Water Integration:}
+  Treat water delivery as a continuous operational requirement.
+  \item \textbf{Environmental Optimization:}
+  Shift mass from rockets to elevators whenever feasible.
+\end{itemize}
+
+\noindent\textbf{Recommendations:}
+\vspace{-0.3em}
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\topsep}{1pt}
+  \setlength{\parsep}{0pt}
+  \item \textbf{Adopt the hybrid strategy} as the default transportation plan.
+  \item \textbf{Prioritize elevators}, using rockets as supplemental capacity.
+  \item \textbf{Plan for robustness and sustainability} in long-term operation.
+\end{itemize}
 
 
 % \clearpage
