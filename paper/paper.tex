@@ -15,6 +15,7 @@
   abstract = true
 }
 
+\usepackage{cite}
 \usepackage{palatino} 
 \usepackage{lipsum}   
 \usepackage{amsmath, amssymb, amsfonts} 
@@ -29,7 +30,8 @@
 \usepackage{silence}
 \usepackage{arydshln} % for \cdashline
 \usepackage{siunitx}
-\usepackage{siunitx}
+\usepackage{enumitem}
+
 
 \WarningFilter{everypage}{}%忽略everypage警告
 
@@ -37,6 +39,44 @@
 
 % 【修改点3】解决 "headheight is too small" 的黄色警告
 \setlength{\headheight}{15pt}
+
+% ---------- Compact layout pack ----------
+\usepackage{setspace}
+% \setstretch{0.97}
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{1.2em}
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{1.2ex plus .2ex minus .2ex}{0.8ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{1.0ex plus .2ex}{0.6ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{0.8ex plus .2ex}{0.4ex plus .2ex}
+
+\usepackage[font=small,labelfont=bf]{caption}
+\captionsetup{skip=4pt}
+
+\setlength{\textfloatsep}{8pt}
+\setlength{\floatsep}{6pt}
+\setlength{\intextsep}{8pt}
+
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.9}
+\setcounter{topnumber}{4}
+\setcounter{bottomnumber}{4}
+\setcounter{totalnumber}{8}
+
+\usepackage{enumitem}
+\setlist[itemize]{nosep,leftmargin=*}
+\setlist[enumerate]{nosep,leftmargin=*}
+
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{2pt}
+\setlength{\belowdisplayshortskip}{2pt}
+% ---------- end ----------
+
 
 % 【修改5】页码样式：添加“当前页/总页数”，符合美赛习惯
 \pagestyle{fancy}
@@ -56,7 +96,7 @@
 }
 
 % --- 标题信息 ---
-\title{Breaking the Bottleneck of Earth–Moon Transportation:
+\title{Breaking the Bottleneck of Earth-Moon Transportation:
 A Multi-objective Framework for Sustainable Large-scale Lunar Colonization}
 \author{Team \#2602787}
 \date{\today}
@@ -148,11 +188,43 @@ Figure \ref{fig:workchart} provides an overview of our work, which systematicall
 
 \subsection{Assumptions and Justifications}
 \begin{itemize}
-    \item \textbf{Assumption 1:} Assumption text here\ldots
-    \item \textbf{Justification:} Justification text here\ldots
 
-    \item \textbf{Assumption 2:} Assumption text here\ldots
-    \item \textbf{Justification:} Justification text here\ldots
+    \item \textbf{Assumption 1:}
+          The external macro environment remains stable during the study period, and extreme uncontrollable events are neglected.
+
+    \item \textbf{Justification:}
+          This study aims to compare the intrinsic engineering and economic performance of different Earth--Moon transportation strategies. Neglecting extreme external shocks allows the model to focus on system-level trade-offs and ensures the reproducibility of the results.
+
+    \item \textbf{Assumption 2:}
+          Once deployed, both the space elevator system and the traditional rocket transportation system operate with stable and continuous annual transportation capacities.
+
+    \item \textbf{Justification:}
+          The construction of a Moon Colony is a long-term project, and short-term fluctuations in transportation capacity have limited influence on the overall timeline. Modeling transportation as a steady flow captures long-term average performance and simplifies the analysis.
+
+    \item \textbf{Assumption 3:}
+          The space elevator system and the rocket transportation system can operate simultaneously without resource conflicts.
+
+    \item \textbf{Justification:}
+          Since the two systems rely on independent infrastructures and operating mechanisms, parallel operation is feasible. This assumption enables the evaluation of hybrid transportation strategies.
+
+    \item \textbf{Assumption 4:}
+          All construction materials and supplies are treated as homogeneous and are measured solely by mass.
+
+    \item \textbf{Justification:}
+          This study focuses on macro-level comparisons of transportation time and cost rather than material-specific engineering details. Treating all cargo as homogeneous significantly reduces model complexity while preserving comparative validity.
+
+    \item \textbf{Assumption 5:}
+          The construction cost of the space elevator system is a one-time fixed investment, and unit transportation costs remain constant over time.
+
+    \item \textbf{Justification:}
+          This assumption reflects the fundamental economic characteristics of space elevator infrastructure, which involves high fixed costs and low marginal transportation costs, and allows a clear comparison with rocket-based transportation.
+
+    \item \textbf{Assumption 6:}
+          During the stable operational phase of the Moon Colony, the population size and per-capita daily water consumption remain constant.
+
+    \item \textbf{Justification:}
+          The water supply analysis focuses on long-term steady-state operation. Assuming constant population and consumption enables the system dynamics model to capture sustainable water demand without short-term fluctuations.
+
 \end{itemize}
 
 \subsection{Notations}
@@ -249,27 +321,11 @@ Figure \ref{fig:workchart} provides an overview of our work, which systematicall
     \cdashline{1-3}
     \multicolumn{3}{c}{\textit{\textbf{Multi-objective Metrics}}}                                                                                                     \\
     \cdashline{1-3}
-    $T_{\min},T_{\max}$ & Lower/upper bounds used for time normalization                                                                   & year                     \\
-    $C_{\min},C_{\max}$ & Lower/upper bounds used for cost normalization                                                                   & USD                      \\
     $f_1$               & Normalized time objective, $f_1=\dfrac{T-T_{\min}}{T_{\max}-T_{\min}}$                                           & --                       \\
     $f_2$               & Normalized cost objective, $f_2=\dfrac{C-C_{\min}}{C_{\max}-C_{\min}}$                                           & --                       \\
     $F$                 & Weighted-sum composite objective, $F=\alpha f_1+(1-\alpha)f_2$                                                   & --                       \\
 
     % =========================
-    \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Water and Sustenance}}}                                                                                                        \\
-    \cdashline{1-3}
-    $W_d$               & Daily water demand per person                                                                                    & t/(person$\cdot$day)     \\
-    $W_{\text{year}}$   & Annual water replenishment requirement                                                                           & t/year                   \\
-    $M_{\text{sup}}$    & Annual mass of routine supplies                                                                                  & t/year                   \\
-
-    % =========================
-    \cdashline{1-3}
-    \multicolumn{3}{c}{\textit{\textbf{Environmental Impact}}}                                                                                                        \\
-    \cdashline{1-3}
-    $E_{\mathrm{e}}$    & Environmental impact indicator per ton (elevator)                                                                & --                       \\
-    $E_{\mathrm{r}}$    & Environmental impact indicator per ton (rockets)                                                                 & --                       \\
-    $E_{\text{total}}$  & Total environmental impact indicator                                                                             & --                       \\
 \end{longtable}
 
 
@@ -348,7 +404,6 @@ Let
 \end{itemize}
 
 The total cost of using the space elevator system is given by:
-
 \[
     C_e = F_e + v_e \cdot M
 \]
@@ -364,23 +419,23 @@ Let
 \end{itemize}
 
 The total number of launches required is:
-\begin{equation}
+\[
     N_{\text{launch}} = \frac{M}{P_r}
-\end{equation}
+\]
 
 Thus, the total transportation cost of the rocket system is:
-\begin{equation}
+\[
     C_r = c_{\text{launch}} \cdot N_{\text{launch}}
-\end{equation}
+\]
 
 This model reflects the \textbf{low infrastructure cost but high marginal cost} nature of traditional rocket transportation.
 
 \subsubsection{Cost Model for the Hybrid Transportation System}
 
 For the hybrid strategy, the total cost is given by:
-\begin{equation}
+\[
     C_h = \lambda C_e + (1 - \lambda) C_r
-\end{equation}
+\]
 
 where $\lambda \in [0,1]$ represents the proportion of total transportation demand assigned to the space elevator system.
 
@@ -488,11 +543,10 @@ Since transportation time and cost have different units and magnitudes, both obj
 
 To resolve the conflict between minimizing time and minimizing cost, the \textbf{weighted-sum method} is employed.
 A composite objective function is constructed as:
-
-\begin{equation}
+\[
     \min F = \alpha f_1
     + (1-\alpha)f_2, \quad \alpha \in [0,1]
-\end{equation}
+\]
 
 By varying the weight parameter $\alpha$, different trade-offs between construction speed and economic efficiency can be explored.
 
@@ -519,12 +573,10 @@ Assume that we use the Space Elevator System's three Galactic Harbor's alone to 
 
 \subsubsection{Time Analysis}
 
-According to the problem statement, the Galactic Harbor will provide an advanced lift system moving 179,000 metric tons every year. So we have:
-\[R_e=3\times179000=\SI{537000}{tons/year}\]
+According to the problem statement, the Galactic Harbor will provide an advanced lift system moving 179,000 metric tons every year. So we have $R_e=3\times179000=\SI{537000}{tons/year}$.
 
 The time required to deliver all the materials using only the Space Elevator System is:
 \[T_e=\frac{M}{R_e} = \frac{10^8}{537000} \approx 186.22\ \text{years}\]
-
 \subsubsection{Cost Analysis}
 
 \textbf{Determination of the Cost Constant}
@@ -535,19 +587,21 @@ According to the problem conditions, each \emph{Galactic Harbour} can be regarde
 
 A literature survey reports that published capital-cost estimates for building a Space Elevator span approximately \$15--\$100 billion, depending on assumptions such as construction timeline, material availability, and safety factors.\footnote{K. Barry and E. P. Alfaro, ``Acta Astronautica'' \textbf{200} (2022) 586--598, Section 4.3 (Capital cost and financing): ``estimations \dots ranging from \$15 billion to \$100 billion.'' See \texttt{1-s2.0-S0094576522004295-main.pdf}. \ \ :contentReference[oaicite:1]{index=1}}
 We adopt the midpoint of this peer-reviewed range as a deterministic planning value (i.e., an expected-value proxy under a neutral prior over the interval). The fixed cost per Galactic Harbour is thus:
+% \vspace{-0.5em}
 \[
     C_{\mathrm{GH}} \;=\; \frac{15+100}{2}\times 10^{9}\ \mathrm{USD}
     \;=\; 5.75\times 10^{10}\ \mathrm{USD}.
 \]
-
+% \vspace{-0.5em}
 With three Galactic Harbours, the total fixed construction cost for constructing the space elevator is
+% \vspace{-0.5em}
 \[
     F_e
     \;=\; 3\,C_{\mathrm{GH}}
     \;=\; 3\times 5.75\times 10^{10}
     \;=\; 1.725\times 10^{11}\ \mathrm{USD}.
 \]
-
+% \vspace{-0.5em}
 According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.60 million USD per metric ton \cite{3,7}.i.e:
 \[v_e=\SI{6e5}{USD/t}\]
 
@@ -564,10 +618,8 @@ The rocket-only strategy relies entirely on traditional launches. Historical dat
 
 the interval is projected to improve to about 2.5 days per mission by 2050 (\(t = 51\)).
 
-Thus, the annual launch frequency per site is:
-\[
-    f_r = \frac{365}{2.5} = 146\ \mathrm{year^{-1}}.
-\]
+Thus, the annual launch frequency per site is $
+    f_r = \frac{365}{2.5} = 146\ \mathrm{year^{-1}}$.
 
 With \(N_r = 10\) sites, each carrying \(P_r = 150\ \mathrm{t}\), the annual transport capacity becomes:
 \[
@@ -578,15 +630,14 @@ For a total mass \(M = 10^8\ \mathrm{t}\), the delivery time is:
 \[
     T_r = \frac{M}{R_r} = \frac{10^8}{2.19 \times 10^5} \approx 456.62\ \text{years}.
 \]
-
 \subsubsection{Cost Analysis}
 
 Transportation cost is modeled using Wright's learning curve \cite{1,2}:
-\begin{equation}
+\[
     C(t) = C_0 (1 - \beta)^{N(t)},
-\end{equation}
-where \(C(t)\) is the unit cost in year \(t\), \(C_0 = 44{,}940.9\) million USD \cite{4} is the initial launch cost, \(\beta = 3.7139\%\) \cite{5,6} is the learning rate, and \(N(t)\) is the cumulative number of launches, fitted by:
+\]
 
+where \(C(t)\) is the unit cost in year \(t\), \(C_0 = 44{,}940.9\) million USD \cite{4} is the initial launch cost, \(\beta = 3.7139\%\) \cite{5,6} is the learning rate, and \(N(t)\) is the cumulative number of launches, fitted by:
 \[
     N(t) = \lfloor 3.342857t - 0.857143 \rfloor.
 \]
@@ -777,7 +828,7 @@ Specifically, Scenario (c) reduces completion time by about $28.9\%$ relative to
     \end{tabular}
 \end{table}
 
-\vspace{0.5em}
+% \vspace{0.5em}
 Simulation results: average elevator delay = 3.2 years; average rocket delay = 0.2 years.
 
 \textbf{Failure Cost Functions:}
@@ -1078,10 +1129,10 @@ To make the comparison logically consistent, we decompose environmental impact i
 \end{enumerate}
 
 Accordingly, the total Environmental Impact Index (EII) over the entire project is defined as
-\begin{equation}
+\[
     EII^{\text{total}} = E^{\text{build}} + E^{\text{op}}.
     \label{eq:eii_total_decomp}
-\end{equation}
+\]
 
 \noindent\textbf{Interpretation.}
 
@@ -1096,11 +1147,12 @@ while still being \textbf{cleaner during operation} (because it produces little/
 \subsubsection{Quantitative Environmental Impact Model}
 
 We define the operational component $E^{\text{op}}$ by aggregating normalized impacts across categories:
-\begin{equation}
+\[
     E^{\text{op}} = w_1 \cdot E_{\text{atmosphere}} + w_2 \cdot E_{\text{energy}} + w_3 \cdot E_{\text{other}},
     \qquad
     w_1+w_2+w_3=1,
-\end{equation}
+\]
+
 where each component is normalized to a $[0,1]$ scale for comparability.
 
 % ----------------------------------------------------
@@ -1127,7 +1179,9 @@ Environmental Impact Index (EII) totals for each scenario are given by:
 1. Number of launches: $N_{\text{launches}} = \frac{10^8}{150} \approx 6.67\times 10^5$
 
 2.Construction: $E_b^{\text{build}} = 0.05$ (infrastructure upgrades)
+
 3.Operation: $E_b^{\text{op}} = 0.80$ (emissions, propellant, stratospheric effects)
+
 4.\textbf{Total:} $EII_b^{\text{total}} = 0.85$
 
 \paragraph{Interpretation and Key Clarification}
@@ -1135,6 +1189,7 @@ While $EII_a^{\text{total}} > EII_b^{\text{total}}$ under this normalization—d
 \[
     E_a^{\text{op}} \ll E_b^{\text{op}}.
 \]
+
 Thus, the space elevator offers near-zero atmospheric emissions during cargo transport, with a decarbonization potential tied to grid cleanliness. Rockets, however, incur repeated high-emission launch events, making them operationally more intensive despite a lower construction score.
 
 \textbf{Environmental Advantages and Concerns}
@@ -1160,22 +1215,24 @@ Thus, the space elevator offers near-zero atmospheric emissions during cargo tra
 \end{table}
 
 
-
 \subsubsection{Scenario (c): Hybrid Transportation Strategy}
 
 \paragraph{Quantitative Assessment}
 For the hybrid strategy, the total Environmental Impact Index (EII) is:
-\begin{equation}
+\[
     EII_c^{\text{total}} = E_c^{\text{build}} + E_c^{\text{op}}.
-\end{equation}
+\]
+
 The construction burden is similar to the elevator-only scenario:
 \[
     E_c^{\text{build}} \approx E_a^{\text{build}}.
 \]
+
 Operational impact is reduced due to fewer rocket launches. With the recommended payload split $\lambda=0.7103$:
-\begin{equation}
+\[
     E_c^{\text{op}} = \lambda\,E_a^{\text{op}} + (1-\lambda)\,E_b^{\text{op}}.
-\end{equation}
+\]
+
 Thus, the hybrid approach achieves lower operational atmospheric emissions than rockets-only, while retaining the elevator's long-run cleanliness.
 
 \begin{table}[htbp]
@@ -1186,9 +1243,9 @@ Thus, the hybrid approach achieves lower operational atmospheric emissions than 
         \toprule
         \textbf{Scenario} & $E^{\text{build}}$ & $E^{\text{op}}$                           & $EII^{\text{total}}$   \\
         \midrule
-        (a) Elevator only & 0.85               & 0.12                                      & 0.97                   \\
-        (b) Rockets only  & 0.05               & 0.80                                      & 0.85                   \\
-        (c) Hybrid        & 0.85               & $\lambda\cdot 0.12+(1-\lambda)\cdot 0.80$ & $0.85+E_c^{\text{op}}$ \\
+        Elevator only     & 0.85               & 0.12                                      & 0.97                   \\
+        Rockets only      & 0.05               & 0.80                                      & 0.85                   \\
+        Hybrid            & 0.85               & $\lambda\cdot 0.12+(1-\lambda)\cdot 0.80$ & $0.85+E_c^{\text{op}}$ \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -1224,7 +1281,7 @@ $
 $
 using the $\varepsilon$-constraint method by fixing \(E \leq \epsilon\) and solving the bi-objective problem for time and cost.
 
-\vspace{0.5em}
+% \vspace{0.5em}
 \textbf{Environmental Constraints Integration}
 
 A carbon budget constraint aligns with climate goals:
@@ -1237,7 +1294,7 @@ $
 $
 Technology-specific constraints include rocket emission standards (\( \text{BC}_t \leq L_{\text{BC}} \)), a renewable energy minimum for the space elevator, and material sustainability limits.
 
-\vspace{0.5em}
+% \vspace{0.5em}
 \textbf{Environmental Cost Internalization}
 
 The cost model is adjusted to include externalities:
@@ -1249,7 +1306,7 @@ Using the projected Social Cost of Carbon (SCC) for 2050:
     p_{\text{CO2}} = \$200/\text{ton CO2} \quad \text{(2050 estimate)}
 \]
 
-\vspace{0.5em}
+% \vspace{0.5em}
 \textbf{Technological Improvement Integration}
 
 The learning curve model is extended to environmental parameters:
@@ -1258,7 +1315,7 @@ The learning curve model is extended to environmental parameters:
 \]
 where \(EI(t)\) is environmental impact per launch in year \(t\), and \(\beta_E\) is the environmental learning rate. Green technology adoption includes a transition to clean propellants, increasing renewable electricity for the space elevator, and applying circular economy principles.
 
-\vspace{0.5em}
+% \vspace{0.5em}
 \textbf{Optimization Results with Environmental Considerations}
 
 Applying the extended model yields different optimal strategies.
@@ -1392,7 +1449,7 @@ Extending the mathematical model to include environmental objectives shows that 
 
 
 % ================= 参考文献（美赛要求规范格式）=================
-\newpage
+% \newpage
 \begin{thebibliography}{99}
 
     \bibitem{1}
@@ -1545,20 +1602,76 @@ transportation schemes, evaluated with respect to \textbf{time}, \textbf{cost},
 
 \begin{ReportAiUse}{9}
     \bibitem{AI1}
-    DeepSeek (December 1,2025,V3.2)\\
-    Query1: <I need you to help me write a MATLAB code for Monte Carlo simulation and Pareto frontier analysis of multi-objective optimization problems. This is a constrained two objective optimization problem, which needs to optimize two conflicting goals at the same time: T (the first variable, the smaller the better) and C (the second variable, the smaller the better). Please generate ideas and methods for writing code for me.>\\
-    Output: <The ideas are as follows: 1. problem definition: make clear the definition domain and constraints of the two objective functions T (x) and C (x). 2. Monte Carlo sampling: in the feasible region of decision variables, a large number of sample points are generated by Rand or better Latin hypercube sampling. 3. evaluation and screening: calculate the T and C values of each sample, and check whether the constraints are met. Remove the points that violate the constraints. 4. Pareto front recognition: in the residual feasible solution, the two targets are sorted non dominated, and all solutions that are not dominated by other solutions are found (that is, at least one of T or C is better and the other is not bad), forming the Pareto front. 5. visualization: use scatter to draw all feasible solutions and Pareto front respectively, so as to visually show the conflict relationship and optimal boundary.>
+    DeepSeek (January 31,2026,V3.2)\\
+    Query1: <What websites can I find the failure rate of rocket launching missions of various countries or organizations in recent years?>\\
+    Output: <At present, there is no single website to fully summarize the global launch failure rate, but it can be obtained through the following ways:
+
+    \textbf{a.}	Official website of space agency
+
+    NASA, ESA, CNSA, SpaceX and other companies will issue mission reports, some of which include reliability statistics.
+
+    \textbf{b.}	Professional database
+
+    Gunter's Space Page (space.skyrocket.de): detailed task list, including the failure mark.
+    Jonathan's Space Report: independently records the success or failure of the launch.
+    Union of Concerned Scientists (ucsusa.org) satellite database: it can filter the launch status.
+
+    \textbf{c.}	Annual report
+
+    SpaceLaunch Report (spacelaunchreport.com) counts success and failure by year.
+    Bryce Tech (formerly Euroconsult) released the annual launch market report with reliability data.
+
+    \textbf{d.}	Media and wiki
+
+    SpaceNews, NASASpaceFlight tracking report.
+    The annual page of Wikipedia "List of spaceflight launches" has a success or failure classification, but it needs to be cross checked.
+
+    It is recommended to combine multi-source data comparative analysis, because the statistical caliber (such as partial failure, launch stage definition) may be different.>
 
     \bibitem{AI2}
-    DeepSeek (December 2,2025,V3.2)\\
-    Query1: <I need you to provide me with some clues and suggestions. What kind of mathematical distribution should I know and use to more scientifically simulate the failure frequency and failure time of rockets and space elevators?>\\
-    Output: <For modeling failure frequency, Poisson distribution is commonly used to describe the number of random failures in a fixed task cycle (such as a single launch).
+    DeepSeek (January 31,2026,V3.2)\\
+    Query1: <If we want to search for literature related to space elevator, which words are more efficient to use when searching?>\\
+    Output: <When searching space elevator related literature, it is recommended to use the following key words to improve efficiency:
 
-    For the time between failures,the exponential distribution is suitable for the random failure stage with constant failure rate.
+    \textbf{a.}	Core terms:Space Elevator, rail Elevator, Orbital elevator
 
-    Weibull distribution is the most critical and flexible. Its shape parameters can describe the complete life cycle of decreasing failure rate (early failure), constant (random failure) or increasing (wear aging). This is essential for the modeling of space elevator components with fatigue and wear.
 
-    The core proposal: the rocket short-term mission can focus on Poisson and exponential distribution; The long-term cycle operation and structural aging of space elevator must be modeled with Weibull distribution. The final selection needs to be determined by fitting historical or simulation data.>
+    \textbf{b.}	Key technical words:Carbon Nanotube Tether, Dynamics and Control, Orbital Mechanics, Deployment Scenario, Tether System, Lunar Space Elevator
+
+    \textbf{c.}	Recommended retrieval examples:("Space Elevator" OR "Orbital Elevator") AND ("Tether" OR "Carbon Nanotube" OR "Dynamics")
+
+    Through the combination of core concepts and specific technical points, it can effectively narrow the scope and accurately locate academic papers and research reports.>
+
+    \bibitem{AI3}
+    DeepSeek (January 31,2026,V3.2)\\
+    Query1: <If we want to search for literature related to space elevator, which words are more efficient to use when searching?>\\
+    Output: <The world's advanced launch vehicles mainly include:
+
+    \begin{table}[H]
+        \centering
+        \label{tab:advanced_rockets}
+        \begin{tabular}{|c|c|c|}
+            \hline
+            \textbf{Vehicle Name}     & \textbf{Country / Agency} & \textbf{Status}              \\
+            \hline
+            Falcon Heavy              & USA (SpaceX)              & Operational                  \\
+            \hline
+            Starship                  & USA (SpaceX)              & In Development               \\
+            \hline
+            SLS (Space Launch System) & USA (NASA)                & Operational                  \\
+            \hline
+            Long March 5              & China                     & Operational                  \\
+            \hline
+            Ariane 6                  & Europe (ESA)              & Operational / In Development \\
+            \hline
+            New Glenn                 & USA (Blue Origin)         & In Development               \\
+            \hline
+            H3                        & Japan (JAXA)              & Operational                  \\
+            \hline
+            Angara A5                 & Russia                    & Operational                  \\
+            \hline
+        \end{tabular}
+    \end{table}>
 
 \end{ReportAiUse}
 
