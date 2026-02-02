@@ -1009,178 +1009,159 @@ This system dynamics model provides a comprehensive framework for planning water
 
 The construction and operation of a 100,000-person Moon Colony through different transportation strategies will inevitably have varying environmental impacts on Earth. This section quantitatively evaluates these impacts across the three scenarios analyzed in Section~4, and proposes model adjustments to minimize environmental consequences while maintaining project feasibility.
 
+% ============================
+% Fix for the EII consistency issue
+% Replace the corresponding parts in Section "Environmental Impact Analysis"
+% ============================
+
 \subsection{Environmental Impact Metrics and Quantification}
 
 \subsubsection{Key Environmental Impact Factors}
 
 We consider three primary environmental impact categories:
-
 \begin{enumerate}
-    \item \textbf{Atmospheric emissions} from rocket launches
-    \item \textbf{Resource extraction and manufacturing} impacts
-    \item \textbf{Energy consumption and associated emissions}
+    \item \textbf{Atmospheric emissions} (rocket launches)
+    \item \textbf{Resource extraction and manufacturing} (infrastructure/material production)
+    \item \textbf{Energy consumption and associated emissions} (propellant/electricity)
 \end{enumerate}
+
+\subsubsection{Two-Level Environmental Impact Metric (Construction vs. Operation)}
+
+A common source of confusion is mixing \emph{one-time construction impact} with \emph{ongoing operational impact}.
+To make the comparison logically consistent, we decompose environmental impact into two parts:
+
+\begin{itemize}
+    \item \textbf{Construction-phase impact} (one-time, upfront): $E^{\text{build}}$
+    \item \textbf{Operational impact} (recurring during transport/operation): $E^{\text{op}}$
+\end{itemize}
+
+Accordingly, the total Environmental Impact Index (EII) over the entire project is defined as
+\begin{equation}
+    EII^{\text{total}} = E^{\text{build}} + E^{\text{op}}.
+    \label{eq:eii_total_decomp}
+\end{equation}
+
+\noindent\textbf{Interpretation.}
+\begin{itemize}
+    \item $EII^{\text{total}}$ answers: \emph{``How large is the total project footprint (including building the system)?''}
+    \item $E^{\text{op}}$ answers: \emph{``How clean is the system once it is built and running?''}
+\end{itemize}
+
+Therefore, it is entirely possible for a system to have \textbf{higher} $EII^{\text{total}}$ (because it is construction-intensive)
+while still being \textbf{cleaner during operation} (because it produces little/no atmospheric emissions while transporting payload).
 
 \subsubsection{Quantitative Environmental Impact Model}
 
-We define an Environmental Impact Index (EII) that aggregates normalized environmental impacts across these categories:
+We define the operational component $E^{\text{op}}$ by aggregating normalized impacts across categories:
+\begin{equation}
+    E^{\text{op}} = w_1 \cdot E_{\text{atmosphere}} + w_2 \cdot E_{\text{energy}} + w_3 \cdot E_{\text{other}},
+    \qquad
+    w_1+w_2+w_3=1,
+\end{equation}
+where each component is normalized to a $[0,1]$ scale for comparability.
 
-\[
-EII = w_1 \cdot E_{\text{atmosphere}} + w_2 \cdot E_{\text{manufacturing}} + w_3 \cdot E_{\text{energy}}
-\]
-
-where \(w_1 + w_2 + w_3 = 1\) and each component is normalized to a [0,1] scale.
-
-\paragraph{Atmospheric Emissions from Rocket Launches}
-
-Based on current Falcon Heavy launch data and projections for advanced rockets in 2050, we estimate emissions per launch:
-
-\begin{itemize}
-    \item \textbf{$CO_2$ emissions}: Approximately 4,000 metric tons per launch
-    \item \textbf{Black carbon (soot)}: 30 metric tons per launch (significant climate forcing agent)
-    \item \textbf{Water vapor}: 1,500 metric tons per launch (stratospheric effects)
-    \item \textbf{NOx and other compounds}: 50 metric tons per launch
-\end{itemize}
-
-The total atmospheric impact per rocket launch is calculated as:
-
-\[
-E_{\text{rocket, launch}} = \alpha_{\text{CO2}} \cdot m_{\text{CO2}} + \alpha_{\text{BC}} \cdot m_{\text{BC}} + \alpha_{\text{H2O}} \cdot m_{\text{H2O}} + \alpha_{\text{NOx}} \cdot m_{\text{NOx}}
-\]
-
-where \(\alpha\) coefficients represent the Global Warming Potential (GWP) relative to $CO_2$ over 20-year and 100-year time horizons.
-
-\paragraph{Space Elevator System Environmental Impact}
-
-The Space Elevator System has different environmental characteristics:
-
-\begin{itemize}
-    \item \textbf{Construction phase}: Significant resource extraction for graphene production, Earth port construction, and manufacturing of tethers and apex anchors
-    \item \textbf{Operation phase}: Primarily electrical energy consumption with minimal atmospheric emissions
-\end{itemize}
-
-The construction impact is modeled as a one-time environmental cost:
-
-\[
-E_{\text{elevator, construction}} = \beta \cdot F_e
-\]
-
-where \(\beta\) represents the environmental impact per dollar of construction cost, accounting for the materials and energy intensity of advanced materials manufacturing.
-
-\paragraph{Energy Consumption and Associated Emissions}
-
-Both systems require significant energy inputs:
-
-\begin{itemize}
-    \item \textbf{Rocket system}: Energy embedded in propellant production (methalox or hydrolox)
-    \item \textbf{Space elevator}: Electrical energy for climbing mechanisms and station-keeping
-\end{itemize}
-
-We convert all energy consumption to equivalent $CO_2$ emissions based on the energy mix in 2050:
-
-\[
-E_{\text{energy}} = \sum_{i} E_i \cdot EF_i
-\]
-
-where \(EF_i\) is the emission factor for energy source \(i\) in the projected 2050 grid.
-
+% ----------------------------------------------------
 \subsection{Environmental Impact Analysis of Three Scenarios}
 
 \subsubsection{Scenario (a): Space Elevator Only}
 
 \paragraph{Quantitative Assessment}
 
-The environmental impact of this scenario is dominated by the construction phase of the three Galactic Harbours:
+For the space elevator scenario, the environmental footprint is dominated by the \textbf{upfront construction} of the three Galactic Harbours:
+\begin{equation}
+    EII_a^{\text{total}} = E_a^{\text{build}} + E_a^{\text{op}}.
+\end{equation}
 
+Using our normalized scoring assumptions:
+\begin{itemize}
+    \item $E_a^{\text{build}} = 0.85$ \quad (graphene tether manufacturing + ports + anchors)
+    \item $E_a^{\text{op}} = 0.12$ \quad (primarily electricity; assuming high renewable penetration)
+    \item \textbf{Total:} $EII_a^{\text{total}} = 0.97$
+\end{itemize}
+
+\noindent\textbf{Key clarification (resolving the apparent contradiction).}
+Although $EII_a^{\text{total}}$ is high due to the one-time construction burden, the elevator is still the \textbf{cleanest option during operation} because its \textbf{atmospheric emissions while transporting cargo are negligible} compared with rockets. In other words,
 \[
-EII_a = E_{\text{elevator, construction}} + E_{\text{elevator, operation}}
+E_a^{\text{op}} \ll E_b^{\text{op}},
 \]
+even if $EII_a^{\text{total}}$ can exceed $EII_b^{\text{total}}$ under certain normalization choices.
 
-where:
+\paragraph{Key Environmental Advantages (Operation Phase)}
 \begin{itemize}
-    \item \(E_{\text{elevator, construction}} = 0.85\) (normalized impact, scale [0,1])
-    \item \(E_{\text{elevator, operation}} = 0.12\) (assuming 80\% renewable energy)
-    \item \textbf{Total EII}: 0.97
+    \item \textbf{Near-zero operational atmospheric emissions}: no repeated combustion events for lift operations
+    \item \textbf{Grid-powered decarbonization potential}: operational footprint decreases as the grid becomes cleaner
+    \item \textbf{Scalability with low marginal environmental cost}: extra transported mass does not require proportional launch emissions
 \end{itemize}
 
-The atmospheric emissions are negligible during operation, making this the cleanest option once constructed.
-
-\paragraph{Key Environmental Advantages}
+\paragraph{Environmental Concerns (Construction Phase)}
 \begin{itemize}
-    \item \textbf{Zero operational atmospheric emissions}: No direct pollution during material transport
-    \item \textbf{Low long-term energy requirements}: After construction, energy needs are modest and can be sourced renewably
-    \item \textbf{Scalability without proportional environmental impact}: Additional capacity adds minimal environmental burden
-\end{itemize}
-
-\paragraph{Environmental Concerns}
-\begin{itemize}
-    \item \textbf{Construction phase intensity}: Manufacturing graphene tethers and massive structures requires substantial energy and rare materials
-    \item \textbf{Geostationary orbit debris}: Potential for creating space debris if systems fail
-    \item \textbf{Equatorial ecosystem disruption}: Earth port construction may impact local ecosystems
+    \item \textbf{Construction intensity}: advanced material manufacturing is energy- and resource-intensive
+    \item \textbf{Equatorial ecosystem disruption}: Earth-port construction may disturb local environments
+    \item \textbf{Orbital debris risk}: failure modes could introduce GEO debris if not mitigated
 \end{itemize}
 
 \subsubsection{Scenario (b): Traditional Rockets Only}
 
 \paragraph{Quantitative Assessment}
 
-The environmental impact scales linearly with the number of launches:
+Rocket impacts are dominated by \textbf{operational atmospheric emissions} accumulated over many launches:
+\begin{equation}
+    EII_b^{\text{total}} = E_b^{\text{build}} + E_b^{\text{op}},
+\end{equation}
+where $E_b^{\text{build}}$ is relatively small (launch-site upgrades), but $E_b^{\text{op}}$ scales with the number of launches.
 
-\[
-EII_b = N_{\text{launches}} \cdot E_{\text{rocket, launch}} + E_{\text{infrastructure}}
-\]
-
-From Section~4.2, we have:
+From Section~4.2:
 \begin{itemize}
-    \item \(N_{\text{launches}} = \frac{10^8}{150} \approx 666,667\) launches
-    \item \(E_{\text{rocket, launch}} = 1.2 \times 10^{-6}\) (normalized per launch)
-    \item \(E_{\text{infrastructure}} = 0.05\) (launch site upgrades)
-    \item \textbf{Total EII}: 0.85
+    \item $N_{\text{launches}} = \frac{10^8}{150} \approx 6.67\times 10^5$
+    \item $E_b^{\text{build}} = 0.05$ \quad (infrastructure upgrades)
+    \item $E_b^{\text{op}} = 0.80$ \quad (emissions + propellant + stratospheric effects, normalized)
+    \item \textbf{Total:} $EII_b^{\text{total}} = 0.85$
 \end{itemize}
 
-Despite the high number of launches, the normalized impact is slightly lower than the elevator construction due to less material-intensive infrastructure.
-
-\paragraph{Atmospheric Impact Details}
-\begin{itemize}
-    \item \textbf{Total $CO_2$ emissions}: \(666,667 \times 4,000 = 2.67 \times 10^9\) metric tons
-    \item \textbf{Black carbon}: \(666,667 \times 30 = 2.0 \times 10^7\) metric tons
-    \item \textbf{Equivalent $CO_2$ over 20 years} (including short-lived climate forcers): \(4.8 \times 10^9\) metric tons $CO_2$e
-\end{itemize}
-
-This represents approximately 1.2\% of current annual global $CO_2$ emissions spread over 456 years, or 0.26\% if concentrated in 100 years.
-
-\paragraph{Additional Environmental Concerns}
-\begin{itemize}
-    \item \textbf{Ozone layer depletion}: Rocket emissions in the stratosphere catalytically destroy ozone
-    \item \textbf{Air quality near launch sites}: Local pollution impacts on communities
-    \item \textbf{Noise pollution}: Significant disturbance to wildlife and human populations
-    \item \textbf{Accident risk}: Potential for catastrophic failures with environmental consequences
-\end{itemize}
+\paragraph{Interpretation}
+Rockets may appear to have a lower $EII^{\text{total}}$ than the elevator under this normalization, but this is because the elevator's one-time construction cost is counted heavily. In operational terms, rockets remain environmentally intensive due to repeated high-emission launch events.
 
 \subsubsection{Scenario (c): Hybrid Transportation Strategy}
 
 \paragraph{Quantitative Assessment}
 
-For our recommended hybrid strategy with \(\lambda = 0.7103\):
+For the hybrid strategy, we separate the elevator's construction burden (still required) from the reduced rocket operational burden. Using the same decomposition:
+\begin{equation}
+    EII_c^{\text{total}} = E_c^{\text{build}} + E_c^{\text{op}}.
+\end{equation}
 
+Since the hybrid strategy still requires building the elevator infrastructure,
 \[
-EII_c = \lambda \cdot EII_{\text{elevator}} + (1-\lambda) \cdot EII_{\text{rocket}}
+E_c^{\text{build}} \approx E_a^{\text{build}}.
 \]
+However, operational impact is reduced because fewer rocket launches are required. With the recommended payload split $\lambda=0.7103$:
+\begin{equation}
+    E_c^{\text{op}} = \lambda\,E_a^{\text{op}} + (1-\lambda)\,E_b^{\text{op}}.
+\end{equation}
 
-where:
+Therefore, the hybrid approach achieves:
 \begin{itemize}
-    \item \(EII_{\text{elevator}} = 0.97\) (including construction amortized over the project)
-    \item \(EII_{\text{rocket}} = 0.85 \times \frac{132.44}{456.62} = 0.246\) (proportional to time fraction)
-    \item \textbf{Total EII}: \(0.7103 \times 0.97 + 0.2897 \times 0.246 = 0.76\)
+    \item \textbf{Lower operational atmospheric emissions than rockets-only} (because only $1-\lambda$ of payload relies on rockets)
+    \item \textbf{Lower total operational burden than rockets-only} while retaining elevator's long-run cleanliness
 \end{itemize}
 
-The hybrid strategy achieves the lowest environmental impact by balancing the one-time construction impact of the elevator with reduced rocket launches.
+\begin{table}[H]
+    \centering
+    \caption{Consistent EII decomposition (construction vs. operation) used to interpret ``cleaner''}
+    \label{tab:eii_decomposition}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Scenario} & $E^{\text{build}}$ & $E^{\text{op}}$ & $EII^{\text{total}}=E^{\text{build}}+E^{\text{op}}$ \\
+        \midrule
+        (a) Elevator only & 0.85 & 0.12 & 0.97 \\
+        (b) Rockets only  & 0.05 & 0.80 & 0.85 \\
+        (c) Hybrid        & 0.85 & $\lambda\cdot 0.12+(1-\lambda)\cdot 0.80$ & $0.85+E_c^{\text{op}}$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
-\paragraph{Environmental Advantage of Hybrid Approach}
-\begin{itemize}
-    \item \textbf{Reduced atmospheric emissions}: 71\% fewer rocket launches compared to rocket-only scenario
-    \item \textbf{Amortized construction impact}: Space elevator environmental cost spread across more payload
-    \item \textbf{Flexibility for clean energy integration}: Space elevator can use grid electricity with high renewable penetration
-\end{itemize}
+\noindent\textbf{Key takeaway.}
+When we say ``the elevator is cleaner'', we specifically mean \textbf{cleaner during operation} (low $E^{\text{op}}$ and near-zero atmospheric emissions while transporting cargo). When we compare \textbf{total project footprint}, $EII^{\text{total}}$ can be higher for the elevator due to the one-time construction burden, depending on how normalization is defined.
 
 \subsection{Model Adjustment to Minimize Environmental Impact}
 
@@ -1443,16 +1424,6 @@ By extending our mathematical model to incorporate environmental objectives, we 
 For the MCM Agency, we recommend adopting an environmentally extended optimization framework for all transportation planning, implementing progressive environmental constraints aligned with climate goals, and prioritizing investments in sustainable space infrastructure that minimizes the Earth environmental footprint of extraterrestrial expansion.
 
 \noindent\textit{Note: This analysis assumes continuation of current environmental policy trends. More aggressive climate action or technological breakthroughs in green propulsion could significantly alter the optimal strategy toward even greater use of space elevators or entirely new transportation modalities.}
-
-\section{Model Validation and Discussion}
-
-\section{Application of Our Model}
-
-\subsection{Case Study}
-% 案例研究
-
-\subsection{Results and Discussion}
-% 结果与讨论
 
 % ================= 第六章 =================
 \section{Model Evaluation}
