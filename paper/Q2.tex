@@ -1,0 +1,284 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+
+\title{Rocket and Space Elevator Joint Transportation Model}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Model Overview}
+
+
+To address the issue of material transportation under non-ideal conditions, this paper constructs a joint transportation model utilizing both rockets and space elevators. By simulating a specific transportation plan, the model comprehensively considers the failure probabilities, delay time distributions, and cost functions of both transportation methods. Through Monte Carlo simulation, the final mission completion time and cost are obtained, generating substantial data to validate the rationality of the proposed plan.
+
+The core idea of the model is to implement a dynamic decision-making mechanism that selects the optimal transportation method based on real-time states (cumulative transported quantity, time difference, occurrence of failures, etc.) during the transportation process, thereby achieving efficient resource allocation.
+
+The transportation strategy is as follows: When the remaining transportation volume is sufficiently large and time conditions are met, priority is given to the space elevator with greater transport capacity, supplemented by rockets operating at full capacity. When the remaining volume is small, the optimal allocation ratio obtained through linear programming in the first question is used to distribute the remaining materials between the elevator and rockets to achieve an optimized solution.
+
+\section{Model Assumptions and Parameter System}
+\subsection{Basic Assumptions}
+To facilitate simulation, the rocket transportation system is configured with ten parallel launch bases. The time delays caused by a failure at a single rocket base are averaged across all bases, effectively modeling the ten bases as a single entity. Similarly, relevant data have been adjusted slightly to align with this assumption.
+
+\subsection{Basic Transportation Parameters}
+The total weight of the transportation mission is $W_0 = 1$ billion tons.
+
+Rocket transportation parameters are:
+\begin{itemize}
+    \item Single transport capacity: $w_R = 1500$ tons ($10 \times 150$ tons)
+    \item Single transport cost: $c_R = 37000$ million USD ($10 \times 3700$ million USD)
+    \item Single transport time: $t_R = 2.5/365$ years (approximately 2.5 days)
+\end{itemize}
+
+Space elevator transportation parameters are:
+\begin{itemize}
+    \item Annual transport capacity: $C_E = 3 \times 179000 = 537000$ tons/year
+    \item Unit transport cost: $60.00$ million USD/ton
+\end{itemize}
+
+\subsection{Failure Probability/Count Parameters}
+The single-transport failure probability for rockets is set at $p_R = 0.0016$ (0.16\%). This value is based on the historical launch success rate (47.06\%) of SpaceX's Starship series rockets\textsuperscript{[1]}. It is calculated using the learning curve function constructed in the first question to project the rocket failure rate for the year 2050, making it reasonably reliable.
+
+The annual number of failures for the space elevator follows a Poisson distribution with an average failure rate $\lambda = 0.002$, meaning one failure occurs on average every 500 years. The choice of the Poisson distribution and the value of $\lambda$ are determined with reference to relevant aerospace literature published by Wagenblast and Bettinger in 2024\textsuperscript{[2]}.
+
+\subsection{Failure-Induced Delay Duration Parameters}
+The delay durations caused by failures for both rockets and the elevator are modeled using a mixed Weibull distribution. The selection of the mixed Weibull distribution and the determination of its parameters are based on a related paper published by Pujari, S. R. in 2018\textsuperscript{[3]}.
+
+\section{Probability Distribution Models}
+\subsection{Poisson Distribution: Modeling Failure Counts}
+The number of failures $N(t)$ for the space elevator within year $t$ follows a Poisson distribution:
+\[
+P(N(t) = k) = \frac{(\lambda t)^{k}e^{-\lambda t}}{k!}, \quad k = 0,1,2,\ldots
+\]
+where $\lambda = 0.002$ is the annual average failure rate. Simulation results show that during an average transportation cycle of 179 years, the elevator experiences an average of 0.36 failures, with a failure probability of approximately 0.00201, consistent with theoretical expectations.
+
+\subsection{Mixed Weibull Distribution: Modeling Failure Delay Time}
+\subsubsection{Distribution Form}
+The delay time caused by failures is modeled using a two-stage mixed Weibull distribution, with its probability density function given by:
+\[
+f(t) = \alpha \cdot f_{1}(t;\beta_{1},\eta_{1}) + (1 - \alpha) \cdot f_{2}(t;\beta_{2},\eta_{2})
+\]
+where:
+\begin{itemize}
+    \item $f_i(t) = \frac{\beta_i}{\eta_i} \left( \frac{t}{\eta_i} \right)^{\beta_i-1} e^{-(t/\eta_i)^{\beta_i}}$ is the Weibull distribution density function.
+    \item $\alpha$ is the mixing weight, representing the selection probability of the short-delay distribution.
+    \item $\beta_i$ is the shape parameter, controlling the distribution shape.
+    \item $\eta_i$ is the scale parameter, determining the distribution scale.
+\end{itemize}
+
+\subsubsection{Parameter Settings and Effects}
+For space elevator failure delays:
+\begin{itemize}
+    \item Mixing weight: $\alpha = 0.995$ (short delay), $1-\alpha = 0.005$ (long delay)
+    \item Shape parameters: $\beta_1=2.2$, $\beta_2=1.5$
+    \item Scale parameters: $\eta_1=30/365$, $\eta_2=10$ (indicating short delays referenced to 30 days, long delays referenced to 10 years)\textsuperscript{[4]}
+    \item The long delay probability is only 0.5\%, reflecting the redundancy and high reliability of the system design.
+    \item Short delay parameters are based on routine maintenance times; long delay parameters reflect major failure repair times.
+\end{itemize}
+
+For rocket failure delays:
+\begin{itemize}
+    \item Mixing weight: $\alpha = 0.9$ (short delay), $1-\alpha = 0.1$ (long delay)
+    \item Shape parameters: $\beta_1=1.5$, $\beta_2=2.2$
+    \item Scale parameters: $\eta_1=10/365$, $\eta_2=70/365$ (indicating short delays referenced to 10 days, long delays referenced to 70 days)
+    \item Short delay probability $\alpha = 90\%$, long delay probability 10\%, reflecting a balance between the rocket system's rapid repair capability and major failures.
+\end{itemize}
+
+\subsection{Delay Time Statistical Results}
+According to Monte Carlo simulation data:
+\begin{enumerate}
+    \item Total elevator failure delay: average 3.2 years.
+    \item Total rocket failure delay: average 0.2 years.
+\end{enumerate}
+Failure delays have a limited impact on the total time, validating the effectiveness of the reliability design.
+
+\subsection{Cost Function Models}
+\subsubsection{Elevator Failure Cost Function}
+An S-shaped function is used to describe the relationship between failure cost and delay time:
+\[
+C_{E}(t) = \frac{5.175 \times 10^{7}}{1 + e^{- 0.0154(t + 19.5)(t - 13)}}
+\]
+Here, the cost upper limit $A = 5.175 \times 10^7$ million USD corresponds to the complete reconstruction cost of three space elevators. The function form reflects the nonlinear growth of failure cost with increasing delay time.
+
+\subsubsection{Rocket Failure Cost Function}
+The rocket failure cost function is:
+\[
+C_{R}(t) = \frac{1200}{1 + e^{- 20(t - 0.2466)}}
+\]
+The parameter $B = 1200$ million USD reflects the economic impact of a single rocket failure, based on relevant data from SpaceX\textsuperscript{[1]}.
+
+\section{Decision Logic and Algorithm Flow}
+\subsection{Main Loop Decision Rules}
+The model employs a state-based dynamic decision-making mechanism:
+\begin{enumerate}
+    \item \textbf{Remaining Volume Check:} Determine if the remaining transport volume exceeds the threshold $3 \times 179000$ tons (the space elevator's annual capacity). If yes, proceed to the main loop; if no, execute the remaining volume allocation described in section 4.2.
+    \item \textbf{Time Comparison Decision:} Compare the cumulative time difference to see if the total rocket transport time exceeds the total space elevator transport time by more than one year:
+    \begin{itemize}
+        \item If yes, a new annual space elevator transport plan needs to be scheduled.
+        \item Otherwise, schedule the next round of rocket transport.
+    \end{itemize}
+    \item \textbf{Failure Simulation:} Simulate failures during transport according to the corresponding probability distributions.
+\end{enumerate}
+
+\subsection{Remaining Volume Allocation Strategy}
+When the remaining transport volume is insufficient to activate the space elevator, a fixed ratio allocation is used:
+\[
+\begin{aligned}
+\Delta W_{1} &= (W_{0} - \widetilde{W}) \times \frac{73}{252} \quad \text{(Rocket portion)} \\
+\Delta W_{2} &= (W_{0} - \widetilde{W}) \times \frac{179}{252} \quad \text{(Elevator portion)}
+\end{aligned}
+\]
+This ratio is the optimal allocation proportion obtained from the model in the first question, ensuring optimization in terms of both cost and time.
+
+\subsection{Flowchart}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Flow Chart.png}
+\caption{Flowchart of the decision logic and algorithm.}
+\label{fig:flowchart}
+\end{figure}
+
+\section{Simulation Implementation and Convergence}
+\subsection{Monte Carlo Simulation Framework}
+This paper uses MATLAB programming to perform $N = 10^5$ independent Monte Carlo simulations, ensuring statistical stability. Simulation results show:
+\begin{itemize}
+    \item Total cost coefficient of variation: 0.006 (highly stable)
+    \item Total time coefficient of variation: 0.037 (good stability)
+    \item Runtime efficiency: 3.8 minutes to complete 100,000 simulations, meeting real-time analysis requirements.
+\end{itemize}
+
+\subsection{Convergence Verification}
+Cumulative mean analysis shows that after $10^5$ simulations, all indicators tend to stabilize:
+\begin{itemize}
+    \item Cost mean converges to 67.39 trillion USD.
+    \item Time mean converges to 182.2 years.
+    \item Cost composition ratio stabilizes (Rocket: 14.5\%, Elevator: 85.5\%).
+\end{itemize}
+
+\subsection{Random Number Generation and Reproducibility}
+A fixed random seed (2024) is used to ensure complete reproducibility of results, facilitating plan comparison and parameter debugging.
+
+\section{Model Analysis}
+\subsection{Main Statistical Results}
+Based on $10^5$ simulations, the following statistical results are obtained:
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Rocket Transportation Weight Proportion Distribution.png}
+\caption{Rocket Transportation Weight Proportion Distribution}
+\label{fig:stat1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Transport Weight Allocation Relationship.png}
+\caption{Transport Weight Allocation Relationship}
+\label{fig:stat1}
+\end{figure}
+% ... (Placeholder for other pictures Picture3~Picture7)
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Transportation Plan Cost-Time Distribution(n=100000).png}
+\caption{Transportation Plan Cost-Time Distribution(n=100000)}
+\label{fig:stat1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Rocket Cost Proportion Distribution.png}
+\caption{Rocket Cost Proportion Distribution}
+\label{fig:stat1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Time vs Cost Proportion Relationship.png}
+\caption{Time vs Cost Proportion Relationship}
+\label{fig:stat1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Cost Composition Box Plot.png}
+\caption{Cost Composition Box Plot}
+\label{fig:stat1}
+\end{figure}
+From these, conclusions can be drawn:
+\begin{enumerate}
+    \item \textbf{Cost-effectiveness:} Average total cost is 67.39 trillion USD, saving 72.7\% compared to a pure rocket plan and 10.9\% compared to a pure elevator plan.
+    \item \textbf{Time performance:} Average time is 182.2 years, with 70.5\% of plans completed within 180 years.
+    \item \textbf{Failure impact:} Elevator failures contribute 3.2 years of delay; rocket failures contribute 0.2 years.
+    \item \textbf{Allocation optimization:} 95.9\% of the transport volume is handled by the elevator, leveraging its economies of scale.
+    \item \textbf{Allocation characteristics:}
+    \begin{itemize}
+        \item \textbf{Elevator dominance:} Average transport volume share: 95.9\%, average cost share: 85.5\%, indicating the space elevator's immense capacity and higher efficiency.
+        \item \textbf{Rocket assistance:} Average transport volume share is only 4.0\%, signifying that rocket transport plays a crucial role in urgent transport and residual volume allocation, enhancing the system's flexibility.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Sensitivity Analysis}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Impact of Factors on Total Time.png}
+\caption{Impact of Factors on Total Time}
+\label{fig:sens1}
+\end{figure}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{Key Variable Correlation Coefficient Matrix.png}
+\caption{Key Variable Correlation Coefficient Matrix}
+\label{fig:sens2}
+\end{figure}
+The sensitivity analysis reveals the key influencing factors of the model and the relationships between them. Important conclusions include:
+The total time has the strongest correlation with the number of rocket transports. The proportion of rocket cost and the number of elevator failures also show relatively strong correlations with total time, while other factors like the number of rocket failures have weaker correlations.
+
+\section{Plan and Conclusion}
+\subsection{Plan}
+Based on the simulations, it is recommended that the MCM organization adopt a strategy centered on the elevator for the transportation mission. The allocation of 95.9\% of the transport volume in the simulation confirms the economic advantage of the space elevator as the primary transport tool. Concurrently, the rocket plan should serve as a supplement. The 4.0\% rocket transport share in the simulation validates the recognized flexibility and emergency response capability of rockets.
+
+Regarding time planning, the simulation suggests setting the project target at 190 years. The average completion time in the simulation is 182.2 years, with 70.5\% of plans completing ahead of this time. Therefore, setting the target at 190 years ensures a high probability of on-time or early completion.
+
+Regarding cost budgeting, it is recommended to set the budget at 78 trillion USD. The total cost of 67.39 trillion USD from the simulation achieves a good balance within theoretical boundaries.
+
+Regarding risk management, based on the simulation where failure delays account for only 3.4 years, contingency plans should focus on the 0.5\% probability long-delay events. Although the probability is low, the impact on the overall mission is significant if such events occur.
+
+\subsection{Conclusion}
+The rocket and space elevator joint transportation optimization model established in this paper quantitatively evaluates the performance of different transportation strategies through 100,000 Monte Carlo simulations. The main conclusions are as follows:
+\begin{enumerate}
+    \item \textbf{Significant economic benefit:} The hybrid plan saves 10.9\% to 72.7\% in cost compared to pure plans.
+    \item \textbf{Controllable time:} Average completion time is 182.2 years, with 70.5\% of plans completed within 180 years.
+    \item \textbf{Verified reliability:} Failure delays constitute only 1.9\% of the total time, indicating a reasonable system design.
+    \item \textbf{Optimized allocation:} The strategy of allocating 95.9\% of transport volume to the elevator is economically efficient.
+    \item \textbf{Decision support:} The model provides a quantitative tool for planning large-scale space transportation systems.
+\end{enumerate}
+
+
+The model results indicate that, under the set parameters, the joint transportation plan with the space elevator as the core and rockets as the supplement performs excellently in the three dimensions of cost, time, and reliability. It provides a feasible technical path and management framework for large-scale extraterrestrial resource development.
+
+
+
+
+\\
+\\
+[Quotation]:
+
+[1].SpaceX. (n.d.). Home. Retrieved February 2, 2026, from https://www.spacex.com/
+
+[2].Wagenblast, B. N., \& Bettinger, R. A. (2024). Statistical reliability estimation of space launch vehicles: 2000–2022. Journal of Space Safety Engineering, 11(4), 573–589.
+https://doi.org/10.1016/j.jss.2024.10.001
+
+[3].Pujari, S. R. (2018). A statistical analysis and predictive modeling of safing events for interplanetary spacecraft [Unpublished master’s special problems report]. Georgia Institute of Technology.
+
+[4].Chaturvedi, A. (2024, June 6). Japanese firm plans space elevator that could get us to Mars in record time. NOTV. [URL]
+
+
+
+\end{document}
