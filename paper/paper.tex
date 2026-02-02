@@ -789,7 +789,7 @@ Scenario (c) reduces time by 28.9\% relative to (a) and 71.0\% relative to (b). 
 
 \textbf{Delay Time Distribution:} Mixed Weibull
 \[
-    f(t) = \alpha f_{1}(t;\beta_{1},\eta_{1}) + (1-\alpha) f_{2}(t;\beta_{2},\eta_{2}),\quad
+    f(t) = \omega  f_{1}(t;\beta_{1},\eta_{1}) + (1-\omega) f_{2}(t;\beta_{2},\eta_{2}),\quad
     f_i(t)=\frac{\beta_i}{\eta_i}\!\left(\frac{t}{\eta_i}\right)^{\!\beta_i-1}\!e^{-(t/\eta_i)^{\beta_i}}.
 \]
 
@@ -798,7 +798,7 @@ Scenario (c) reduces time by 28.9\% relative to (a) and 71.0\% relative to (b). 
     \label{tab:parameters}
     \begin{tabular}{lccccc}
         \toprule
-        \textbf{System} & $\alpha$ & $\beta_1$ & $\eta_1$         & $\beta_2$ & $\eta_2$        \\
+        \textbf{System} & $\omega$ & $\beta_1$ & $\eta_1$         & $\beta_2$ & $\eta_2$        \\
         \midrule
         Elevator        & 0.995    & 2.2       & $30/365$ (short) & 1.5       & $10$ (long)     \\
         Rocket          & 0.9      & 1.5       & $10/365$ (short) & 2.2       & $70/365$ (long) \\
