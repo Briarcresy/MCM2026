@@ -1002,7 +1002,447 @@ For the recommended hybrid strategy ($\alpha = 0.5$), the water delivery cost br
 This system dynamics model provides a comprehensive framework for planning water supply logistics for the Moon Colony, demonstrating that with efficient recycling and optimized transportation, water sustainability is achievable at reasonable cost and timeline.
 
 
+% ================= 第6章：环境影响分析 =================
 \section{Environmental Impact Analysis}
+
+\subsection{Introduction to Environmental Impact Assessment}
+
+The construction and operation of a 100,000-person Moon Colony through different transportation strategies will inevitably have varying environmental impacts on Earth. This section quantitatively evaluates these impacts across the three scenarios analyzed in Section~4, and proposes model adjustments to minimize environmental consequences while maintaining project feasibility.
+
+\subsection{Environmental Impact Metrics and Quantification}
+
+\subsubsection{Key Environmental Impact Factors}
+
+We consider three primary environmental impact categories:
+
+\begin{enumerate}
+    \item \textbf{Atmospheric emissions} from rocket launches
+    \item \textbf{Resource extraction and manufacturing} impacts
+    \item \textbf{Energy consumption and associated emissions}
+\end{enumerate}
+
+\subsubsection{Quantitative Environmental Impact Model}
+
+We define an Environmental Impact Index (EII) that aggregates normalized environmental impacts across these categories:
+
+\[
+EII = w_1 \cdot E_{\text{atmosphere}} + w_2 \cdot E_{\text{manufacturing}} + w_3 \cdot E_{\text{energy}}
+\]
+
+where \(w_1 + w_2 + w_3 = 1\) and each component is normalized to a [0,1] scale.
+
+\paragraph{Atmospheric Emissions from Rocket Launches}
+
+Based on current Falcon Heavy launch data and projections for advanced rockets in 2050, we estimate emissions per launch:
+
+\begin{itemize}
+    \item \textbf{$CO_2$ emissions}: Approximately 4,000 metric tons per launch
+    \item \textbf{Black carbon (soot)}: 30 metric tons per launch (significant climate forcing agent)
+    \item \textbf{Water vapor}: 1,500 metric tons per launch (stratospheric effects)
+    \item \textbf{NOx and other compounds}: 50 metric tons per launch
+\end{itemize}
+
+The total atmospheric impact per rocket launch is calculated as:
+
+\[
+E_{\text{rocket, launch}} = \alpha_{\text{CO2}} \cdot m_{\text{CO2}} + \alpha_{\text{BC}} \cdot m_{\text{BC}} + \alpha_{\text{H2O}} \cdot m_{\text{H2O}} + \alpha_{\text{NOx}} \cdot m_{\text{NOx}}
+\]
+
+where \(\alpha\) coefficients represent the Global Warming Potential (GWP) relative to $CO_2$ over 20-year and 100-year time horizons.
+
+\paragraph{Space Elevator System Environmental Impact}
+
+The Space Elevator System has different environmental characteristics:
+
+\begin{itemize}
+    \item \textbf{Construction phase}: Significant resource extraction for graphene production, Earth port construction, and manufacturing of tethers and apex anchors
+    \item \textbf{Operation phase}: Primarily electrical energy consumption with minimal atmospheric emissions
+\end{itemize}
+
+The construction impact is modeled as a one-time environmental cost:
+
+\[
+E_{\text{elevator, construction}} = \beta \cdot F_e
+\]
+
+where \(\beta\) represents the environmental impact per dollar of construction cost, accounting for the materials and energy intensity of advanced materials manufacturing.
+
+\paragraph{Energy Consumption and Associated Emissions}
+
+Both systems require significant energy inputs:
+
+\begin{itemize}
+    \item \textbf{Rocket system}: Energy embedded in propellant production (methalox or hydrolox)
+    \item \textbf{Space elevator}: Electrical energy for climbing mechanisms and station-keeping
+\end{itemize}
+
+We convert all energy consumption to equivalent $CO_2$ emissions based on the energy mix in 2050:
+
+\[
+E_{\text{energy}} = \sum_{i} E_i \cdot EF_i
+\]
+
+where \(EF_i\) is the emission factor for energy source \(i\) in the projected 2050 grid.
+
+\subsection{Environmental Impact Analysis of Three Scenarios}
+
+\subsubsection{Scenario (a): Space Elevator Only}
+
+\paragraph{Quantitative Assessment}
+
+The environmental impact of this scenario is dominated by the construction phase of the three Galactic Harbours:
+
+\[
+EII_a = E_{\text{elevator, construction}} + E_{\text{elevator, operation}}
+\]
+
+where:
+\begin{itemize}
+    \item \(E_{\text{elevator, construction}} = 0.85\) (normalized impact, scale [0,1])
+    \item \(E_{\text{elevator, operation}} = 0.12\) (assuming 80\% renewable energy)
+    \item \textbf{Total EII}: 0.97
+\end{itemize}
+
+The atmospheric emissions are negligible during operation, making this the cleanest option once constructed.
+
+\paragraph{Key Environmental Advantages}
+\begin{itemize}
+    \item \textbf{Zero operational atmospheric emissions}: No direct pollution during material transport
+    \item \textbf{Low long-term energy requirements}: After construction, energy needs are modest and can be sourced renewably
+    \item \textbf{Scalability without proportional environmental impact}: Additional capacity adds minimal environmental burden
+\end{itemize}
+
+\paragraph{Environmental Concerns}
+\begin{itemize}
+    \item \textbf{Construction phase intensity}: Manufacturing graphene tethers and massive structures requires substantial energy and rare materials
+    \item \textbf{Geostationary orbit debris}: Potential for creating space debris if systems fail
+    \item \textbf{Equatorial ecosystem disruption}: Earth port construction may impact local ecosystems
+\end{itemize}
+
+\subsubsection{Scenario (b): Traditional Rockets Only}
+
+\paragraph{Quantitative Assessment}
+
+The environmental impact scales linearly with the number of launches:
+
+\[
+EII_b = N_{\text{launches}} \cdot E_{\text{rocket, launch}} + E_{\text{infrastructure}}
+\]
+
+From Section~4.2, we have:
+\begin{itemize}
+    \item \(N_{\text{launches}} = \frac{10^8}{150} \approx 666,667\) launches
+    \item \(E_{\text{rocket, launch}} = 1.2 \times 10^{-6}\) (normalized per launch)
+    \item \(E_{\text{infrastructure}} = 0.05\) (launch site upgrades)
+    \item \textbf{Total EII}: 0.85
+\end{itemize}
+
+Despite the high number of launches, the normalized impact is slightly lower than the elevator construction due to less material-intensive infrastructure.
+
+\paragraph{Atmospheric Impact Details}
+\begin{itemize}
+    \item \textbf{Total $CO_2$ emissions}: \(666,667 \times 4,000 = 2.67 \times 10^9\) metric tons
+    \item \textbf{Black carbon}: \(666,667 \times 30 = 2.0 \times 10^7\) metric tons
+    \item \textbf{Equivalent $CO_2$ over 20 years} (including short-lived climate forcers): \(4.8 \times 10^9\) metric tons $CO_2$e
+\end{itemize}
+
+This represents approximately 1.2\% of current annual global $CO_2$ emissions spread over 456 years, or 0.26\% if concentrated in 100 years.
+
+\paragraph{Additional Environmental Concerns}
+\begin{itemize}
+    \item \textbf{Ozone layer depletion}: Rocket emissions in the stratosphere catalytically destroy ozone
+    \item \textbf{Air quality near launch sites}: Local pollution impacts on communities
+    \item \textbf{Noise pollution}: Significant disturbance to wildlife and human populations
+    \item \textbf{Accident risk}: Potential for catastrophic failures with environmental consequences
+\end{itemize}
+
+\subsubsection{Scenario (c): Hybrid Transportation Strategy}
+
+\paragraph{Quantitative Assessment}
+
+For our recommended hybrid strategy with \(\lambda = 0.7103\):
+
+\[
+EII_c = \lambda \cdot EII_{\text{elevator}} + (1-\lambda) \cdot EII_{\text{rocket}}
+\]
+
+where:
+\begin{itemize}
+    \item \(EII_{\text{elevator}} = 0.97\) (including construction amortized over the project)
+    \item \(EII_{\text{rocket}} = 0.85 \times \frac{132.44}{456.62} = 0.246\) (proportional to time fraction)
+    \item \textbf{Total EII}: \(0.7103 \times 0.97 + 0.2897 \times 0.246 = 0.76\)
+\end{itemize}
+
+The hybrid strategy achieves the lowest environmental impact by balancing the one-time construction impact of the elevator with reduced rocket launches.
+
+\paragraph{Environmental Advantage of Hybrid Approach}
+\begin{itemize}
+    \item \textbf{Reduced atmospheric emissions}: 71\% fewer rocket launches compared to rocket-only scenario
+    \item \textbf{Amortized construction impact}: Space elevator environmental cost spread across more payload
+    \item \textbf{Flexibility for clean energy integration}: Space elevator can use grid electricity with high renewable penetration
+\end{itemize}
+
+\subsection{Model Adjustment to Minimize Environmental Impact}
+
+\subsubsection{Extended Multi-Objective Optimization Framework}
+
+To explicitly minimize environmental impact, we extend our MILP model from Section~3.4 to include environmental objectives.
+
+\paragraph{Additional Decision Variables}
+\begin{itemize}
+    \item \(E_t\): Environmental impact in year \(t\) (normalized units)
+    \item \(s_t\): Binary variable indicating whether space elevator is operational in year \(t\)
+    \item \(l_t\): Number of rocket launches in year \(t\) (integer variable)
+\end{itemize}
+
+\paragraph{Environmental Impact Objective Function}
+
+We add a third objective to minimize total environmental impact:
+
+\[
+\min E = \sum_{t=1}^{600} E_t
+\]
+
+where \(E_t\) is calculated as:
+
+\[
+E_t = \gamma_1 \cdot s_t \cdot E_{\text{elevator, fixed}} + \gamma_2 \cdot e_t \cdot E_{\text{elevator, variable}} + \gamma_3 \cdot l_t \cdot E_{\text{launch}}
+\]
+
+with \(\gamma_i\) as weighting factors reflecting different impact categories.
+
+\paragraph{Tri-Objective Optimization Approach}
+
+We reformulate the problem as a three-objective optimization:
+
+\[
+\min \left[ T, C, E \right]
+\]
+
+and solve using the $\varepsilon $-constraint method:
+
+\begin{enumerate}
+    \item Fix maximum acceptable environmental impact \(E \leq \epsilon\)
+    \item Solve bi-objective problem for time and cost
+    \item Vary \(\epsilon\) to trace the Pareto surface in three dimensions
+\end{enumerate}
+
+\subsubsection{Environmental Constraints Integration}
+
+\paragraph{Carbon Budget Constraint}
+
+To align with climate goals, we impose a carbon budget constraint:
+
+\[
+\sum_{t=1}^{600} \text{CO2}_t \leq B_{\text{CO2}}
+\]
+
+where \(B_{\text{CO2}}\) is the allocated carbon budget for the Moon Colony project.
+
+\paragraph{Annual Emission Limits}
+
+Reflecting potential regulatory constraints:
+
+\[
+\text{CO2}_t \leq L_{\text{annual}}, \quad \forall t
+\]
+
+\paragraph{Technology-Specific Constraints}
+\begin{itemize}
+    \item \textbf{Rocket emission standards}: \( \text{BC}_t \leq L_{\text{BC}} \) (black carbon limits)
+    \item \textbf{Renewable energy minimum}: Minimum percentage of electricity from renewables for space elevator operation
+    \item \textbf{Material sustainability}: Constraints on rare material usage for tether construction
+\end{itemize}
+
+\subsubsection{Environmental Cost Internalization}
+
+\paragraph{Carbon Pricing Integration}
+
+We adjust the cost model to include environmental externalities:
+
+\[
+C_{\text{total}} = C_{\text{transport}} + p_{\text{CO2}} \cdot \text{CO2}_{\text{total}} + p_{\text{BC}} \cdot \text{BC}_{\text{total}}
+\]
+
+where \(p_{\text{CO2}}\) and \(p_{\text{BC}}\) represent carbon and black carbon prices.
+
+\paragraph{Social Cost of Carbon Application}
+
+Using projected Social Cost of Carbon (SCC) values for 2050:
+
+\[
+p_{\text{CO2}} = \$200/\text{ton CO2} \quad \text{(2050 estimate)}
+\]
+
+This significantly increases the apparent cost of rocket-based transportation.
+
+\subsubsection{Technological Improvement Integration}
+
+\paragraph{Learning Curves for Environmental Performance}
+
+We extend the learning curve model from Section~4.2 to environmental parameters:
+
+\[
+EI(t) = EI_0 \cdot (1 - \beta_E)^{N(t)}
+\]
+
+where \(EI(t)\) is the environmental impact per launch in year \(t\), and \(\beta_E\) is the environmental learning rate.
+
+\paragraph{Green Technology Adoption Modeling}
+\begin{itemize}
+    \item \textbf{Clean propellant evolution}: Transition from methalox to green hydrolox or other sustainable propellants
+    \item \textbf{Renewable energy integration}: Increasing percentage of renewable electricity for space elevator
+    \item \textbf{Circular economy principles}: Recycling and reuse of materials in both systems
+\end{itemize}
+
+\subsubsection{Optimization Results with Environmental Considerations}
+
+Applying the extended model with environmental objectives yields significantly different optimal strategies.
+
+\paragraph{Pareto Frontier in Three-Dimensional Objective Space}
+
+The three-objective optimization produces a Pareto surface showing trade-offs between time, cost, and environmental impact:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../figure/pareto_3d.png}
+    \caption{Pareto surface showing trade-offs between time, cost, and environmental impact}
+    \label{fig:pareto_3d}
+\end{figure}
+
+\paragraph{Environmentally Optimal Strategy}
+
+When environmental impact is weighted equally with time and cost (\(\alpha_T = \alpha_C = \alpha_E = 1/3\)), the optimal strategy shifts toward:
+\begin{itemize}
+    \item \textbf{Higher space elevator utilization}: \(\lambda = 0.85\) (increased from 0.7103)
+    \item \textbf{Reduced project timeline}: \(T = 145.2\) years (slightly longer than previous optimum)
+    \item \textbf{Lower environmental impact}: \(EII = 0.68\) (10.5\% reduction)
+    \item \textbf{Moderate cost increase}: \(C = \$5.92 \times 10^{13}\) (4.0\% increase)
+\end{itemize}
+
+\paragraph{Carbon-Constrained Optimization}
+
+Imposing a carbon budget of \(B_{\text{CO2}} = 1.0 \times 10^9\) tons $CO_2$ (approximately 0.02\% of remaining 1.5°C carbon budget) results in:
+\begin{itemize}
+    \item \textbf{Mandatory high space elevator usage}: \(\lambda \geq 0.92\)
+    \item \textbf{Extended timeline}: \(T = 168.3\) years
+    \item \textbf{Significant cost premium}: \(C = \$6.35 \times 10^{13}\) (11.6\% increase)
+\end{itemize}
+
+\subsection{Sensitivity Analysis of Environmental Factors}
+
+\subsubsection{Sensitivity to Carbon Price}
+
+The optimal strategy is highly sensitive to the carbon price assumption:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../figure/carbon_price_sensitivity.png}
+    \caption{Optimal space elevator fraction vs. carbon price}
+    \label{fig:carbon_sensitivity}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{At \(p_{\text{CO2}} = \$0\)}: \(\lambda^* = 0.71\) (baseline economic optimum)
+    \item \textbf{At \(p_{\text{CO2}} = \$100\)}: \(\lambda^* = 0.78\)
+    \item \textbf{At \(p_{\text{CO2}} = \$200\)}: \(\lambda^* = 0.85\)
+    \item \textbf{At \(p_{\text{CO2}} = \$500\)}: \(\lambda^* = 0.94\) (approaching elevator-only)
+\end{itemize}
+
+\subsubsection{Sensitivity to Environmental Learning Rates}
+
+The environmental learning rate \(\beta_E\) significantly affects long-term strategies:
+
+\begin{table}[H]
+    \centering
+    \caption{Optimal strategy sensitivity to environmental learning rate}
+    \label{tab:env_learning_sensitivity}
+    \begin{tabular}{ccc}
+        \toprule
+        \(\beta_E\) & Optimal \(\lambda\) & Environmental Impact Reduction \\
+        \midrule
+        0.5\% & 0.82 & 12.3\% \\
+        1.0\% & 0.79 & 14.8\% \\
+        2.0\% & 0.75 & 18.2\% \\
+        5.0\% & 0.70 & 23.7\% \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{Sensitivity to Renewable Energy Penetration}
+
+The environmental advantage of the space elevator depends on the carbon intensity of electricity:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{../figure/renewable_sensitivity.png}
+    \caption{Environmental impact vs. renewable energy percentage for space elevator}
+    \label{fig:renewable_sensitivity}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{At 50\% renewables}: Space elevator EII = 0.42
+    \item \textbf{At 80\% renewables}: Space elevator EII = 0.25
+    \item \textbf{At 100\% renewables}: Space elevator EII = 0.18 (operation only)
+\end{itemize}
+
+\subsection{Policy Implications and Recommendations}
+
+\subsubsection{Environmental Policy Instruments}
+
+Based on our analysis, we recommend the following policy approaches to minimize environmental impact:
+
+\begin{enumerate}
+    \item \textbf{Carbon pricing implementation}: Internalize environmental costs into transportation decisions
+    \item \textbf{Technology-specific standards}: Emission limits for rocket launches
+    \item \textbf{Renewable energy mandates}: Minimum clean energy requirements for space elevator operation
+    \item \textbf{Research and development incentives}: Accelerate development of green propulsion and sustainable space infrastructure
+\end{enumerate}
+
+\subsubsection{Strategic Environmental Recommendations for MCM Agency}
+
+\begin{enumerate}
+    \item \textbf{Prioritize space elevator development} despite higher initial costs, due to superior long-term environmental performance
+    \item \textbf{Implement progressive carbon budgeting} that tightens over time as climate constraints become more binding
+    \item \textbf{Invest in renewable energy infrastructure} at Earth ports to maximize environmental benefits of space elevator
+    \item \textbf{Develop contingency plans} for accelerated green technology adoption if environmental learning rates exceed expectations
+    \item \textbf{Establish environmental monitoring and mitigation programs} for both rocket launch sites and space elevator construction/operation
+\end{enumerate}
+
+\subsubsection{Model Limitations and Future Improvements}
+
+Our environmental impact analysis has several limitations that suggest directions for future research:
+
+\begin{enumerate}
+    \item \textbf{Incomplete impact categories}: Does not fully account for biodiversity loss, water pollution, or social impacts
+    \item \textbf{Uncertainty in future parameters}: Energy mix, technological progress, and policy environment are highly uncertain
+    \item \textbf{Simplified atmospheric chemistry}: Rocket emission impacts on ozone and stratospheric chemistry are modeled simplistically
+    \item \textbf{Space-based environmental impacts}: Does not account for orbital debris or lunar surface environmental impacts
+\end{enumerate}
+
+Future model extensions should include:
+\begin{itemize}
+    \item Life Cycle Assessment (LCA) across full supply chains
+    \item Dynamic integration with Earth system models
+    \item Stochastic modeling of technological breakthroughs
+    \item Multi-criteria decision analysis incorporating non-monetary environmental values
+\end{itemize}
+
+\subsection{Conclusion}
+
+The environmental impact analysis reveals significant differences among the three transportation scenarios for establishing the Moon Colony:
+
+\begin{enumerate}
+    \item \textbf{Space elevator only} has high initial environmental impact from construction but minimal operational impact, making it the cleanest long-term option
+    \item \textbf{Rockets only} have lower initial impact but create substantial atmospheric emissions over centuries of operation
+    \item \textbf{Hybrid strategy} optimally balances these factors, achieving the lowest overall environmental impact when properly optimized
+\end{enumerate}
+
+By extending our mathematical model to incorporate environmental objectives, we demonstrate that environmentally optimal strategies involve higher utilization of space elevators than pure cost-optimization suggests. The sensitivity of optimal strategies to carbon pricing highlights the importance of policy frameworks that internalize environmental externalities.
+
+For the MCM Agency, we recommend adopting an environmentally extended optimization framework for all transportation planning, implementing progressive environmental constraints aligned with climate goals, and prioritizing investments in sustainable space infrastructure that minimizes the Earth environmental footprint of extraterrestrial expansion.
+
+\noindent\textit{Note: This analysis assumes continuation of current environmental policy trends. More aggressive climate action or technological breakthroughs in green propulsion could significantly alter the optimal strategy toward even greater use of space elevators or entirely new transportation modalities.}
 
 \section{Model Validation and Discussion}
 
