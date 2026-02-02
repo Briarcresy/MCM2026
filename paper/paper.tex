@@ -855,6 +855,65 @@ If the primary objective is to minimize monetary expenditure and the schedule is
 % ================= 第5章：模型应用 =================
 \section{Water Supply Model for Sustained Operation}
 
+After the Moon Colony reaches its full operational capacity of 100,000 inhabitants, a stable and continuous water supply is essential to sustain long-term human activity. In this section, a quantitative model is developed to estimate the annual water demand of the colony and to evaluate the additional transportation cost and timeline required to deliver this water from Earth.
+
+\subsection{Daily Water Demand per Person}
+
+Water consumption in a closed space habitat includes drinking, food preparation, personal hygiene, and basic cleaning. Based on conservative estimates for long-duration space missions, the total daily water requirement per person is assumed to be
+\[
+    w_d = 50 \ \text{kg/person/day}.
+\]
+
+Modern life-support systems are capable of recycling a large fraction of wastewater. Let $\eta$ denote the water recycling efficiency. Consistent with current and projected space station technologies, we assume
+\[
+    \eta = 0.90.
+\]
+
+Therefore, the net daily water demand per person that must be resupplied from Earth is
+\[
+    w_{\text{net}} = (1-\eta) w_d.
+\]
+
+\subsection{Annual Water Requirement of the Moon Colony}
+
+Let $P$ denote the population of the Moon Colony and $D$ the number of days in one year. The total annual water mass that must be transported to the Moon Colony is given by
+\[
+    W_{\text{year}} = P \times D \times w_{\text{net}}.
+\]
+
+Substituting $P = 100{,}000$ and $D = 365$, we obtain
+\[
+    W_{\text{year}} = 100{,}000 \times 365 \times 50 \times (1-0.90)
+    = 182{,}500{,}000 \ \text{kg},
+\]
+which is equivalent to
+\[
+    W_{\text{year}} = 182{,}500 \ \text{metric tons}.
+\]
+
+This quantity represents the minimum annual water mass that must be delivered after the colony becomes fully operational.
+
+\subsection{Integration with the Transportation Model}
+
+The annual water requirement is treated as an additional payload to be transported using the same logistics system developed in the previous sections. Let $C_u$ denote the unit transportation cost (USD per metric ton) under a given delivery scenario, and let $Q$ denote the annual transportation capacity (metric tons per year).
+
+The additional transportation cost required to supply one year of water is
+\[
+    C_{\text{water}} = C_u \times W_{\text{year}}.
+\]
+
+Similarly, the minimum additional time required to transport this water is
+\[
+    T_{\text{water}} = \frac{W_{\text{year}}}{Q}.
+\]
+
+These expressions allow direct comparison of different supply strategies, including exclusive use of the Space Elevator System, exclusive use of traditional rockets, or a hybrid combination of both.
+
+\subsection{Discussion}
+
+Although the annual water demand is small compared to the total construction mass of the Moon Colony, it represents a permanent and recurring logistical requirement. As a result, transportation systems with low marginal cost and high reliability provide significant long-term advantages. This water supply model can be readily extended to other recurring consumables such as food, oxygen, and replacement equipment within the same analytical framework.
+
+
 \section{Environmental Impact Analysis}
 
 \section{Model Validation and Discussion}
