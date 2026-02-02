@@ -71,10 +71,10 @@
 \setlist[itemize]{nosep,leftmargin=*}
 \setlist[enumerate]{nosep,leftmargin=*}
 
-\setlength{\abovedisplayskip}{4pt}
-\setlength{\belowdisplayskip}{4pt}
-\setlength{\abovedisplayshortskip}{2pt}
-\setlength{\belowdisplayshortskip}{2pt}
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
 % ---------- end ----------
 
 
@@ -585,8 +585,7 @@ The time required to deliver all the materials using only the Space Elevator Sys
 
 According to the problem conditions, each \emph{Galactic Harbour} can be regarded as a complete space elevator complex (Earth Port + tethers + apex anchors), and its fixed cost is modeled as a one-time capital expenditure (CAPEX), independent of the transported mass.
 
-A literature survey reports that published capital-cost estimates for building a Space Elevator span approximately \$15--\$100 billion, depending on assumptions such as construction timeline, material availability, and safety factors.\footnote{K. Barry and E. P. Alfaro, ``Acta Astronautica'' \textbf{200} (2022) 586--598, Section 4.3 (Capital cost and financing): ``estimations \dots ranging from \$15 billion to \$100 billion.'' See \texttt{1-s2.0-S0094576522004295-main.pdf}. \ \ :contentReference[oaicite:1]{index=1}}
-We adopt the midpoint of this peer-reviewed range as a deterministic planning value (i.e., an expected-value proxy under a neutral prior over the interval). The fixed cost per Galactic Harbour is thus:
+A literature survey reports that published capital-cost estimates for building a Space Elevator span approximately \$15--\$100 billion, depending on assumptions such as construction timeline, material availability, and safety factors\textsuperscript{\cite{8}}. We adopt the midpoint of this peer-reviewed range as a deterministic planning value (i.e., an expected-value proxy under a neutral prior over the interval). The fixed cost per Galactic Harbour is thus:
 % \vspace{-0.5em}
 \[
     C_{\mathrm{GH}} \;=\; \frac{15+100}{2}\times 10^{9}\ \mathrm{USD}
@@ -602,7 +601,7 @@ With three Galactic Harbours, the total fixed construction cost for constructing
     \;=\; 1.725\times 10^{11}\ \mathrm{USD}.
 \]
 % \vspace{-0.5em}
-According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.60 million USD per metric ton \cite{3,7}.i.e:
+According to the literature, the transportation cost of space elevator systems is estimated to be approximately 0.60 million USD per metric ton \textsuperscript{\cite{3}\cite{7}}.i.e:
 \[v_e=\SI{6e5}{USD/t}\]
 
 So the total cost of using only the Space Elevator System to deliver all the materials needed for the Moon Colony construction is:
@@ -632,12 +631,12 @@ For a total mass \(M = 10^8\ \mathrm{t}\), the delivery time is:
 \]
 \subsubsection{Cost Analysis}
 
-Transportation cost is modeled using Wright's learning curve \cite{1,2}:
+Transportation cost is modeled using Wright's learning curve\textsuperscript{\cite{1}\cite{2}}:
 \[
     C(t) = C_0 (1 - \beta)^{N(t)},
 \]
 
-where \(C(t)\) is the unit cost in year \(t\), \(C_0 = 44{,}940.9\) million USD \cite{4} is the initial launch cost, \(\beta = 3.7139\%\) \cite{5,6} is the learning rate, and \(N(t)\) is the cumulative number of launches, fitted by:
+where \(C(t)\) is the unit cost in year \(t\), \(C_0 = 44{,}940.9\) million USD \textsuperscript{\cite{4}} is the initial launch cost, \(\beta = 3.7139\%\) \textsuperscript{\cite{5,6}} is the learning rate, and \(N(t)\) is the cumulative number of launches, fitted by:
 \[
     N(t) = \lfloor 3.342857t - 0.857143 \rfloor.
 \]
@@ -814,7 +813,6 @@ Specifically, Scenario (c) reduces completion time by about $28.9\%$ relative to
     f(t) = \alpha f_{1}(t;\beta_{1},\eta_{1}) + (1-\alpha) f_{2}(t;\beta_{2},\eta_{2}),\quad
     f_i(t)=\frac{\beta_i}{\eta_i}\!\left(\frac{t}{\eta_i}\right)^{\!\beta_i-1}\!e^{-(t/\eta_i)^{\beta_i}}.
 \]
-
 \begin{table}[htbp]
     \centering
     \label{tab:parameters}
@@ -1489,6 +1487,12 @@ Extending the mathematical model to include environmental objectives shows that 
 
     \bibitem{7}
     Smitherman, D. V., Jr. (Comp.). (2000). Space elevators: An advanced earth-space infrastructure for the new millennium (NASA/CP—2000–210429). NASA.
+
+    \bibitem{8}
+    Barry, K., \& Alfaro, E. P. (2022).
+    Capital cost and financing considerations for space elevator systems.
+    \textit{Acta Astronautica}, 200, 586--598.
+
 
 \end{thebibliography}
 
