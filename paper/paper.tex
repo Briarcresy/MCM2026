@@ -3,7 +3,7 @@
 %% ----------------------------------------------------------------
 
 % 【修改1】demo模式仅用于图片占位，提交前删除[demo]
-\documentclass[demo]{mcmthesis}
+\documentclass{mcmthesis}
 
 \mcmsetup{
   CTeX = false,           % 英文论文关闭CTeX
@@ -897,7 +897,7 @@ Simulation results: average elevator delay = 3.2 years; average rocket delay = 0
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.7\textwidth]{Flow Chart.png}
+\includegraphics[width=0.7\textwidth]{../figure/Flow Chart.png}
 \caption{Decision logic flowchart for the joint transportation model.}
 \label{fig:flowchart}
 \end{figure}
@@ -916,21 +916,21 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \subsubsection{Key Statistical Relationships}
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{Transport Weight Allocation Relationship.png}
+\includegraphics[width=0.75\textwidth]{../figure/Transport Weight Allocation Relationship.png}
 \caption{Transport weight allocation between rocket and elevator.}
 \label{fig:allocation}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{Time vs Cost Proportion Relationship.png}
+\includegraphics[width=0.75\textwidth]{../figure/Time vs Cost Proportion Relationship.png}
 \caption{Relationship between time and cost proportion.}
 \label{fig:time_cost}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{Cost Composition Box Plot.png}
+\includegraphics[width=0.75\textwidth]{../figure/Cost Composition Box Plot.png}
 \caption{Box plot of cost composition.}
 \label{fig:cost_box}
 \end{figure}
@@ -938,14 +938,14 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 \textbf{Correlation and Sensitivity Findings}
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{Impact of Factors on Total Time.png}
+\includegraphics[width=0.75\textwidth]{../figure/Impact of Factors on Total Time.png}
 \caption{Impact of various factors on total mission time.}
 \label{fig:sens_time}
 \end{figure}
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{Key Variable Correlation Coefficient Matrix.png}
+\includegraphics[width=0.75\textwidth]{../figure/Key Variable Correlation Coefficient Matrix.png}
 \caption{Correlation matrix of key model variables.}
 \label{fig:corr_matrix}
 \end{figure}
@@ -969,7 +969,7 @@ Monte Carlo simulations ($N=10^5$) yield stable results:
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{Transportation Plan Cost-Time Distribution(n=100000).png}
+\includegraphics[width=0.75\textwidth]{../figure/Transportation Plan Cost-Time Distribution(n=100000).png}
 \caption{Joint distribution of cost and time for the transportation plan.}
 \label{fig:cost_time_dist}
 \end{figure}
