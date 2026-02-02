@@ -666,15 +666,16 @@ To explore the trade-off between project completion time and total transportatio
 Each sampled solution is filtered using the model constraints to identify the feasible region.
 Pareto-optimal solutions are then extracted by eliminating dominated points.
 
-Figure~\ref{fig:pareto_frontier_norm} illustrates the feasible solution set in the normalized objective space, together with the resulting Pareto frontier.
+Figure~\ref{fig:4} illustrates the feasible solution set in the normalized objective space, together with the resulting Pareto frontier.
 The smooth and monotonic shape of the frontier indicates a clear and stable trade-off structure between construction duration and cost.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{pareto_frontier_normalized.pdf}
+    \includegraphics[width=0.9\textwidth]{figure/4.png}
     \caption{Feasible solutions and Pareto frontier in the normalized objective space.}
-    \label{fig:pareto_frontier_norm}
+    \label{fig:4}
 \end{figure}
+
 
 \subsubsection{Weight-Based Solution Selection}
 
@@ -690,9 +691,9 @@ As $\alpha$ increases, the selected solution shifts from cost-oriented to time-o
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{alpha_pareto_points.pdf}
+    \includegraphics[width=0.9\textwidth]{figure/5.png}
     \caption{Pareto-optimal solutions selected under different weight parameters $\alpha$.}
-    \label{fig:alpha_on_pareto}
+    \label{fig:5}
 \end{figure}
 
 \subsubsection{Feasible Region and Decision Space Interpretation}
@@ -704,9 +705,9 @@ The Pareto frontier lies along the lower boundary of this region, confirming tha
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{decision_space_pareto.pdf}
+    \includegraphics[width=0.9\textwidth]{figure/6.png}
     \caption{Feasible region and Pareto frontier in the original decision space.}
-    \label{fig:decision_space}
+    \label{fig:6}
 \end{figure}
 
 \subsubsection{Identification of the Recommended Solution}
@@ -723,9 +724,9 @@ The curve exhibits a clear minimum, which indicates the recommended balance betw
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{k_vs_alpha.pdf}
+    \includegraphics[width=0.9\textwidth]{figure/k_a.png}
     \caption{Variation of the minimum weighted objective value with respect to $\alpha$.}
-    \label{fig:k_alpha_curve}
+    \label{fig:k_a}
 \end{figure}
 
 The minimum is attained at
@@ -746,9 +747,9 @@ This point represents the selected compromise under a strong preference for mini
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{optimal_on_pareto.pdf}
+    \includegraphics[width=0.9\textwidth]{figure/k_a.png}
     \caption{Location of the recommended solution on the Pareto frontier.}
-    \label{fig:optimal_on_pareto}
+    \label{fig:pareto_front_best}
 \end{figure}
 
 Therefore, the computed results indicate that the proportion of cargo transported by the space elevator system is
@@ -797,9 +798,9 @@ The smooth transition confirms that the hybrid strategy responds continuously to
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\textwidth]{alpha_sensitivity.pdf}
+    \includegraphics[width=0.9\textwidth]{figure/3.png}
     \caption{Variation of normalized objective components with respect to $\alpha$.}
-    \label{fig:alpha_sensitivity}
+    \label{fig:3}
 \end{figure}
 
 \subsubsection{Discussion}
