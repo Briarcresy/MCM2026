@@ -1,4 +1,4 @@
-%% MCM/ICM 2025
+%% MCM/ICM 2026
 %% ----------------------------------------------------------------
 
 % 【修改1】demo模式仅用于图片占位，提交前删除[demo]
@@ -14,6 +14,8 @@
   titlepage = false,
   abstract = true
 }
+
+\hypersetup{hypertexnames=false}
 
 \usepackage{cite}
 \usepackage{palatino} 
@@ -46,6 +48,7 @@
 
 \setlength{\parskip}{0pt}
 \setlength{\parindent}{1.2em}
+\setlength{\emergencystretch}{2em}
 
 \usepackage{titlesec}
 \titlespacing*{\section}{0pt}{1.2ex plus .2ex minus .2ex}{0.8ex plus .2ex}
@@ -109,11 +112,11 @@ A Multi-objective Framework for Sustainable Large-scale Lunar Colonization}
     % \indent
     \hspace{1.2em} To support the establishment and long-term development of a future lunar colony accommodating 100,000 inhabitants, this paper systematically compares the overall performance of different transport strategies in terms of construction efficiency, economic cost, and sustainability, focusing on large-scale material transport between Earth and the Moon. Three scenarios are examined: a Galaxy Port scheme relying solely on space elevator systems, a scheme utilising existing rocket bases exclusively, and a hybrid transport scheme combining both approaches.
 
-    To address the substantial material transport demands during lunar base construction, time and cost models are established under transport capacity constraints, and the conflicting objectives of minimising construction duration and total expenditure are integrated within a multi-objective mixed-integer linear programming framework. A normalised weighting approach generates feasible solution sets and corresponding Pareto frontiers, quantitatively illustrating time–cost trade-offs under varying transport proportions. Results indicate that, relative to single-mode transport, hybrid strategies significantly shorten the overall construction period while introducing only limited incremental costs, yielding superior performance among the three schemes.
+    To address the substantial material transport demands during lunar base construction, time and cost models are established under transport capacity constraints, and the conflicting objectives of minimising construction duration and total expenditure are integrated within a multi-objective mixed-integer linear programming framework. A normalised weighting approach generates feasible solution sets and corresponding Pareto frontiers, quantitatively illustrating time--cost trade-offs under varying transport proportions. Results indicate that, relative to single-mode transport, hybrid strategies significantly shorten the overall construction period while introducing only limited incremental costs, yielding superior performance among the three schemes.
 
     To enhance applicability under real-world conditions, the robustness of the transport system is further examined under non-ideal operational scenarios, assessing the impacts of reduced efficiency and delays. In addition, a system dynamics approach is employed to model annual water demand for long-term colony operation, incorporating water recycling efficiency and replenishment scheduling, with associated transport requirements linked to the optimisation framework. Environmental impacts of each scheme during long-term operation are also comparatively analysed.
 
-    Overall, the proposed modelling framework elucidates the inherent trade-offs between time, cost, and environmental impact across Earth–Moon transportation schemes. The study concludes that integrating emerging space elevator technology with conventional rocket transportation provides a realistic pathway for constructing and sustaining large-scale lunar colonies, balancing engineering feasibility, economic rationality, and long-term sustainability.
+    Overall, the proposed modelling framework elucidates the inherent trade-offs between time, cost, and environmental impact across Earth--Moon transportation schemes. The study concludes that integrating emerging space elevator technology with conventional rocket transportation provides a realistic pathway for constructing and sustaining large-scale lunar colonies, balancing engineering feasibility, economic rationality, and long-term sustainability.
 
     \begin{keywords}
         Earth-Moon transport system; Space elevator; Multi-objective optimisation; Pareto frontier; System dynamics; Robustness analysis; Sustainability assessment; Monte Carlo
@@ -228,13 +231,15 @@ Figure \ref{fig:workchart} provides an overview of our work, which systematicall
 \end{itemize}
 
 \subsection{Notations}
+\begingroup
+\small
 \renewcommand{\arraystretch}{1.1}
-\setlength{\tabcolsep}{10pt}
+\setlength{\tabcolsep}{6pt}
 
 \begin{longtable}{
-    >{\centering\arraybackslash}p{0.08\linewidth}
-    >{\centering\arraybackslash}p{0.62\linewidth}
-    >{\centering\arraybackslash}p{0.18\linewidth}}
+    >{\centering\arraybackslash}p{0.12\linewidth}
+    >{\centering\arraybackslash}p{0.60\linewidth}
+    >{\centering\arraybackslash}p{0.20\linewidth}}
     % \small
     \caption{Symbol Definitions and Notation}\label{tab:notations}                                                                              \\
 
@@ -315,6 +320,7 @@ Figure \ref{fig:workchart} provides an overview of our work, which systematicall
 
     % =========================
 \end{longtable}
+\endgroup
 
 
 
@@ -921,7 +927,7 @@ This provides a feasible framework for large-scale extraterrestrial resource tra
 
 % ================= 第5章：模型应用 =================
 
-\section{Water Supply Model for Sustained Operation —— System Dynamics Model}
+\section{Water Supply Model for Sustained Operation --- System Dynamics Model}
 
 A system dynamics model analyzes water demand, recycling efficiency, and transportation requirements for 100,000 people.
 
@@ -1400,7 +1406,7 @@ Environmentally optimal strategies involve higher space elevator utilization tha
     https://doi.org/10.1016/j.cie.2007.08.002
 
     \bibitem{7}
-    Smitherman, D. V., Jr. (Comp.). (2000). Space elevators: An advanced earth-space infrastructure for the new millennium (NASA/CP—2000–210429). NASA.
+    Smitherman, D. V., Jr. (Comp.). (2000). Space elevators: An advanced earth-space infrastructure for the new millennium (NASA/CP---2000--210429). NASA.
 
     \bibitem{8}
     Barry, K., \& Alfaro, E. P. (2022).
@@ -1545,7 +1551,7 @@ transportation schemes, evaluated with respect to \textbf{time}, \textbf{cost},
     SpaceNews, NASASpaceFlight tracking report.
     The annual page of Wikipedia "List of spaceflight launches" has a success or failure classification, but it needs to be cross checked.
 
-    It is recommended to combine multi-source data comparative analysis, because the statistical caliber (such as partial failure, launch stage definition) may be different.>
+    It is recommended to combine multi-source data comparative analysis, because the statistical caliber (such as partial failure, launch stage definition) may be different.
 
     \bibitem{AI2}
     DeepSeek (January 31,2026,V3.2)\\
@@ -1559,7 +1565,7 @@ transportation schemes, evaluated with respect to \textbf{time}, \textbf{cost},
 
     \textbf{c.}	Recommended retrieval examples:("Space Elevator" OR "Orbital Elevator") AND ("Tether" OR "Carbon Nanotube" OR "Dynamics")
 
-    Through the combination of core concepts and specific technical points, it can effectively narrow the scope and accurately locate academic papers and research reports.>
+    Through the combination of core concepts and specific technical points, it can effectively narrow the scope and accurately locate academic papers and research reports.
 
     \bibitem{AI3}
     DeepSeek (January 31,2026,V3.2)\\
@@ -1590,7 +1596,7 @@ transportation schemes, evaluated with respect to \textbf{time}, \textbf{cost},
             Angara A5                 & Russia                    & Operational                  \\
             \hline
         \end{tabular}
-    \end{table}>
+    \end{table}
 
 \end{ReportAiUse}
 
